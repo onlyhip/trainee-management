@@ -29,11 +29,16 @@ public class UserController {
 	// public String viewHomePage(Model model) {
 	// 	return findPaginated(1, "firstName", "asc", model);		
 	// }
-	
-	@RequestMapping(value = {"/login", "/"}, method = RequestMethod.GET)
-	public String showLoginForm(Model model) {
-		return "login_page";
+	@GetMapping("/")
+	public String viewHomePage(Model model) {
+		// return findPaginated(1, "firstName", "asc", model);
+		return "index";		
 	}
+	
+	// @RequestMapping(value = {"/login", "/"}, method = RequestMethod.GET)
+	// public String showLoginForm(Model model) {
+	// 	return "login_page";
+	// }
 
 	// @GetMapping("/showNewUserForm")
 	// public String showNewEmployeeForm(Model model) {

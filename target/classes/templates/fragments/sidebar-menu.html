@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<!--
+Tip 1: You can change the color of the sidebar using: data-color="purple | blue | green | orange | red"
+Tip 2: you can also add an image using data-image tag
+-->
+<div class="sidebar-wrapper">
+    <div class="logo">
+        <a href="#" class="simple-text">
+            
+            FRESH REPORT
+        </a>
+    </div>
+    <ul class="nav">
+        <li class="nav-item active">
+            <a class="nav-link" href="dashboard.html">
+                <i class="fa fa-tachometer"></i>
+                <p>Dashboard</p>
+            </a>
+        </li>
+        <li>
+            <a class="nav-link" href="./user.html">
+                <i class="fa fa-list-alt"></i>
+                <p>Class Management</p>
+            </a>
+        </li>
+        <li>
+            <a class="nav-link" href="./table.html">
+                <i class="fa fa-user-circle-o"></i>
+                <p>Trainee Management</p>
+            </a>
+        </li>
+        <li>
+            <a class="nav-link" href="./typography.html">
+                <i class="fa fa-cloud-download"></i>
+                <p>Download Templates</p>
+            </a>
+        </li>
+    </ul>
+</div>
+<div class="sidebar-background" th:style="'background-image:url(' + @{/img/sidebar-5.jpg} + ');'"></div>
