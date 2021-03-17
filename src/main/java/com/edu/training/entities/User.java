@@ -1,84 +1,175 @@
 package com.edu.training.entities;
 
-import java.util.Date;
+import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "user")
-public class User{
+@Table(name = "User")
+public class User implements Serializable{
    
-    private long id;    
-    private String firstName;
-    private String lastName;
-    private Date dateOfBirth;
-    private String phoneNumber;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "Id")
+    private int id;
+    
+    @Column(name="Account")
+    private String account;
+
+    @Column(name="InNational")
+    private String national;
+
+    @Column(name="FullName")
+    private String name;
+
+    @Column(name="Email")
+    private String email;
+
+    @Column(name="TelPhone")
+    private String telNumber;
+
+    @Column(name="Facebook")
+    private String facebook;
+
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "userOTO1")
+    private Trainee trainee;
+
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "userOTO2")
+    private Trainer trainer;
+
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "userOTO3")
+    private ClassAdmin classAdmin;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Attendance> attendanceList;
 
     public User() {
         super();
     }
 
-    public User(long id, String firstName, String lastName, Date dateOfBirth, String phoneNumber) {
+    public User(int id, String national, String account, String name, List<Attendance> attendanceList, String telNumber,
+            String facebook, String email) {
         this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.dateOfBirth = dateOfBirth;
-        this.phoneNumber = phoneNumber;
+        this.national = national;
+        this.account = account;
+        this.name = name;
+        this.attendanceList = attendanceList;
+        this.telNumber = telNumber;
+        this.facebook = facebook;
+        this.email = email;
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    public long getId() {
+    public User(int id) {
+        this.id = id;
+    }
+
+    public User(int id, String national, String account, String name, String telNumber, String facebook, String email) {
+        this.id = id;
+        this.national = national;
+        this.account = account;
+        this.name = name;
+        this.telNumber = telNumber;
+        this.facebook = facebook;
+        this.email = email;
+    }
+
+    public User(String national, String account, String name, List<Attendance> attendanceList, String telNumber,
+            String facebook, String email) {
+        this.national = national;
+        this.account = account;
+        this.name = name;
+        this.attendanceList = attendanceList;
+        this.telNumber = telNumber;
+        this.facebook = facebook;
+        this.email = email;
+    }
+
+    public User(String national, String account, String name, String telNumber, String facebook, String email) {
+        this.national = national;
+        this.account = account;
+        this.name = name;
+        this.telNumber = telNumber;
+        this.facebook = facebook;
+        this.email = email;
+    }
+
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    @Column(name = "first_name", nullable = false)
-    public String getFirstName() {
-        return firstName;
+    public String getNational() {
+        return national;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setNational(String national) {
+        this.national = national;
     }
 
-    @Column(name = "last_name", nullable = false)
-    public String getLastName() {
-        return lastName;
+    public String getAccount() {
+        return account;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setAccount(String account) {
+        this.account = account;
     }
 
-    @Column(name = "date_of_birth")
-    @Temporal(TemporalType.TIMESTAMP)
-    public Date getDateOfBirth() {
-        return dateOfBirth;
+    public String getName() {
+        return name;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    @Column(name = "phone_number")
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public List<Attendance> getAttendanceList() {
+        return attendanceList;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setAttendanceList(List<Attendance> attendanceList) {
+        this.attendanceList = attendanceList;
     }
 
+    public String getTelNumber() {
+        return telNumber;
+    }
+
+    public void setTelNumber(String telNumber) {
+        this.telNumber = telNumber;
+    }
+
+    public String getFacebook() {
+        return facebook;
+    }
+
+    public void setFacebook(String facebook) {
+        this.facebook = facebook;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
     
 }
