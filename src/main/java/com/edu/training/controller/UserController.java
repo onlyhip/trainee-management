@@ -24,7 +24,8 @@ public class UserController {
     // display list of employees
 	@GetMapping("/")
 	public String viewHomePage(Model model) {
-		return findPaginated(1, "firstName", "asc", model);		
+		// return findPaginated(1, "firstName", "asc", model);
+		return "index";		
 	}
 	
 	@GetMapping("/showNewUserForm")

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout-unlogin.html}">
+<head>
+<title>User Management System</title>
+</head>
+<body>
+	<div layout:fragment="content" class="container">
+		<h1>User Management System</h1>
+		<hr>
+		<h2>Save User</h2>
+
+		<form action="#" th:action="@{/saveUser}" th:object="${user}"
+			method="POST">
+			<input type="text" th:field="*{firstName}"
+				placeholder="User First Name" class="form-control mb-4 col-4">
+				
+				<input type="text" th:field="*{lastName}"
+				placeholder="User Last Name" class="form-control mb-4 col-4">
+				
+				<input type="text" th:field="*{phoneNumber}"
+				placeholder="User Phone" class="form-control mb-4 col-4">
+				
+				<button type="submit" class="btn btn-info col-2"> Save User</button>
+		</form>
+		
+		<hr>
+		
+		<a th:href = "@{/}"> Back to User List</a>
+	</div>
+</body>
+</html>
