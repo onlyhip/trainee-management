@@ -7,14 +7,22 @@
 </head>
 
 <body>
+    <script th:if="${param.error}">
+        Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Something went wrong!',
+        footer: '<a href>Why do I have this issue?</a>'
+    })
+    </script>
     <div layout:fragment="content" class="login-form">
-        <form action="/examples/actions/confirmation.php" method="post">
+        <form th:action="@{/login}" method="POST">
             <h2 class="text-center">Log In</h2>
             <div class="form-group">
-                <input type="text" class="form-control" placeholder="Username" required="required">
+                <input type="text" class="form-control" placeholder="Username" required="required" name="username">
             </div>
             <div class="form-group">
-                <input type="password" class="form-control" placeholder="Password" required="required">
+                <input type="password" class="form-control" placeholder="Password" required="required" name="password">
             </div>
             <div class="form-group">
                 <button type="submit" class="btn btn-info btn-fill btn-block">Sign in</button>
