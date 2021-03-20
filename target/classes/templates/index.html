@@ -9,7 +9,7 @@
 <body>
 	<div layout:fragment="content" class="content">
 		<div class="container-fluid">
-			<form action="/examples/actions/confirmation.php" method="post" class="mb-4">
+			<form action="/examples/actions/confirmation.php" method="post">
 				<div class="row">
 					<div class="col-md-5">
 						<input class="form-control" type="date" value="2011-08-19" name="start-date" id="start-date">
@@ -21,93 +21,101 @@
 						<button type="submit" class="btn btn-primary btn-block">Show Report</button>
 					</div>
 				</div>
+				<div class="row">
+					<div class="col-md-12 h2">Freher Statistic</div>
+				</div>
 			</form>
-
 			<div class="row">
-				<div class="col-md-5">
+				<div class="col-md-6">
 					<div class="card ">
-						<div class="card-header ">
-							<h4 class="card-title">Email Statistics</h4>
+						<div class="card-header">
+							<h4 class="card-title">Class</h4>
 						</div>
 						<div class="card-body ">
-							<div class="legend">
-								<i class="fa fa-circle text-info"></i> Open
-								<i class="fa fa-circle text-danger"></i> Bounce
-								<i class="fa fa-circle text-warning"></i> Unsubscribe
+							<hr class="mt-0 mb-4">
+							<div id="canvas-holder">
+								<div class="chartjs-size-monitor">
+									<div class="chartjs-size-monitor-expand">
+										<div class=""></div>
+									</div>
+									<div class="chartjs-size-monitor-shrink">
+										<div class=""></div>
+									</div>
+								</div>
+								<canvas id="chart-area-first" style="display: block; height: 304px; width: 608px;"
+									width="760" height="380" class="chartjs-render-monitor">
+								</canvas>
 							</div>
-							<div id="chartPreferences" class="ct-chart ct-perfect-fourth"><svg
-									xmlns:ct="http://gionkunz.github.com/chartist-js/ct" width="100%" height="100%"
-									class="ct-chart-pie" style="width: 100%; height: 100%;">
-									<g class="ct-series ct-series-c">
-										<path d="M174,5A117.5,117.5,0,0,0,98.787,32.227L174,122.5Z" class="ct-slice-pie"
-											ct:value="25"></path>
-									</g>
-									<g class="ct-series ct-series-b">
-										<path d="M99.103,31.965A117.5,117.5,0,0,0,152.386,237.995L174,122.5Z"
-											class="ct-slice-pie" ct:value="22"></path>
-									</g>
-									<g class="ct-series ct-series-a">
-										<path d="M151.983,237.919A117.5,117.5,0,1,0,174,5L174,122.5Z"
-											class="ct-slice-pie" ct:value="53"></path>
-									</g>
-									<g><text dx="232.48926542043094" dy="128.02886340746272" text-anchor="middle"
-											class="ct-label">53%</text><text dx="117.09573928369292"
-											dy="137.11053087093524" text-anchor="middle"
-											class="ct-label">36%</text><text dx="154.0991471855891"
-											dy="67.22325482393927" text-anchor="middle" class="ct-label">11%</text></g>
-								</svg></div>
-
-							<hr>
 							<div class="stats">
-								<i class="fa fa-clock-o"></i> Campaign sent 2 days ago
+								<div class="d-flex justify-content-around text-center">
+									<div class="d-flex flex-column bd-highlight mb-3" style="color: #22CE22;">
+										<div class="p-2 bd-highlight h3">12</div>
+										<div class="p-2 bd-highlight">Total</div>
+									</div>
+									<div class="d-flex flex-column bd-highlight mb-3" style="color: #FF3D67;">
+										<div class="p-2 bd-highlight h3">4</div>
+										<div class="p-2 bd-highlight">Waiting</div>
+									</div>
+									<div class="d-flex flex-column bd-highlight mb-3" style="color: #FFC233;">
+										<div class="p-2 bd-highlight h3">2</div>
+										<div class="p-2 bd-highlight">Release</div>
+									</div>
+									<div class="d-flex flex-column bd-highlight mb-3" style="color: #059BFF;">
+										<div class="p-2 bd-highlight h3">6</div>
+										<div class="p-2 bd-highlight">Running</div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="col-md-5">
+				<div class="col-md-6">
 					<div class="card ">
 						<div class="card-header ">
-							<h4 class="card-title">Email Statistics</h4>
+							<h4 class="card-title">Person</h4>
 						</div>
 						<div class="card-body ">
-							<div class="legend">
-								<i class="fa fa-circle text-info"></i> Open
-								<i class="fa fa-circle text-danger"></i> Bounce
-								<i class="fa fa-circle text-warning"></i> Unsubscribe
+							<hr class="mt-0 mb-4">
+							<div id="canvas-holder">
+								<div class="chartjs-size-monitor">
+									<div class="chartjs-size-monitor-expand">
+										<div class=""></div>
+									</div>
+									<div class="chartjs-size-monitor-shrink">
+										<div class=""></div>
+									</div>
+								</div>
+								<canvas id="chart-area-second" style="display: block; height: 304px; width: 608px;"
+									width="760" height="380" class="chartjs-render-monitor">
+								</canvas>
 							</div>
-							<div id="chartPreferences" class="ct-chart ct-perfect-fourth"><svg
-									xmlns:ct="http://gionkunz.github.com/chartist-js/ct" width="100%" height="100%"
-									class="ct-chart-pie" style="width: 100%; height: 100%;">
-									<g class="ct-series ct-series-c">
-										<path d="M174,5A117.5,117.5,0,0,0,98.787,32.227L174,122.5Z" class="ct-slice-pie"
-											ct:value="11"></path>
-									</g>
-									<g class="ct-series ct-series-b">
-										<path d="M99.103,31.965A117.5,117.5,0,0,0,152.386,237.995L174,122.5Z"
-											class="ct-slice-pie" ct:value="36"></path>
-									</g>
-									<g class="ct-series ct-series-a">
-										<path d="M151.983,237.919A117.5,117.5,0,1,0,174,5L174,122.5Z"
-											class="ct-slice-pie" ct:value="53"></path>
-									</g>
-									<g><text dx="232.48926542043094" dy="128.02886340746272" text-anchor="middle"
-											class="ct-label">53%</text><text dx="117.09573928369292"
-											dy="137.11053087093524" text-anchor="middle"
-											class="ct-label">36%</text><text dx="154.0991471855891"
-											dy="67.22325482393927" text-anchor="middle" class="ct-label">11%</text></g>
-								</svg></div>
-
-							<hr>
 							<div class="stats">
-								<i class="fa fa-clock-o"></i> Campaign sent 2 days ago
+								<div class="d-flex justify-content-around text-center">
+									<div class="d-flex flex-column bd-highlight mb-3" style="color: #22CE22;">
+										<div class="p-2 bd-highlight h3">167</div>
+										<div class="p-2 bd-highlight">Total</div>
+									</div>
+									<div class="d-flex flex-column bd-highlight mb-3" style="color: #FF3D67;">
+										<div class="p-2 bd-highlight h3">70</div>
+										<div class="p-2 bd-highlight">Waiting</div>
+									</div>
+									<div class="d-flex flex-column bd-highlight mb-3" style="color: #FFC233;">
+										<div class="p-2 bd-highlight h3">10</div>
+										<div class="p-2 bd-highlight">Release</div>
+									</div>
+									<div class="d-flex flex-column bd-highlight mb-3" style="color: #059BFF;">
+										<div class="p-2 bd-highlight h3">87</div>
+										<div class="p-2 bd-highlight">Running</div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-
 		</div>
 	</div>
+
 </body>
 
 </html>

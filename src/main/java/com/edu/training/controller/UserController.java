@@ -32,7 +32,7 @@ public class UserController {
 	@GetMapping("/")
 	public String viewHomePage(Model model) {
 		// return findPaginated(1, "firstName", "asc", model);
-		return "index";		
+		return "class-management";		
 	}
 	
 	// @RequestMapping(value = {"/login", "/"}, method = RequestMethod.GET)

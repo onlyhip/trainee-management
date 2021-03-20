@@ -1,4 +1,8 @@
-$().ready(function() {
+$().ready(function () {
+
+    createPieFirst();
+    createPieSecond();
+
     $sidebar = $('.sidebar');
     $sidebar_img_container = $sidebar.find('.sidebar-background');
 
@@ -17,7 +21,7 @@ $().ready(function() {
 
     }
 
-    $('.fixed-plugin a').click(function(event) {
+    $('.fixed-plugin a').click(function (event) {
         // Alex if we click on switch, stop propagation of the event, so the dropdown will not be hide, otherwise we set the  section active
         if ($(this).hasClass('switch-trigger')) {
             if (event.stopPropagation) {
@@ -28,7 +32,7 @@ $().ready(function() {
         }
     });
 
-    $('.fixed-plugin .background-color span').click(function() {
+    $('.fixed-plugin .background-color span').click(function () {
         $(this).siblings().removeClass('active');
         $(this).addClass('active');
 
@@ -47,7 +51,7 @@ $().ready(function() {
         }
     });
 
-    $('.fixed-plugin .img-holder').click(function() {
+    $('.fixed-plugin .img-holder').click(function () {
         $full_page_background = $('.full-page-background');
 
         $(this).parent('li').siblings().removeClass('active');
@@ -57,7 +61,7 @@ $().ready(function() {
         var new_image = $(this).find("img").attr('src');
 
         if ($sidebar_img_container.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
-            $sidebar_img_container.fadeOut('fast', function() {
+            $sidebar_img_container.fadeOut('fast', function () {
                 $sidebar_img_container.css('background-image', 'url("' + new_image + '")');
                 $sidebar_img_container.fadeIn('fast');
             });
@@ -66,7 +70,7 @@ $().ready(function() {
         if ($full_page_background.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
             var new_image_full_page = $('.fixed-plugin li.active .img-holder').find('img').data('src');
 
-            $full_page_background.fadeOut('fast', function() {
+            $full_page_background.fadeOut('fast', function () {
                 $full_page_background.css('background-image', 'url("' + new_image_full_page + '")');
                 $full_page_background.fadeIn('fast');
             });
@@ -85,7 +89,7 @@ $().ready(function() {
         }
     });
 
-    $('.switch input').on("switchChange.bootstrapSwitch", function() {
+    $('.switch input').on("switchChange.bootstrapSwitch", function () {
 
         $full_page_background = $('.full-page-background');
 
@@ -122,8 +126,8 @@ $().ready(function() {
 type = ['primary', 'info', 'success', 'warning', 'danger'];
 
 demo = {
-    initPickColor: function() {
-        $('.pick-class-label').click(function() {
+    initPickColor: function () {
+        $('.pick-class-label').click(function () {
             var new_class = $(this).attr('new-class');
             var old_class = $('#display-buttons').attr('data-class');
             var display_div = $('#display-buttons');
@@ -136,7 +140,7 @@ demo = {
         });
     },
 
-    initDocumentationCharts: function() {
+    initDocumentationCharts: function () {
         /* ----------==========     Daily Sales Chart initialization For Documentation    ==========---------- */
 
         dataDailySalesChart = {
@@ -165,7 +169,7 @@ demo = {
         // lbd.startAnimationForLineChart(dailySalesChart);
     },
 
-    initDashboardPageCharts: function() {
+    initDashboardPageCharts: function () {
 
         var dataPreferences = {
             series: [
@@ -241,7 +245,7 @@ demo = {
         var responsiveSales = [
             ['screen and (max-width: 640px)', {
                 axisX: {
-                    labelInterpolationFnc: function(value) {
+                    labelInterpolationFnc: function (value) {
                         return value[0];
                     }
                 }
@@ -272,7 +276,7 @@ demo = {
             ['screen and (max-width: 640px)', {
                 seriesBarDistance: 5,
                 axisX: {
-                    labelInterpolationFnc: function(value) {
+                    labelInterpolationFnc: function (value) {
                         return value[0];
                     }
                 }
@@ -365,7 +369,7 @@ demo = {
 
     },
 
-    initGoogleMaps: function() {
+    initGoogleMaps: function () {
         var myLatlng = new google.maps.LatLng(40.748817, -73.985428);
         var mapOptions = {
             zoom: 13,
@@ -500,7 +504,7 @@ demo = {
         marker.setMap(map);
     },
 
-    showNotification: function(from, align) {
+    showNotification: function (from, align) {
         color = Math.floor((Math.random() * 4) + 1);
 
         $.notify({
@@ -519,4 +523,150 @@ demo = {
 
 
 
+}
+
+function createPieFirst() {
+    var randomScalingFactor = function () {
+        return Math.round(Math.random() * 100);
+    };
+
+    var config = {
+        type: 'pie',
+        data: {
+            datasets: [{
+                data: [
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                ],
+                backgroundColor: [
+                    window.chartColors.red,
+                    window.chartColors.yellow,
+                    window.chartColors.blue,
+                ],
+                label: 'Dataset 1'
+            }],
+            labels: [
+                'Red',
+                'Yellow',
+                'Blue'
+            ]
+        },
+        options: {
+            responsive: true
+        }
+    };
+
+    window.onload = function () {
+        var ctx = document.getElementById('chart-area-first').getContext('2d');
+        window.myPie = new Chart(ctx, config);
+    };
+
+    // document.getElementById('randomizeData').addEventListener('click', function () {
+    //     config.data.datasets.forEach(function (dataset) {
+    //         dataset.data = dataset.data.map(function () {
+    //             return randomScalingFactor();
+    //         });
+    //     });
+
+    //     window.myPie.update();
+    // });
+
+    // var colorNames = Object.keys(window.chartColors);
+    // document.getElementById('addDataset').addEventListener('click', function () {
+    //     var newDataset = {
+    //         backgroundColor: [],
+    //         data: [],
+    //         label: 'New dataset ' + config.data.datasets.length,
+    //     };
+
+    //     for (var index = 0; index < config.data.labels.length; ++index) {
+    //         newDataset.data.push(randomScalingFactor());
+
+    //         var colorName = colorNames[index % colorNames.length];
+    //         var newColor = window.chartColors[colorName];
+    //         newDataset.backgroundColor.push(newColor);
+    //     }
+
+    //     config.data.datasets.push(newDataset);
+    //     window.myPie.update();
+    // });
+
+    // document.getElementById('removeDataset').addEventListener('click', function () {
+    //     config.data.datasets.splice(0, 1);
+    //     window.myPie.update();
+    // });
+}
+
+function createPieSecond() {
+    var randomScalingFactor = function () {
+        return Math.round(Math.random() * 100);
+    };
+
+    var config = {
+        type: 'pie',
+        data: {
+            datasets: [{
+                data: [
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                ],
+                backgroundColor: [
+                    window.chartColors.red,
+                    window.chartColors.yellow,
+                    window.chartColors.blue,
+                ],
+                label: 'Dataset 1'
+            }],
+            labels: [
+                'Red',
+                'Yellow',
+                'Blue'
+            ]
+        },
+        options: {
+            responsive: true
+        }
+    };
+
+    window.onload = function () {
+        var ctx = document.getElementById('chart-area-second').getContext('2d');
+        window.myPie = new Chart(ctx, config);
+    };
+
+    // document.getElementById('randomizeData').addEventListener('click', function () {
+    //     config.data.datasets.forEach(function (dataset) {
+    //         dataset.data = dataset.data.map(function () {
+    //             return randomScalingFactor();
+    //         });
+    //     });
+
+    //     window.myPie.update();
+    // });
+
+    // var colorNames = Object.keys(window.chartColors);
+    // document.getElementById('addDataset').addEventListener('click', function () {
+    //     var newDataset = {
+    //         backgroundColor: [],
+    //         data: [],
+    //         label: 'New dataset ' + config.data.datasets.length,
+    //     };
+
+    //     for (var index = 0; index < config.data.labels.length; ++index) {
+    //         newDataset.data.push(randomScalingFactor());
+
+    //         var colorName = colorNames[index % colorNames.length];
+    //         var newColor = window.chartColors[colorName];
+    //         newDataset.backgroundColor.push(newColor);
+    //     }
+
+    //     config.data.datasets.push(newDataset);
+    //     window.myPie.update();
+    // });
+
+    // document.getElementById('removeDataset').addEventListener('click', function () {
+    //     config.data.datasets.splice(0, 1);
+    //     window.myPie.update();
+    // });
 }
