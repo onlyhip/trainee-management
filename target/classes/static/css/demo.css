@@ -829,7 +829,13 @@
 
 
 .login-form {
-    width: 340px;
+    width: 940px;
+    margin: 50px auto;
+    font-size: 15px;
+}
+
+.change-password{
+    width: 940px;
     margin: 50px auto;
     font-size: 15px;
 }
