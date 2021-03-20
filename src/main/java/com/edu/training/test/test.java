@@ -2,8 +2,6 @@ package com.edu.training.test;
 
 import com.edu.training.entities.ClassAdmin;
 import com.edu.training.entities.User;
-import com.edu.training.repositories.UserRepository;
-import com.edu.training.services.core.UserService;
 import com.edu.training.services.implementation.UserServiceImpl;
 
 public class test {

@@ -28,8 +28,8 @@ public class UserServiceImpl implements UserService {
     public void update(User t) {
     }
 
-    @Override
-    public User findById(long theId) {
+    
+    public User findById(Integer theId) {
         return userRepository.findById(theId).orElse(null);
     }
 
@@ -38,8 +38,8 @@ public class UserServiceImpl implements UserService {
         return userRepository.findAll();
     }
 
-    @Override
-    public void delete(long theId) {
+    
+    public void delete(Integer theId) {
         userRepository.deleteById(theId);
     }
 
@@ -50,6 +50,18 @@ public class UserServiceImpl implements UserService {
 		
 		Pageable pageable = PageRequest.of(pageNo - 1, pageSize, sort);
 		return this.userRepository.findAll(pageable); 
+    }
+
+    @Override
+    public User findById(long theId) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public void delete(long theId) {
+        // TODO Auto-generated method stub
+        
     }
 
     
