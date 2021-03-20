@@ -33,4 +33,54 @@ public class ClassAdmin implements Serializable {
     @Column(name = "Password")
     private String password;
 
+    public ClassAdmin(int id, User userOTO3, String password) {
+        this.id = id;
+        this.userOTO3 = userOTO3;
+        this.password = password;
+    }
+
+    public ClassAdmin() {
+    }
+
+    public ClassAdmin(int id) {
+        this.id = id;
+    }
+
+    public ClassAdmin(User userOTO3, String password) {
+        this.userOTO3 = userOTO3;
+        this.password = password;
+    }
+
+    
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public User getUserOTO3() {
+        return userOTO3;
+    }
+
+    public void setUserOTO3(User userOTO3) {
+        this.userOTO3 = userOTO3;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public ClassAdmin(String password) {
+        this.password = password;
+    }
+
+    
+
 }

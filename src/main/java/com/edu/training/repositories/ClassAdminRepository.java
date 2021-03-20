@@ -4,6 +4,6 @@ import com.edu.training.entities.ClassAdmin;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ClassAdminRepository extends JpaRepository<ClassAdmin, Long>{
+public interface ClassAdminRepository extends JpaRepository<ClassAdmin, Integer>{
     
 }

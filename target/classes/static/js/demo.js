@@ -557,8 +557,10 @@ function createPieFirst() {
         }
     };
 
+    window.onload = function () {
         var ctx = document.getElementById('chart-area-first').getContext('2d');
         window.myPie = new Chart(ctx, config);
+    };
 
     // document.getElementById('randomizeData').addEventListener('click', function () {
     //     config.data.datasets.forEach(function (dataset) {
@@ -628,10 +630,11 @@ function createPieSecond() {
         }
     };
 
-    
+    window.onload = function () {
         var ctx = document.getElementById('chart-area-second').getContext('2d');
         window.myPie = new Chart(ctx, config);
-    
+    };
+
     // document.getElementById('randomizeData').addEventListener('click', function () {
     //     config.data.datasets.forEach(function (dataset) {
     //         dataset.data = dataset.data.map(function () {
