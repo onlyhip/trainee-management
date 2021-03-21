@@ -29,7 +29,7 @@ public class UserController {
 	@GetMapping("/")
 	public String viewHomePage(Model model) {
 		// return findPaginated(1, "firstName", "asc", model);
-		return "class-management";
+		return "subject-details";
 	}
 
 	@GetMapping("/login")
