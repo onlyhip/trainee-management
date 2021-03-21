@@ -5,7 +5,6 @@ import java.util.HashSet;
 import com.edu.training.entities.ClassAdmin;
 import com.edu.training.entities.Role;
 import com.edu.training.entities.User;
-import com.edu.training.repositories.ClassAdminRepository;
 import com.edu.training.repositories.RoleRepository;
 import com.edu.training.repositories.UserRepository;
 

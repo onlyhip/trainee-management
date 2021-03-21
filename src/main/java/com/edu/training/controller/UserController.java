@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.edu.training.entities.ClassAdmin;
 import com.edu.training.entities.User;
-import com.edu.training.repositories.ClassAdminRepository;
 import com.edu.training.repositories.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,19 +19,14 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class UserController {
 
 	@Autowired
 	private UserRepository userRepository;
-
-	@Autowired
-	private ClassAdminRepository classAdminRepository;
 
 	@Autowired 
     private PasswordEncoder passwordEncoder;
