@@ -229,5 +229,15 @@ public class User implements Serializable{
             return false;
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "User [account=" + account + ", attendanceList=" + attendanceList + ", classAdmin=" + classAdmin
+                + ", email=" + email + ", facebook=" + facebook + ", id=" + id + ", name=" + name + ", national="
+                + national + ", roles=" + roles + ", telNumber=" + telNumber + ", trainee=" + trainee + ", trainer="
+                + trainer + "]";
+    }
     
+    
+
 }

@@ -81,6 +81,11 @@ public class ClassAdmin implements Serializable {
         this.password = password;
     }
 
+    @Override
+    public String toString() {
+        return "ClassAdmin [id=" + id + ", password=" + password + ", userOTO3=" + userOTO3 + "]";
+    }
+
     
 
 }

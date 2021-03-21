@@ -27,9 +27,6 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
     @Autowired 
     private PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private ClassAdminRepository classAdminRepository;
-
     @Override
     public void onApplicationEvent(ContextRefreshedEvent arg0) {
         // Roles

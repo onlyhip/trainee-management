@@ -42,15 +42,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
                 .antMatchers("/register").permitAll()
                 .antMatchers("/").permitAll()
-                .antMatchers("/updateUser").hasRole("ADMIN")
+                .antMatchers("/changePassword").hasRole("ADMIN")
                 .and()
-                .formLogin() // Submit URL of login page.
-                // .loginProcessingUrl("/j_spring_security_check") // Submit URL
-            .loginPage("/login")//
-                .defaultSuccessUrl("/updateUser")
-                .failureUrl("/login?error=true")
+            .formLogin() // Submit URL of login page.
+                .loginPage("/login")//
                 .usernameParameter("username")
                 .passwordParameter("password")
+                .defaultSuccessUrl("/changePassword")
+                .failureUrl("/login?error=true")
                 .and()
             // .logout()
             //     .logoutUrl("/logout")

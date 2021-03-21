@@ -1,25 +1,41 @@
 package com.edu.training.controller;
 
+import java.util.Optional;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.edu.training.entities.ClassAdmin;
 import com.edu.training.entities.User;
+import com.edu.training.repositories.ClassAdminRepository;
 import com.edu.training.repositories.UserRepository;
-import com.edu.training.services.core.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class UserController {
 
 	@Autowired
 	private UserRepository userRepository;
+
+	@Autowired
+	private ClassAdminRepository classAdminRepository;
+
+	@Autowired 
+    private PasswordEncoder passwordEncoder;
 
 	// display list of employees
 	// @GetMapping("/")
@@ -29,7 +45,8 @@ public class UserController {
 	@GetMapping("/")
 	public String viewHomePage(Model model) {
 		// return findPaginated(1, "firstName", "asc", model);
-		return "subject-details";
+		System.out.println(passwordEncoder.encode("admin"));
+		return "login";
 	}
 
 	@GetMapping("/login")
@@ -46,8 +63,8 @@ public class UserController {
 		return "redirect:/";
 	}
 
-	@GetMapping("/updateUser")
-	public String updateUser(Model model) {
+	@GetMapping("/changePassword")
+	public String updateUserPasswordForm(Model model) {
 		
 		String loginedAccount =  SecurityContextHolder.getContext().getAuthentication().getName();
 		int id = userRepository.findByAccount(loginedAccount);
@@ -55,7 +72,37 @@ public class UserController {
 
 		model.addAttribute("user", loginedUser);
 
-		return "updateUser";
+		return "change-password";
+	}
+
+	@RequestMapping(value = "/changePassword", method = RequestMethod.POST)
+	public String updateUserPassword(@ModelAttribute("user") User user, ModelMap ModelMap) {
+		
+		int id = user.getId();
+		
+		// get new Class Admin with new Password 
+		ClassAdmin newClassAdmin = user.getClassAdmin();
+		newClassAdmin.setPassword(passwordEncoder.encode(newClassAdmin.getPassword()));
+		// get data of old User
+		System.out.println("Password decode: " + passwordEncoder.toString());
+		Optional<User> oldUser = userRepository.findById(id);
+		User newUser = oldUser.get();
+		
+		// change the class Admin
+		newUser.setClassAdmin(newClassAdmin);
+		newClassAdmin.setUserOTO3(newUser);
+		// save to database new ClassAdmin vs new User
+		// classAdminRepository.save(newClassAdmin);
+		userRepository.save(newUser);
+
+		try {
+			Thread.sleep(1500);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return "index";
 	}
 
 	@GetMapping("/404")
