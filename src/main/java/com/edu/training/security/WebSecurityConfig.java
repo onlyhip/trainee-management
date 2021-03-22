@@ -42,13 +42,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
                 .antMatchers("/register").permitAll()
                 .antMatchers("/").permitAll()
-                .antMatchers("/changePassword").hasRole("ADMIN")
+                .antMatchers("/change-password").hasRole("ADMIN")
                 .and()
             .formLogin() // Submit URL of login page.
                 .loginPage("/login")//
                 .usernameParameter("username")
                 .passwordParameter("password")
-                .defaultSuccessUrl("/changePassword")
+                .defaultSuccessUrl("/change-password")
                 .failureUrl("/login?error=true")
                 .and()
             // .logout()

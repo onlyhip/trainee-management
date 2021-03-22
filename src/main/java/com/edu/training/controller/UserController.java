@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.edu.training.entities.ClassAdmin;
 import com.edu.training.entities.User;
+import com.edu.training.repositories.CourseRepository;
 import com.edu.training.repositories.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,11 +32,9 @@ public class UserController {
 	@Autowired 
     private PasswordEncoder passwordEncoder;
 
-	// display list of employees
-	// @GetMapping("/")
-	// public String viewHomePage(Model model) {
-	// return findPaginated(1, "firstName", "asc", model);
-	// }
+	@Autowired
+	private CourseRepository courseRepository;
+
 	@GetMapping("/")
 	public String viewHomePage(Model model) {
 		// return findPaginated(1, "firstName", "asc", model);
@@ -57,7 +56,7 @@ public class UserController {
 		return "redirect:/";
 	}
 
-	@GetMapping("/changePassword")
+	@GetMapping("/change-password")
 	public String updateUserPasswordForm(Model model) {
 		
 		String loginedAccount =  SecurityContextHolder.getContext().getAuthentication().getName();
@@ -69,7 +68,7 @@ public class UserController {
 		return "change-password";
 	}
 
-	@RequestMapping(value = "/changePassword", method = RequestMethod.POST)
+	@RequestMapping(value = "/change-password", method = RequestMethod.POST)
 	public String updateUserPassword(@ModelAttribute("user") User user, ModelMap ModelMap) {
 		
 		int id = user.getId();
@@ -92,12 +91,20 @@ public class UserController {
 		try {
 			Thread.sleep(1500);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		return "index";
+		return "redirect:/index";
 	}
+
+	@RequestMapping(value = "/class-management", method = RequestMethod.GET)
+	public String displayCourseList(Model model) {
+
+
+
+		return "class-management";
+	}
+
 
 	@GetMapping("/404")
 	public String error() {
