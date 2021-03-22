@@ -28,8 +28,8 @@ public class UserController {
 	@Autowired
 	private UserRepository userRepository;
 
-	@Autowired 
-    private PasswordEncoder passwordEncoder;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	// display list of employees
 	// @GetMapping("/")
@@ -39,13 +39,14 @@ public class UserController {
 	@GetMapping("/")
 	public String viewHomePage(Model model) {
 		// return findPaginated(1, "firstName", "asc", model);
-		System.out.println(passwordEncoder.encode("admin"));
-		return "login";
+			System.out.println(passwordEncoder.encode("admin"));
+			return "login";
 	}
 
 	@GetMapping("/login")
 	public String getLogin() {
-		return "login";
+		
+			return "login";
 	}
 
 	@GetMapping("/logout")
@@ -59,8 +60,8 @@ public class UserController {
 
 	@GetMapping("/changePassword")
 	public String updateUserPasswordForm(Model model) {
-		
-		String loginedAccount =  SecurityContextHolder.getContext().getAuthentication().getName();
+
+		String loginedAccount = SecurityContextHolder.getContext().getAuthentication().getName();
 		int id = userRepository.findByAccount(loginedAccount);
 		User loginedUser = userRepository.getOne(id);
 
@@ -71,17 +72,17 @@ public class UserController {
 
 	@RequestMapping(value = "/changePassword", method = RequestMethod.POST)
 	public String updateUserPassword(@ModelAttribute("user") User user, ModelMap ModelMap) {
-		
+
 		int id = user.getId();
-		
-		// get new Class Admin with new Password 
+
+		// get new Class Admin with new Password
 		ClassAdmin newClassAdmin = user.getClassAdmin();
 		newClassAdmin.setPassword(passwordEncoder.encode(newClassAdmin.getPassword()));
 		// get data of old User
 		System.out.println("Password decode: " + passwordEncoder.toString());
 		Optional<User> oldUser = userRepository.findById(id);
 		User newUser = oldUser.get();
-		
+
 		// change the class Admin
 		newUser.setClassAdmin(newClassAdmin);
 		newClassAdmin.setUserOTO3(newUser);
@@ -95,7 +96,7 @@ public class UserController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return "index";
 	}
 

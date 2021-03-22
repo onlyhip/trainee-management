@@ -1,7 +1,10 @@
 $().ready(function () {
 
+
+
     createPieFirst();
     createPieSecond();
+
 
     $sidebar = $('.sidebar');
     $sidebar_img_container = $sidebar.find('.sidebar-background');
@@ -667,3 +670,83 @@ function createPieSecond() {
     //     window.myPie.update();
     // });
 }
+
+function successInsert() {
+    Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Insert Success',
+        showConfirmButton: false,
+        timer: 1500
+    })
+}
+
+function successUpdate() {
+    Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Update Success',
+        showConfirmButton: false,
+        timer: 1500
+    })
+}
+
+function error() {
+    Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Duplicate Account!'
+    })
+}
+
+function updatePasswordFail() {
+    Swal.fire({
+        icon: 'error',
+        title: 'Update Fail...',
+        text: 'Update password fail, check password again, please !'
+    })
+}
+
+function emptyPassword() {
+    Swal.fire({
+        icon: 'error',
+        title: 'Update Fail...',
+        text: 'Empty field input password or confirm password, input password please!'
+    })
+}
+
+
+
+// JS code for print the notifications for successful Password Change 
+
+
+function validatePassword() {
+    var password = document.getElementById("password").value;
+    var confirmPassword = document.getElementById("confirm_password").value;
+
+
+    //check empty password field  
+    if (password == "") {
+        confirmPassword();
+        return false;
+    }
+
+    //check empty confirm password field  
+    if (confirmPassword == "") {
+        confirmPassword();
+        return false;
+    }
+
+    //compare password
+    if (password != confirmPassword) {
+        updatePasswordFail();
+        return false;
+    } else {
+        successUpdate();
+        return true;
+    }
+
+}
+
+
+
