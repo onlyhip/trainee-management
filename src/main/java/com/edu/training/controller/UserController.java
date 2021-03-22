@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.edu.training.entities.ClassAdmin;
 import com.edu.training.entities.User;
-import com.edu.training.repositories.CourseRepository;
 import com.edu.training.repositories.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,9 +31,6 @@ public class UserController {
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
-
-	@Autowired
-	private CourseRepository courseRepository;
 
 	@GetMapping("/")
 	public String viewHomePage(Model model) {

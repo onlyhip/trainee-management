@@ -723,7 +723,8 @@ function emptyPassword() {
 function validatePassword() {
     var password = document.getElementById("password").value;
     var confirmPassword = document.getElementById("confirm_password").value;
-
+    var oldPassword = document.getElementById("old_password").value;
+    var oldPasswordConfirm = document.getElementById("old_password_confirm").value;
 
     //check empty password field  
     if (password == "") {
@@ -745,6 +746,17 @@ function validatePassword() {
         successUpdate();
         return true;
     }
+    
+    
+    // if(oldPassword != oldPasswordConfirm) {
+    //     updatePasswordFail();
+    //     return false;
+    // } else {
+    //     successUpdate();
+    // }
+
+    // // if there is no Wrong condition -_-
+    // return true;
 
 }
 
