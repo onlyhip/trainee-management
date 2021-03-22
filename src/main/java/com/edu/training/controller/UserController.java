@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class UserController {
@@ -29,8 +30,8 @@ public class UserController {
 	@Autowired
 	private UserRepository userRepository;
 
-	@Autowired 
-    private PasswordEncoder passwordEncoder;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	@Autowired
 	private CourseRepository courseRepository;
@@ -38,13 +39,14 @@ public class UserController {
 	@GetMapping("/")
 	public String viewHomePage(Model model) {
 		// return findPaginated(1, "firstName", "asc", model);
-		System.out.println(passwordEncoder.encode("admin"));
-		return "login";
+			System.out.println(passwordEncoder.encode("admin"));
+			return "index";
 	}
 
 	@GetMapping("/login")
 	public String getLogin() {
-		return "login";
+		
+			return "login";
 	}
 
 	@GetMapping("/logout")
@@ -58,44 +60,45 @@ public class UserController {
 
 	@GetMapping("/change-password")
 	public String updateUserPasswordForm(Model model) {
-		
-		String loginedAccount =  SecurityContextHolder.getContext().getAuthentication().getName();
-		int id = userRepository.findByAccount(loginedAccount);
-		User loginedUser = userRepository.getOne(id);
+
+		User loginedUser = getLoginedAccount();
 
 		model.addAttribute("user", loginedUser);
-
+		System.out.println("Is password == admin : " + passwordEncoder.matches("admin", loginedUser.getClassAdmin().getPassword()));
 		return "change-password";
 	}
 
 	@RequestMapping(value = "/change-password", method = RequestMethod.POST)
-	public String updateUserPassword(@ModelAttribute("user") User user, ModelMap ModelMap) {
+	public String updateUserPassword(@ModelAttribute("user") User user, ModelMap ModelMap, @RequestParam("oldPassword") String oldPassword) {
+
+		System.out.println(user);
+		User loginedUser = getLoginedAccount();
+		if (passwordEncoder.matches(oldPassword, loginedUser.getClassAdmin().getPassword()) == false) {
+			return "redirect:/change-password?error=true";
+		}
 		
 		int id = user.getId();
-		
-		// get new Class Admin with new Password 
+
+		// get new Class Admin with new Password
 		ClassAdmin newClassAdmin = user.getClassAdmin();
 		newClassAdmin.setPassword(passwordEncoder.encode(newClassAdmin.getPassword()));
 		// get data of old User
-		System.out.println("Password decode: " + passwordEncoder.toString());
 		Optional<User> oldUser = userRepository.findById(id);
 		User newUser = oldUser.get();
-		
+
 		// change the class Admin
 		newUser.setClassAdmin(newClassAdmin);
 		newClassAdmin.setUserOTO3(newUser);
 		// save to database new ClassAdmin vs new User
 		// classAdminRepository.save(newClassAdmin);
 		userRepository.save(newUser);
-
-		try {
-			Thread.sleep(1500);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
 		
-		return "redirect:/index";
+		System.out.println("old Password is correct");
+
+		return "redirect:/change-password?error=false";
 	}
+
+
 
 	@RequestMapping(value = "/class-management", method = RequestMethod.GET)
 	public String displayCourseList(Model model) {
@@ -109,6 +112,18 @@ public class UserController {
 	@GetMapping("/404")
 	public String error() {
 		return "404";
+	}
+
+	public boolean checkOldPassword(String username, String oldPassword) {
+		return userRepository.findPasswordByAccountClassAdmin(username).equals(oldPassword);
+	}
+
+	public User getLoginedAccount() {
+		
+		String loginedAccount = SecurityContextHolder.getContext().getAuthentication().getName();
+		int id = userRepository.findByAccount(loginedAccount);
+		User loginedUser = userRepository.getOne(id);
+		return loginedUser;
 	}
 
 	// @GetMapping("/showNewUserForm")
