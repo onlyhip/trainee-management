@@ -5,6 +5,9 @@ $().ready(function () {
 
     checkWrongUser();
 
+    checkWrongPassword();
+
+    checkSuccessChangePassword();
 
     $sidebar = $('.sidebar');
     $sidebar_img_container = $sidebar.find('.sidebar-background');
@@ -722,47 +725,62 @@ function emptyPassword() {
 
 
 
+function successChangePassword() {
+    Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Change password successfully !'
+    })
+}
+
+
 // JS code for print the notifications for successful Password Change 
 
 
 function validatePassword() {
+
     var password = document.getElementById("password").value;
-    var confirmPassword = document.getElementById("confirm_password").value;
-    var oldPassword = document.getElementById("old_password").value;
-    var oldPasswordConfirm = document.getElementById("old_password_confirm").value;
+    var confirmPassword = document.getElementById("confirm-password").value;
+    var oldPasswordConfirm = document.getElementById("old-password-confirm").value;
+    var showMessage = document.getElementById("show-message");
+
+    showMessage.innerHTML = "";
 
     //check empty password field  
-    if (password == "") {
-        confirmPassword();
+    if (oldPasswordConfirm == "") {
+        showMessage.innerHTML = " Required input old password !";
         return false;
     }
 
     //check empty confirm password field  
+    if (password == "") {
+        showMessage.innerHTML = " Required input new password !";
+        return false;
+    }
+
+
     if (confirmPassword == "") {
-        confirmPassword();
+        showMessage.innerHTML = " Required input confirm password !";
         return false;
     }
 
     //compare password
     if (password != confirmPassword) {
-        updatePasswordFail();
+        showMessage.innerHTML = " Password did not match!";
         return false;
     } else {
-        successUpdate();
         return true;
     }
+}
 
 
-    // if(oldPassword != oldPasswordConfirm) {
-    //     updatePasswordFail();
-    //     return false;
-    // } else {
-    //     successUpdate();
-    // }
+function checkSuccessChangePassword() {
 
-    // // if there is no Wrong condition -_-
-    // return true;
+    var checkSuccess = document.getElementById("check-success");
 
+    if (checkSuccess != null) {
+        successChangePassword();
+    }
 }
 
 
@@ -818,5 +836,22 @@ function checkWrongUser() {
             }
         }
     }
+
+}
+
+
+function checkWrongPassword() {
+    var checkPasswordInput = document.getElementById("check-password-input");
+    var showMessage = document.getElementById("show-message");
+
+    if (showMessage != null) {
+        showMessage.innerHTML = "";
+        if (checkPasswordInput != null) {
+            if (checkPasswordInput.value == "error") {
+                showMessage.innerHTML = "Old password is incorret !";
+            }
+        }
+    }
+
 
 }

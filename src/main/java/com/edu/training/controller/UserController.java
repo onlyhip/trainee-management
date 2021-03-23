@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class UserController {
@@ -34,12 +35,14 @@ public class UserController {
 	@GetMapping("/")
 	public String viewHomePage(Model model) {
 		// return findPaginated(1, "firstName", "asc", model);
+		
 		System.out.println(passwordEncoder.encode("admin"));
 		return "index";
 	}
 
 	@GetMapping("/login")
 	public String getLogin() {	
+		
 		return "login";
 	}
 
@@ -64,8 +67,8 @@ public class UserController {
 	}
 
 	@PostMapping("/change-password")
-	public String updateUserPassword(@ModelAttribute("user") User user, ModelMap ModelMap,
-			@RequestParam("oldPassword") String oldPassword) {
+	public String updateUserPassword(@ModelAttribute("user") User user, ModelMap modelMap,
+			@RequestParam("oldPassword") String oldPassword,RedirectAttributes attributes) {
 
 		System.out.println(user);
 		User loginedUser = getLoginedAccount();
@@ -91,7 +94,9 @@ public class UserController {
 
 		System.out.println("old Password is correct");
 
-		return "redirect:/change-password?error=false";
+		attributes.addFlashAttribute("result", "success");
+
+		return "redirect:/";
 	}
 
 	// @RequestMapping(value = "/class-management", method = RequestMethod.GET)

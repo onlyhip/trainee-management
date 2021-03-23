@@ -10,6 +10,9 @@
 	<div layout:fragment="content" class="content">
 		<div class="container-fluid">
 			<form action="/examples/actions/confirmation.php" method="post">
+				<div th:if="${result != null}" style="display:none">
+                    <input type="text" id="check-success" value="success">
+                </div>
 				<div class="row">
 					<div class="col-md-5">
 						<input class="form-control" type="date" value="2011-08-19" name="start-date" id="start-date">
