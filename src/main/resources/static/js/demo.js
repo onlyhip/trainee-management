@@ -1,9 +1,9 @@
 $().ready(function () {
 
-
-
     createPieFirst();
     createPieSecond();
+
+    checkWrongUser();
 
 
     $sidebar = $('.sidebar');
@@ -561,9 +561,13 @@ function createPieFirst() {
     };
 
 
-    var ctx = document.getElementById('chart-area-first').getContext('2d');
-    window.myPie = new Chart(ctx, config);
+    if (document.getElementById('chart-area-first') != null) {
 
+        var ctx = document.getElementById('chart-area-first').getContext('2d');
+
+        window.myPie = new Chart(ctx, config);
+
+    }
     // document.getElementById('randomizeData').addEventListener('click', function () {
     //     config.data.datasets.forEach(function (dataset) {
     //         dataset.data = dataset.data.map(function () {
@@ -632,9 +636,10 @@ function createPieSecond() {
         }
     };
 
-    var ctx = document.getElementById('chart-area-second').getContext('2d');
-    window.myPie = new Chart(ctx, config);
-
+    if (document.getElementById('chart-area-second') != null) {
+        var ctx = document.getElementById('chart-area-second').getContext('2d');
+        window.myPie = new Chart(ctx, config);
+    }
     // document.getElementById('randomizeData').addEventListener('click', function () {
     //     config.data.datasets.forEach(function (dataset) {
     //         dataset.data = dataset.data.map(function () {
@@ -746,8 +751,8 @@ function validatePassword() {
         successUpdate();
         return true;
     }
-    
-    
+
+
     // if(oldPassword != oldPasswordConfirm) {
     //     updatePasswordFail();
     //     return false;
@@ -761,4 +766,57 @@ function validatePassword() {
 }
 
 
+function checkInputLogin() {
+    var username = document.getElementById("username").value;
+    var password = document.getElementById("password").value;
 
+    var showError = document.getElementById("show-error");
+    var errorLogin = document.getElementById("error-login");
+    var remindUsername = document.getElementById("remind-username");
+    var remindPassword = document.getElementById("remind-password");
+
+    showError.innerHTML = "";
+    errorLogin.innerHTML = "";
+    remindUsername.innerHTML = "";
+    remindPassword.innerHTML = "";
+
+    if (username == "" || password == "") {
+        remindUsername.innerHTML = "(*)";
+        remindPassword.innerHTML = "(*)";
+        showError.innerHTML = "Error:";
+        errorLogin.innerHTML = "(*) Required input Username and Password !";
+
+        return false;
+    }
+
+    return true;
+}
+
+
+
+function checkWrongUser() {
+
+    var checkErrorInput = document.getElementById("check-error-input");
+
+    var showError = document.getElementById("show-error");
+    var errorLogin = document.getElementById("error-login");
+    var remindUsername = document.getElementById("remind-username");
+    var remindPassword = document.getElementById("remind-password");
+
+    if (showError != null) {
+
+        showError.innerHTML = "";
+        errorLogin.innerHTML = "";
+        remindUsername.innerHTML = "";
+        remindPassword.innerHTML = "";
+
+        if (checkErrorInput != null) {
+
+            if (checkErrorInput.value == "error") {
+                showError.innerHTML = "Error:";
+                errorLogin.innerHTML = "Username or password is incorret !";
+            }
+        }
+    }
+
+}

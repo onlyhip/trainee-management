@@ -19,8 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -35,14 +34,13 @@ public class UserController {
 	@GetMapping("/")
 	public String viewHomePage(Model model) {
 		// return findPaginated(1, "firstName", "asc", model);
-			System.out.println(passwordEncoder.encode("admin"));
-			return "index";
+		System.out.println(passwordEncoder.encode("admin"));
+		return "index";
 	}
 
 	@GetMapping("/login")
-	public String getLogin() {
-		
-			return "login";
+	public String getLogin() {	
+		return "login";
 	}
 
 	@GetMapping("/logout")
@@ -60,19 +58,21 @@ public class UserController {
 		User loginedUser = getLoginedAccount();
 
 		model.addAttribute("user", loginedUser);
-		System.out.println("Is password == admin : " + passwordEncoder.matches("admin", loginedUser.getClassAdmin().getPassword()));
+		System.out.println("Is password == admin : "
+				+ passwordEncoder.matches("admin", loginedUser.getClassAdmin().getPassword()));
 		return "change-password";
 	}
 
-	@RequestMapping(value = "/change-password", method = RequestMethod.POST)
-	public String updateUserPassword(@ModelAttribute("user") User user, ModelMap ModelMap, @RequestParam("oldPassword") String oldPassword) {
+	@PostMapping("/change-password")
+	public String updateUserPassword(@ModelAttribute("user") User user, ModelMap ModelMap,
+			@RequestParam("oldPassword") String oldPassword) {
 
 		System.out.println(user);
 		User loginedUser = getLoginedAccount();
 		if (passwordEncoder.matches(oldPassword, loginedUser.getClassAdmin().getPassword()) == false) {
 			return "redirect:/change-password?error=true";
 		}
-		
+
 		int id = user.getId();
 
 		// get new Class Admin with new Password
@@ -88,22 +88,17 @@ public class UserController {
 		// save to database new ClassAdmin vs new User
 		// classAdminRepository.save(newClassAdmin);
 		userRepository.save(newUser);
-		
+
 		System.out.println("old Password is correct");
 
 		return "redirect:/change-password?error=false";
 	}
 
+	// @RequestMapping(value = "/class-management", method = RequestMethod.GET)
+	// public String displayCourseList(Model model) {
 
-
-	@RequestMapping(value = "/class-management", method = RequestMethod.GET)
-	public String displayCourseList(Model model) {
-
-
-
-		return "class-management";
-	}
-
+	// return "class-management";
+	// }
 
 	@GetMapping("/404")
 	public String error() {
@@ -115,7 +110,7 @@ public class UserController {
 	}
 
 	public User getLoginedAccount() {
-		
+
 		String loginedAccount = SecurityContextHolder.getContext().getAuthentication().getName();
 		int id = userRepository.findByAccount(loginedAccount);
 		User loginedUser = userRepository.getOne(id);
