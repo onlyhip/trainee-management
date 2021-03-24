@@ -17,7 +17,7 @@ import javax.persistence.Table;
 public class Mistake {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JoinColumn(name = "Id", referencedColumnName = "Id")
     private int id;
 

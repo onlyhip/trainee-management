@@ -1,6 +1,5 @@
 package com.edu.training.entities;
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -8,37 +7,17 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "Trainee")
-public class Trainee implements Serializable {
-
-    /**
-     *
-     */
-    private static final long serialVersionUID = 1L;
-
-    // @Id
-    // @OneToOne
-    // @JoinColumn(name="Id", referencedColumnName="Id")
-    // private User userOTO1;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
-    @OneToOne(cascade = CascadeType.ALL, optional = false)
-    @JoinColumn(name = "Id")
-    @MapsId
-    private User userOTO1;
+@Inheritance(strategy = InheritanceType.JOINED)
+public class Trainee extends User{
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "IdCourse", referencedColumnName = "Id")
@@ -62,13 +41,6 @@ public class Trainee implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "TraineeStatus", nullable = false, referencedColumnName = "Id")
     private Status traineeStatus;
-
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "traineeOTO")
-    private Internship internship;
-
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "traineeOTO")
-    private Fresher fresher;
-    // private List<TrainingObjective> trainingObjective;
 
     @Column(name = "University")
     private String university;

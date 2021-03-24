@@ -1,6 +1,5 @@
 package com.edu.training.entities;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 
@@ -11,24 +10,20 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
 @Entity
 @Table(name = "User")
-public class User implements Serializable{
+@Inheritance(strategy = InheritanceType.JOINED)
+public class User{
    
-    /**
-     *
-     */
-    private static final long serialVersionUID = 1L;
-
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "Id")
     private int id;
     
@@ -57,15 +52,6 @@ public class User implements Serializable{
 
     @Column(name="Facebook")
     private String facebook;
-
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "userOTO1")
-    private Trainee trainee;
-
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "userOTO2")
-    private Trainer trainer;
-
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "userOTO3")
-    private ClassAdmin classAdmin;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Attendance> attendanceList;
@@ -192,30 +178,6 @@ public class User implements Serializable{
         this.roles = roles;
     }
 
-    public Trainee getTrainee() {
-        return trainee;
-    }
-
-    public void setTrainee(Trainee trainee) {
-        this.trainee = trainee;
-    }
-
-    public Trainer getTrainer() {
-        return trainer;
-    }
-
-    public void setTrainer(Trainer trainer) {
-        this.trainer = trainer;
-    }
-
-    public ClassAdmin getClassAdmin() {
-        return classAdmin;
-    }
-
-    public void setClassAdmin(ClassAdmin classAdmin) {
-        this.classAdmin = classAdmin;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -232,10 +194,10 @@ public class User implements Serializable{
 
     @Override
     public String toString() {
-        return "User [account=" + account + ", attendanceList=" + attendanceList + ", classAdmin=" + classAdmin
+        return "User [account=" + account + ", attendanceList=" + attendanceList + ", classAdmin=" 
                 + ", email=" + email + ", facebook=" + facebook + ", id=" + id + ", name=" + name + ", national="
-                + national + ", roles=" + roles + ", telNumber=" + telNumber + ", trainee=" + trainee + ", trainer="
-                + trainer + "]";
+                + national + ", roles=" + roles + ", telNumber=" + telNumber + ", trainee=" +  ", trainer="
+                + "]";
     }
     
     
