@@ -35,14 +35,14 @@ public class UserController {
 	@GetMapping("/")
 	public String viewHomePage(Model model) {
 		// return findPaginated(1, "firstName", "asc", model);
-		
+
 		System.out.println(passwordEncoder.encode("admin"));
 		return "index";
 	}
 
 	@GetMapping("/login")
-	public String getLogin() {	
-		
+	public String getLogin() {
+
 		return "login";
 	}
 
@@ -68,7 +68,7 @@ public class UserController {
 
 	@PostMapping("/change-password")
 	public String updateUserPassword(@ModelAttribute("user") User user, ModelMap modelMap,
-			@RequestParam("oldPassword") String oldPassword,RedirectAttributes attributes) {
+			@RequestParam("oldPassword") String oldPassword, RedirectAttributes attributes) {
 
 		System.out.println(user);
 		User loginedUser = getLoginedAccount();
@@ -108,6 +108,11 @@ public class UserController {
 	@GetMapping("/404")
 	public String error() {
 		return "404";
+	}
+
+	@GetMapping("/class-management")
+	public String showClassManagement() {
+		return "class-management";
 	}
 
 	public boolean checkOldPassword(String username, String oldPassword) {
