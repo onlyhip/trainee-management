@@ -20,7 +20,7 @@ import javax.persistence.Table;
 public class Course {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
     private int id;
 
@@ -30,8 +30,14 @@ public class Course {
     @Column(name = "openDate")
     private Date openDate;
 
+    @Column(name = "endDate")
+    private Date endDate;
+
     @Column(name = "Note")
     private String note;
+
+    @Column(name = "PlanCount")
+    private int planCount;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "IdTrainer", nullable = false, referencedColumnName = "Id")
@@ -39,6 +45,9 @@ public class Course {
 
     @OneToMany(mappedBy = "course", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Trainee> trainee;
+
+    @OneToMany(mappedBy = "course", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Issue> issues;
 
     public Course(int id, String name, Date openDate, String note, Trainer trainer) {
         this.id = id;
@@ -107,7 +116,30 @@ public class Course {
     public void setTrainer(Trainer trainer) {
         this.trainer = trainer;
     }
-    
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public int getPlanCount() {
+        return planCount;
+    }
+
+    public void setPlanCount(int planCount) {
+        this.planCount = planCount;
+    }
+
+    public List<Trainee> getTrainee() {
+        return trainee;
+    }
+
+    public void setTrainee(List<Trainee> trainee) {
+        this.trainee = trainee;
+    }
     
 
 }

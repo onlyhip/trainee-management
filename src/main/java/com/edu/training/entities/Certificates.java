@@ -15,7 +15,7 @@ import javax.persistence.Table;
 public class Certificates {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JoinColumn(name = "Id")
     private int id;
 
