@@ -96,11 +96,6 @@ public class UserController {
 		return "404";
 	}
 
-	@GetMapping("/class-management")
-	public String showClassManagement() {
-		return "class-management";
-	}
-
 	public boolean checkOldPassword(String username, String oldPassword) {
 		return userRepository.findPasswordByAccountClassAdmin(username).equals(oldPassword);
 	}
