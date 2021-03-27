@@ -38,8 +38,9 @@ public class UserController {
 	public String viewHomePage(Model model) {
 		// return findPaginated(1, "firstName", "asc", model);
 
+		
 		System.out.println(passwordEncoder.encode("admin"));
-		return "index";
+		return "class-details";
 	}
 
 	@GetMapping("/login")
