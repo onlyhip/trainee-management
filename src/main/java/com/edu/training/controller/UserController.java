@@ -40,7 +40,7 @@ public class UserController {
 
 		
 		System.out.println(passwordEncoder.encode("admin"));
-		return "class-details";
+		return "trainee-management";
 	}
 
 	@GetMapping("/login")
