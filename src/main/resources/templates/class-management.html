@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layout/layout-template.html}" th:with="currentPage='Class Management'">
+	layout:decorate="~{layout/layout-template.html}" th:with="currentPage='Class Management'"
+	th:with="currentLink='link-2'">
 
 <head>
 	<title>Class Management</title>
@@ -23,7 +24,7 @@
 					<button type="submit" class="btn btn-primary btn-block">Add Class Planning</button>
 				</div>
 			</div>
-			<form>
+			<div>
 				<div class="row mt-4 d-flex justify-content-between">
 
 					<div class="col-md-1">
@@ -37,7 +38,7 @@
 						<input type="text" class="form-control" name="page-size" id="page-size" value="10">
 					</div>
 				</div>
-			</form>
+			</div>
 
 			<div class="row">
 				<div class="col-md-12">
@@ -70,7 +71,7 @@
 										<td>Niger</td>
 										<td><button type="button" class="btn btn-primary">Issues</button></td>
 									</tr>
-									
+
 									<tr>
 										<td>2</td>
 										<td>Minerva Hooper</td>
