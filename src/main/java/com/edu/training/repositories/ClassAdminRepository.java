@@ -4,7 +4,8 @@ import com.edu.training.entities.ClassAdmin;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-
+import org.springframework.stereotype.Repository;
+@Repository
 public interface ClassAdminRepository extends JpaRepository<ClassAdmin, Integer>{
     
     ClassAdmin findByAccount(String username);

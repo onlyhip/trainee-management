@@ -21,6 +21,8 @@ public class Trainer extends User{
     public Trainer() {
     }
 
+    
+
     public Trainer(List<Course> courseList, List<TrainingObjective> trainingObjectives) {
         this.courseList = courseList;
         this.trainingObjectives = trainingObjectives;
@@ -31,6 +33,9 @@ public class Trainer extends User{
     }
 
     public void setCourseList(List<Course> courseList) {
+        for(Course child : courseList) {
+            child.setTrainer(this);
+        }
         this.courseList = courseList;
     }
 
@@ -41,5 +46,30 @@ public class Trainer extends User{
     public void setTrainingObjectives(List<TrainingObjective> trainingObjectives) {
         this.trainingObjectives = trainingObjectives;
     }
+
+    @Override
+    public String toString() {
+        return  super.toString() + "]";
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (!super.equals(obj))
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        if (((Trainer)obj).getId() == this.getId()) return true;
+        return false;
+    }
+
+
+
+    public Trainer(int id) {
+        super(id);
+    }
+
+    
 
 }

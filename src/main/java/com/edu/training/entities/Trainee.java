@@ -57,4 +57,109 @@ public class Trainee extends User{
     @OneToMany(mappedBy = "trainee", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Score> score;
 
+    public Trainee(Course course) {
+        this.course = course;
+    }
+
+    public Trainee() {
+    }
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
+    }
+
+    public String getBranch() {
+        return branch;
+    }
+
+    public void setBranch(String branch) {
+        this.branch = branch;
+    }
+
+    public String getParentDepartment() {
+        return parentDepartment;
+    }
+
+    public void setParentDepartment(String parentDepartment) {
+        this.parentDepartment = parentDepartment;
+    }
+
+    public Date getRecInterviewDate() {
+        return recInterviewDate;
+    }
+
+    public void setRecInterviewDate(Date recInterviewDate) {
+        this.recInterviewDate = recInterviewDate;
+    }
+
+    public String getRecInterviewStatus() {
+        return recInterviewStatus;
+    }
+
+    public void setRecInterviewStatus(String recInterviewStatus) {
+        this.recInterviewStatus = recInterviewStatus;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public Status getTraineeStatus() {
+        return traineeStatus;
+    }
+
+    public void setTraineeStatus(Status traineeStatus) {
+        this.traineeStatus = traineeStatus;
+    }
+
+    public String getUniversity() {
+        return university;
+    }
+
+    public void setUniversity(String university) {
+        this.university = university;
+    }
+
+    public String getFaculty() {
+        return faculty;
+    }
+
+    public void setFaculty(String faculty) {
+        this.faculty = faculty;
+    }
+
+    public List<Mistake> getMistakes() {
+        return mistakes;
+    }
+
+    public void setMistakes(List<Mistake> mistakes) {
+        this.mistakes = mistakes;
+    }
+
+    public List<Certificates> getCertificate() {
+        return certificate;
+    }
+
+    public void setCertificate(List<Certificates> certificate) {
+        this.certificate = certificate;
+    }
+
+    public List<Score> getScore() {
+        return score;
+    }
+
+    public void setScore(List<Score> score) {
+        this.score = score;
+    }
+
+    
+
 }

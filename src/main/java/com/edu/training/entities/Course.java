@@ -71,6 +71,8 @@ public class Course {
         this.note = note;
     }
 
+
+    
     public Course(String name, Date openDate, String note) {
         this.name = name;
         this.openDate = openDate;
@@ -140,6 +142,15 @@ public class Course {
     public void setTrainee(List<Trainee> trainee) {
         this.trainee = trainee;
     }
-    
+
+    public Course() {
+    }
+
+    @Override
+    public String toString() {
+        return "Course [endDate=" + endDate + ", id=" + id + ", issues=" + issues + ", name=" + name + ", note=" + note
+                + ", openDate=" + openDate + ", planCount=" + planCount + ", trainee=" + trainee + ", trainer="
+                + trainer + "]";
+    }
 
 }
