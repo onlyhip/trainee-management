@@ -37,14 +37,12 @@ public class UserController {
 	@GetMapping("/")
 	public String viewHomePage(Model model) {
 		// return findPaginated(1, "firstName", "asc", model);	
-	
 		System.out.println(passwordEncoder.encode("admin"));
-		return "trainee-details";
+		return "download-templates";
 	}
 
 	@GetMapping("/login")
 	public String getLogin() {	
-	
 		return "login";
 	}
 
