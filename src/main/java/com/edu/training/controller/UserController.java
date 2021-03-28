@@ -36,19 +36,20 @@ public class UserController {
 
 	@GetMapping("/")
 	public String viewHomePage(Model model) {
-		// return findPaginated(1, "firstName", "asc", model);
+		// return findPaginated(1, "firstName", "asc", model);	
+	
 		System.out.println(passwordEncoder.encode("admin"));
-		return "index";
+		return "trainee-details";
 	}
 
 	@GetMapping("/login")
-	public String getLogin() {
-
+	public String getLogin() {	
+	
 		return "login";
 	}
 
 	@GetMapping("/logout")
-	public String logout(HttpServletRequest request, HttpServletResponse response) {
+	public String logout(HttpServletRequest request, HttpServletResponse response) {			
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if (auth != null) {
 			new SecurityContextLogoutHandler().logout(request, response, auth);
@@ -58,10 +59,9 @@ public class UserController {
 
 	@GetMapping("/change-password")
 	public String updateUserPasswordForm(Model model) {
-
 		ClassAdmin loginedAdmin = getLoginedAccount();
-
 		model.addAttribute("user", loginedAdmin);
+
 		return "change-password";
 	}
 
@@ -86,7 +86,6 @@ public class UserController {
 
 	@RequestMapping(value = "/class-management", method = RequestMethod.GET)
 	public String displayCourseList(Model model) {
-
 		return "class-management";
 	}
 
