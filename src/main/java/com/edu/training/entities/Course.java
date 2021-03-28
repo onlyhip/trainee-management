@@ -39,6 +39,9 @@ public class Course {
     @Column(name = "PlanCount")
     private int planCount;
 
+    @Column(name = "CurrentCount")
+    private int currCount;
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "IdTrainer", nullable = false, referencedColumnName = "Id")
     private Trainer trainer;
@@ -152,5 +155,23 @@ public class Course {
                 + ", openDate=" + openDate + ", planCount=" + planCount + ", trainee=" + trainee + ", trainer="
                 + trainer + "]";
     }
+
+    public int getCurrCount() {
+        return currCount;
+    }
+
+    public void setCurrCount(int currCount) {
+        this.currCount = currCount;
+    }
+
+    public List<Issue> getIssues() {
+        return issues;
+    }
+
+    public void setIssues(List<Issue> issues) {
+        this.issues = issues;
+    }
+
+    
 
 }

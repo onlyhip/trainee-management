@@ -32,6 +32,8 @@ import com.edu.training.repositories.TrainingObjectiveRepository;
 import com.edu.training.repositories.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -90,8 +92,9 @@ public class UserController {
 		// createFresher();
 		// createInternship();
 		// createTO();
-		createScore();
-		return "index";
+		// createScore();
+
+		return "class-management";
 	}
 
 	@GetMapping("/login")
@@ -139,8 +142,32 @@ public class UserController {
 	@RequestMapping(value = "/class-management", method = RequestMethod.GET)
 	public String displayCourseList(Model model) {
 
+		Page<Course> allCourse = (Page<Course>) courseRepository.findAll(Sort.by("name"));
+		
+
+
 		return "class-management";
 	}
+
+	// @GetMapping("/page/{pageNo}")
+	// public String findPaginated(@PathVariable(value = "pageNo") int pageNo, @RequestParam("sortField") String sortField,
+	// 		@RequestParam("sortDir") String sortDir, Model model) {
+	// 	int pageSize = 5;
+
+	// 	Page<User> page = userService.findPaginated(pageNo, pageSize, sortField, sortDir);
+	// 	List<User> listUsers = page.getContent();
+
+	// 	model.addAttribute("currentPage", pageNo);
+	// 	model.addAttribute("totalPages", page.getTotalPages());
+	// 	model.addAttribute("totalItems", page.getTotalElements());
+
+	// 	model.addAttribute("sortField", sortField);
+	// 	model.addAttribute("sortDir", sortDir);
+	// 	model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+
+	// 	model.addAttribute("listUsers", listUsers);
+	// 	return "index";
+	// }
 
 	@GetMapping("/404")
 	public String error() {
@@ -447,25 +474,4 @@ public class UserController {
 		}
 	}
 
-	// @GetMapping("/page/{pageNo}")
-	// public String findPaginated(@PathVariable(value = "pageNo") int pageNo,
-	// @RequestParam("sortField") String sortField,
-	// @RequestParam("sortDir") String sortDir, Model model) {
-	// int pageSize = 5;
-
-	// Page<User> page = userService.findPaginated(pageNo, pageSize, sortField,
-	// sortDir);
-	// List<User> listUsers = page.getContent();
-
-	// model.addAttribute("currentPage", pageNo);
-	// model.addAttribute("totalPages", page.getTotalPages());
-	// model.addAttribute("totalItems", page.getTotalElements());
-
-	// model.addAttribute("sortField", sortField);
-	// model.addAttribute("sortDir", sortDir);
-	// model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
-
-	// model.addAttribute("listUsers", listUsers);
-	// return "index";
-	// }
 }
