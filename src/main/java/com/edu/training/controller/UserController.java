@@ -1,7 +1,9 @@
 package com.edu.training.controller;
 
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -30,10 +32,12 @@ import com.edu.training.repositories.TraineeRepository;
 import com.edu.training.repositories.TrainerRepository;
 import com.edu.training.repositories.TrainingObjectiveRepository;
 import com.edu.training.repositories.UserRepository;
+import com.edu.training.services.core.CourseService;
+import com.edu.training.services.implementation.CourseServiceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -84,6 +88,9 @@ public class UserController {
 	@Autowired
 	private ScoreRepository scoreRepository;
 
+	@Autowired
+	private CourseServiceImpl courseService;
+
 	@GetMapping("/")
 	public String viewHomePage(Model model) {
 		// createTrainer();
@@ -94,7 +101,7 @@ public class UserController {
 		// createTO();
 		// createScore();
 
-		return "class-management";
+		return "index";
 	}
 
 	@GetMapping("/login")
@@ -141,9 +148,32 @@ public class UserController {
 	@RequestMapping(value = "/class-management", method = RequestMethod.GET)
 	public String displayCourseList(Model model) {
 
-		Page<Course> allCourse = (Page<Course>) courseRepository.findAll(Sort.by("name"));
-		
+		int pageSize = 5;
 
+		Page<Course> page = courseService.findPaginated(1, pageSize, "name");
+		List<Course> listCourses = page.getContent();
+		// listCourses.forEach(c -> c.setCurrCount(traineeRepository.countCourseByCourseId(c.getId())));
+		for (Course c : listCourses) {
+			c.setCurrCount(traineeRepository.countCourseByCourseId(c.getId()));
+			c.setStatus(Timestamp.valueOf(LocalDateTime.now()).compareTo(c.getEndDate()) > 0 ? "Done" : "In Process");
+		}
+		// listCourses.forEach(c -> c.setStatus(Timestamp.valueOf(LocalDateTime.now()).compareTo(c.getEndDate()) > 0 ? "Done" : "In Process"));
+		listCourses.forEach(c -> System.out.println(c));
+		model.addAttribute("classes", listCourses);
+
+		return "class-management";
+	}
+
+	@RequestMapping(value = "/class-management", method = RequestMethod.POST)
+	public String displayCourseListByPageSize(Model model, @RequestParam("page-size") int pageSize) {
+
+		Page<Course> page = courseService.findPaginated(1, pageSize, "name");
+		List<Course> listCourses = page.getContent();
+		for (Course c : listCourses) {
+			c.setCurrCount(traineeRepository.countCourseByCourseId(c.getId()));
+			c.setStatus(Timestamp.valueOf(LocalDateTime.now()).compareTo(c.getEndDate()) > 0 ? "Done" : "In Process");
+		}
+		model.addAttribute("classes", listCourses);
 
 		return "class-management";
 	}
@@ -265,6 +295,7 @@ public class UserController {
 				course.setOpenDate(date1);
 				course.setEndDate(date2);
 				course.setPlanCount(rand.nextInt(5) + 15);
+				course.setCurrCount(0);
 				course.setTrainer(trainerRepository.getOne(rand.nextInt(10) + 4));
 				courseRepository.save(course);
 				System.out.println(course);

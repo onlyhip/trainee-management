@@ -42,6 +42,9 @@ public class Course {
     @Column(name = "CurrentCount")
     private int currCount;
 
+    @Column(name = "status")
+    private String status;
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "IdTrainer", nullable = false, referencedColumnName = "Id")
     private Trainer trainer;
@@ -170,6 +173,14 @@ public class Course {
 
     public void setIssues(List<Issue> issues) {
         this.issues = issues;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     
