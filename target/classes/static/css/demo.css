@@ -901,6 +901,13 @@
   display: inline-block;
 }
 
+.profile-details {
+  min-height: 390px;
+  display: inline-block;
+  background-color: #d8ecf5;
+  border-radius: 0.5rem;
+}
+
 span.tags {
   background: #1abc9c;
   border-radius: 2px;
@@ -909,3 +916,14 @@ span.tags {
   padding: 2px 4px;
 }
 
+.custom-fontp {
+  font-size: 18px;
+}
+
+.progress {
+  background-color: #ffffff;
+}
+
+.table > thead > tr > th {
+  text-align: center !important;
+}
