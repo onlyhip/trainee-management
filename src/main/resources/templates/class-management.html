@@ -23,7 +23,7 @@
 					<button type="submit" class="btn btn-primary btn-block">Add Class Planning</button>
 				</div>
 			</div>
-			<div>
+			<form method="post" th:action="@{/class-management}">
 				<div class="row mt-4 d-flex justify-content-between">
 
 					<div class="col-md-1">
@@ -35,9 +35,10 @@
 							<span class="input-group-text">Page size:&nbsp;</span>
 						</div>
 						<input type="text" class="form-control" name="page-size" id="page-size" value="10">
+						<input type="submit" hidden>
 					</div>
 				</div>
-			</div>
+			</form>
 
 			<div class="row">
 				<div class="col-md-12">
