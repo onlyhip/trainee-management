@@ -21,8 +21,6 @@ public class Trainer extends User{
     public Trainer() {
     }
 
-    
-
     public Trainer(List<Course> courseList, List<TrainingObjective> trainingObjectives) {
         this.courseList = courseList;
         this.trainingObjectives = trainingObjectives;
