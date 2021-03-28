@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout/layout-template.html}" th:with="currentPage='Trainee Details'">
+
+<head>
+    <title>Trainee Details</title>
+</head>
+
+<body>
+    <div layout:fragment="content" class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card profile-details d-flex flex-column">
+                        <div class="d-flex justify-content-center">
+                            <div class="col-md-4 text-center">
+                                <figure>
+                                    <img src="/img/avt.jpg" alt="" class="rounded-circle img-fluid mt-5 mb-3">
+                                </figure>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <div class="text-center">
+                                <div class="d-flex flex-row">
+                                    <p class=" font-weight-bold text-primary">DuongMH</p>
+                                    <p class=" font-weight-bold text-primary">&nbsp;-&nbsp;</p>
+                                    <p class=" font-weight-bold text-primary">Mai Hoang Duong</p>
+                                </div>
+                                <p class="font-weight-bold text-primary">0999999999</p>
+                                <p class="font-weight-bold text-primary">phminh.chip@gmail.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card profile-details d-flex justify-content-center">
+                        <div class="d-flex justify-content-center">
+                            <div class="col-md-4 text-center">
+                                <figure>
+                                    <figcaption class="ratings">
+                                        <p class="h3 mt-0">
+                                            <a class="text-warning" href="#">
+                                                <span class="fa fa-star"></span>
+                                            </a>
+                                            <a class="text-warning" href="#">
+                                                <span class="fa fa-star"></span>
+                                            </a>
+                                            <a class="text-warning" href="#">
+                                                <span class="fa fa-star"></span>
+                                            </a>
+                                            <a class="text-warning" href="#">
+                                                <span class="fa fa-star"></span>
+                                            </a>
+                                            <a class="text-warning" href="#">
+                                                <span class="fa fa-star"></span>
+                                            </a>
+                                        </p>
+                                    </figcaption>
+                                </figure>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-center">
+                            <div class="text-center">
+                                <div class="d-flex flex-row">
+                                    <p class="h1 font-weight-bold text-danger mt-0">A+</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col-md-8">
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped bg-warning" role="progressbar"
+                                        style="width: 98%" aria-valuenow="98" aria-valuemin="0" aria-valuemax="100">
+                                        Final Grade: 98%
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center mt-4">
+                            <div class="col-md-8">
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped bg-success" role="progressbar"
+                                        style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                                        Attendance: 23/23
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#comment">Comment</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#score">Score</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#attendance">Attendance</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#result">Interview Result</a>
+                    </li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div id="comment" class="container tab-pane active"><br>
+
+                        <div class="card">
+                            <div class="d-flex lfex-row mt-3 mb-3">
+                                <div class="col-md-2">
+                                    <img src="/img/avt.jpg" class="img img-rounded img-fluid">
+
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="d-flex justify-content-between mt-3">
+                                        <p class="text-info">
+                                            <strong>Mai Hoang Duong</strong>
+                                        </p>
+                                        <p class="text-info">
+                                            <u><i><span>Date: </span>24/04/2017</i></u>
+                                        </p>
+                                    </div>
+                                    <p>Good job !</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="d-flex lfex-row mt-3 mb-3">
+                                <div class="col-md-2">
+                                    <img src="/img/avt.jpg" class="img img-rounded img-fluid">
+
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="d-flex justify-content-between mt-3">
+                                        <p class="text-info">
+                                            <strong>Mai Hoang Duong</strong>
+                                        </p>
+                                        <p class="text-info">
+                                            <u><i><span>Date: </span>24/04/2017</i></u>
+                                        </p>
+                                    </div>
+                                    <p>Good job !</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="d-flex lfex-row mt-3 mb-3">
+                                <div class="col-md-2">
+                                    <img src="/img/avt.jpg" class="img img-rounded img-fluid">
+
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="d-flex justify-content-between mt-3">
+                                        <p class="text-info">
+                                            <strong>Mai Hoang Duong</strong>
+                                        </p>
+                                        <p class="text-info">
+                                            <u><i><span>Date: </span>24/04/2017</i></u>
+                                        </p>
+                                    </div>
+                                    <p>Good job !</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="d-flex lfex-row mt-3 mb-3">
+                                <div class="col-md-2">
+                                    <img src="/img/avt.jpg" class="img img-rounded img-fluid">
+
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="d-flex justify-content-between mt-3">
+                                        <p class="text-info">
+                                            <strong>Mai Hoang Duong</strong>
+                                        </p>
+                                        <p class="text-info">
+                                            <u><i><span>Date: </span>24/04/2017</i></u>
+                                        </p>
+                                    </div>
+                                    <p>Good job !</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div id="score" class="container tab-pane fade"><br>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class=" strpied-tabled-with-hover">
+                                    <div class="card-body table-full-width table-responsive p-0">
+                                        <table class="table table-hover text-center">
+                                            <thead>
+                                                <tr>
+                                                    <th>NO.</th>
+                                                    <th>SUBJECT NAME</th>
+                                                    <th>POINT</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>Dakota Rice</td>
+                                                    <td>
+                                                        <div class="progress">
+                                                            <div class="progress-bar progress-bar-striped"
+                                                                role="progressbar" style="width: 98%" aria-valuenow="98"
+                                                                aria-valuemin="0" aria-valuemax="100">
+                                                                9.5/10
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>2</td>
+                                                    <td>Minerva Hooper</td>
+                                                    <td>
+                                                        <div class="progress">
+                                                            <div class="progress-bar progress-bar-striped"
+                                                                role="progressbar" style="width: 98%" aria-valuenow="98"
+                                                                aria-valuemin="0" aria-valuemax="100">
+                                                                9.5/10
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>3</td>
+                                                    <td>Sage Rodriguez</td>
+                                                    <td>
+                                                        <div class="progress">
+                                                            <div class="progress-bar progress-bar-striped "
+                                                                role="progressbar" style="width: 98%" aria-valuenow="98"
+                                                                aria-valuemin="0" aria-valuemax="100">
+                                                                9.5/10
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>4</td>
+                                                    <td>Philip Chaney</td>
+                                                    <td>
+                                                        <div class="progress">
+                                                            <div class="progress-bar progress-bar-striped "
+                                                                role="progressbar" style="width: 98%" aria-valuenow="98"
+                                                                aria-valuemin="0" aria-valuemax="100">
+                                                                9.5/10
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>5</td>
+                                                    <td>Doris Greene</td>
+                                                    <td>
+                                                        <div class="progress">
+                                                            <div class="progress-bar progress-bar-striped"
+                                                                role="progressbar" style="width: 98%" aria-valuenow="98"
+                                                                aria-valuemin="0" aria-valuemax="100">
+                                                                9.5/10
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>6</td>
+                                                    <td>Mason Porter</td>
+                                                    <td>
+                                                        <div class="progress">
+                                                            <div class="progress-bar progress-bar-striped"
+                                                                role="progressbar" style="width: 98%" aria-valuenow="98"
+                                                                aria-valuemin="0" aria-valuemax="100">
+                                                                9.5/10
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div id="attendance" class="container tab-pane fade"><br>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class=" strpied-tabled-with-hover">
+                                    <div class="card-body table-full-width table-responsive p-0">
+                                        <table class="table table-hover text-center">
+                                            <thead>
+                                                <tr>
+                                                    <th>NO.</th>
+                                                    <th>DATE</th>
+                                                    <th>STATUS</th>
+                                                    <th>NOTE</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>01/03/2017</td>
+                                                    <td>P</td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>2</td>
+                                                    <td>01/03/2017</td>
+                                                    <td>P</td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>3</td>
+                                                    <td>01/03/2017</td>
+                                                    <td>P</td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>4</td>
+                                                    <td>01/03/2017</td>
+                                                    <td>P</td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>5</td>
+                                                    <td>01/03/2017</td>
+                                                    <td>P</td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>6</td>
+                                                    <td>01/03/2017</td>
+                                                    <td>P</td>
+                                                    <td></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div id="result" class="container tab-pane fade"><br>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class=" strpied-tabled-with-hover">
+                                    <div class="card-body table-full-width table-responsive p-0">
+                                        <table class="table table-hover text-center">
+                                            <thead>
+                                                <tr>
+                                                    <th>NO.</th>
+                                                    <th>SKILL</th>
+                                                    <th>LEVEL</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>
+                                                        <button class="btn btn-primary btn-fill">Java</button>
+                                                    </td>
+                                                    <td>3/5</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>2</td>
+                                                    <td>
+                                                        <button class="btn btn-primary btn-fill">SQL</button>
+                                                    </td>
+                                                    <td>3/5</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>3</td>
+                                                    <td>
+                                                        <button class="btn btn-primary btn-fill">JavaScript</button>
+                                                    </td>
+                                                    <td>3/5</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>4</td>
+                                                    <td>
+                                                        <button class="btn btn-primary btn-fill">CSS</button>
+                                                    </td>
+                                                    <td>3/5</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>5</td>
+                                                    <td>
+                                                        <button class="btn btn-primary btn-fill">HTML</button>
+                                                    </td>
+                                                    <td>3/5</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>6</td>
+                                                    <td>
+                                                        <button class="btn btn-primary btn-fill">Hibernate</button>
+                                                    </td>
+                                                    <td>3/5</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

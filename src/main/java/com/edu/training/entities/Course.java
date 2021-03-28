@@ -39,6 +39,12 @@ public class Course {
     @Column(name = "PlanCount")
     private int planCount;
 
+    @Column(name = "CurrentCount")
+    private int currCount;
+
+    @Column(name = "status")
+    private String status;
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "IdTrainer", nullable = false, referencedColumnName = "Id")
     private Trainer trainer;
@@ -71,6 +77,8 @@ public class Course {
         this.note = note;
     }
 
+
+    
     public Course(String name, Date openDate, String note) {
         this.name = name;
         this.openDate = openDate;
@@ -140,6 +148,41 @@ public class Course {
     public void setTrainee(List<Trainee> trainee) {
         this.trainee = trainee;
     }
+
+    public Course() {
+    }
+
+    @Override
+    public String toString() {
+        return "Course [endDate=" + endDate + ", id=" + id + ", issues=" + issues + ", name=" + name + ", note=" + note
+                + ", openDate=" + openDate + ", planCount=" + planCount + ", trainee=" + trainee + ", trainer="
+                + trainer + "]";
+    }
+
+    public int getCurrCount() {
+        return currCount;
+    }
+
+    public void setCurrCount(int currCount) {
+        this.currCount = currCount;
+    }
+
+    public List<Issue> getIssues() {
+        return issues;
+    }
+
+    public void setIssues(List<Issue> issues) {
+        this.issues = issues;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     
 
 }

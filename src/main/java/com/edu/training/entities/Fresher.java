@@ -41,4 +41,6 @@ public class Fresher extends Trainee{
         this.fullTimeWorkingAvailable = fullTimeWorkingAvailable;
     }
 
+    
+
 }

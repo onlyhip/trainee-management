@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout-template.html}" th:with="currentPage='Class Management'">
+<head>
+    <title>Class Management</title>
+</head>
+<body>
+    <form th:action="@{/import}" method="post" enctype="multipart/form-data">
+        <input type="file" th:name="file" />
+        <input th:type="submit" value="Import" />
+    </form>
+</body>
+</html>

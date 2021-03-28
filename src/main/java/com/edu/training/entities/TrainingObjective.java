@@ -108,6 +108,15 @@ public class TrainingObjective {
         this.listScore = listScore;
     }
 
+    public TrainingObjective() {
+    }
+
+    @Override
+    public String toString() {
+        return "TrainingObjective [code=" + code + ", feedBacks=" + feedBacks + ", id=" + id + ", listScore="
+                + listScore + ", name=" + name + ", trainer=" + trainer + "]";
+    }
+
     
 
 }

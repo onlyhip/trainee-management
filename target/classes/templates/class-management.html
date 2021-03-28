@@ -23,7 +23,7 @@
 					<button type="submit" class="btn btn-primary btn-block">Add Class Planning</button>
 				</div>
 			</div>
-			<div>
+			<form method="post" th:action="@{/class-management}">
 				<div class="row mt-4 d-flex justify-content-between">
 
 					<div class="col-md-1">
@@ -35,9 +35,10 @@
 							<span class="input-group-text">Page size:&nbsp;</span>
 						</div>
 						<input type="text" class="form-control" name="page-size" id="page-size" value="10">
+						<input type="submit" hidden>
 					</div>
 				</div>
-			</div>
+			</form>
 
 			<div class="row">
 				<div class="col-md-12">
@@ -59,72 +60,17 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td>1</td>
-										<td>Dakota Rice</td>
-										<td>$36,738</td>
-										<td>Niger</td>
-										<td>Oud-Turnhout</td>
-										<td>Dakota Rice</td>
-										<td>$36,738</td>
-										<td>Niger</td>
+									<tr th:each="class : ${classes}">
+										<td th:text="${class.name}">1</td>
+										<td th:text="${class.planCount}"></td>
+										<td th:text="${class.currCount}"></td>
+										<td th:text="${class.openDate}"></td>
+										<td th:text="${class.endDate}"></td>
+										<td th:text="${class.trainer.name}"></td>
+										<td>Fresher</td>
+										<td th:text="${class.status}"></td>
 										<td><button type="button" class="btn btn-primary">Issues</button></td>
-									</tr>
-
-									<tr>
-										<td>2</td>
-										<td>Minerva Hooper</td>
-										<td>$23,789</td>
-										<td>Curaçao</td>
-										<td>Sinaai-Waas</td>
-										<td>Dakota Rice</td>
-										<td>$36,738</td>
-										<td>Niger</td>
-										<td><button type="button" class="btn btn-primary">Issues</button></td>
-									</tr>
-									<tr>
-										<td>3</td>
-										<td>Sage Rodriguez</td>
-										<td>$56,142</td>
-										<td>Netherlands</td>
-										<td>Baileux</td>
-										<td>Dakota Rice</td>
-										<td>$36,738</td>
-										<td>Niger</td>
-										<td><button type="button" class="btn btn-primary">Issues</button></td>
-									</tr>
-									<tr>
-										<td>4</td>
-										<td>Philip Chaney</td>
-										<td>$38,735</td>
-										<td>Dakota Rice</td>
-										<td>$36,738</td>
-										<td>Niger</td>
-										<td>Oud-Turnhout</td>
-										<td>Korea, South</td>
-										<td><button type="button" class="btn btn-primary">Issues</button></td>
-									</tr>
-									<tr>
-										<td>5</td>
-										<td>Doris Greene</td>
-										<td>$63,542</td>
-										<td>Dakota Rice</td>
-										<td>$36,738</td>
-										<td>Niger</td>
-										<td>Oud-Turnhout</td>
-										<td>Malawi</td>
-										<td><button type="button" class="btn btn-primary">Issues</button></td>
-									</tr>
-									<tr>
-										<td>6</td>
-										<td>Mason Porter</td>
-										<td>$78,615</td>
-										<td>Chile</td>
-										<td>Dakota Rice</td>
-										<td>$36,738</td>
-										<td>Niger</td>
-										<td>Oud-Turnhout</td>
-										<td><button type="button" class="btn btn-primary">Issues</button></td>
+									
 									</tr>
 								</tbody>
 							</table>

@@ -2,21 +2,19 @@ package com.edu.training.services.implementation;
 
 import java.util.List;
 
-import com.edu.training.entities.ClassAdmin;
-import com.edu.training.services.core.ClassAdminService;
+import com.edu.training.entities.Fresher;
+import com.edu.training.services.core.FresherService;
 
-import org.springframework.stereotype.Service;
-@Service
-public class ClassAdminServiceImpl implements ClassAdminService{
+public class FresherServiceImpl implements FresherService {
 
     @Override
-    public void save(ClassAdmin t) {
+    public void save(Fresher t) {
         // TODO Auto-generated method stub
         
     }
 
     @Override
-    public void update(ClassAdmin t) {
+    public void update(Fresher t) {
         // TODO Auto-generated method stub
         
     }
@@ -28,13 +26,13 @@ public class ClassAdminServiceImpl implements ClassAdminService{
     }
 
     @Override
-    public ClassAdmin findById(long theId) {
+    public Fresher findById(long theId) {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public List<ClassAdmin> getAll() {
+    public List<Fresher> getAll() {
         // TODO Auto-generated method stub
         return null;
     }

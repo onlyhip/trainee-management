@@ -36,7 +36,7 @@ public class Status {
 
     @OneToMany(mappedBy = "traineeStatus", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Trainee> trainee;
-
+ 
     public Status(int id, String type, Date startDay, Date endDate, float learningTime) {
         this.id = id;
         this.type = type;
@@ -50,9 +50,6 @@ public class Status {
         this.startDay = startDay;
         this.endDate = endDate;
         this.learningTime = learningTime;
-    }
-
-    public Status() {
     }
 
     public Status(int id) {
@@ -106,5 +103,16 @@ public class Status {
     public void setTrainee(List<Trainee> trainee) {
         this.trainee = trainee;
     }
+
+    public Status() {
+    }
+
+    @Override
+    public String toString() {
+        return "Status [endDate=" + endDate + ", learningTime=" + learningTime + ", startDay=" + startDay
+         + ", type=" + type + "]";
+    }
+
+    
 
 }
