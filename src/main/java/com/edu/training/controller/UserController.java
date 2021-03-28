@@ -100,8 +100,8 @@ public class UserController {
 		// createInternship();
 		// createTO();
 		// createScore();
-
-		return "index";
+	
+		return "trainee-management";
 	}
 
 	@GetMapping("/login")

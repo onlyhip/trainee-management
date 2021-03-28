@@ -70,10 +70,31 @@
 										<td>Fresher</td>
 										<td th:text="${class.status}"></td>
 										<td><button type="button" class="btn btn-primary">Issues</button></td>
-									
+
 									</tr>
 								</tbody>
 							</table>
+							<ul class="pagination">
+								<li><a>Total : [[${totalItems}]]</a></li>
+								<li><a th:if="${currentPage > 1}" th:href="@{'/page/' + ${currentPage - 1}}">prive</a>
+								</li>
+								<li>
+									<span th:each="i: ${#numbers.sequence(1, totalPages)}">
+										<a th:if="${currentPage != i}" th:href="@{'/page/' + ${i}}">[[${i}]]</a>
+										<span th:unless="${currentPage != i}">[[${i}]]</span>
+									</span>
+								</li>
+								<li>
+									<a th:if="${currentPage < totalPages}"
+										th:href="@{'/page/' + ${currentPage + 1}}">Next</a>
+									<span th:unless="${currentPage < totalPages}">Next</span>
+								</li>
+								<li>
+									<a th:if="${currentPage < totalPages}"
+										th:href="@{'/page/' + ${currentPage}}">Last</a>
+									<span th:unless="${currentPage < totalPages}">Last</span>
+								</li>
+							</ul>
 						</div>
 					</div>
 				</div>
