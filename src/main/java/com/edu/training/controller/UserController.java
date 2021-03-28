@@ -516,25 +516,25 @@ public class UserController {
 		}
 	}
 
-	public void createScore() {
-		Score score = null;
-		// ScoreId scoreId = null;
-		Random rand = new Random(System.currentTimeMillis());
-		for (TrainingObjective to : toRepository.findAll()) {
-			for (Course course : to.getTrainer().getCourseList()) {
-				for (Trainee trainee : course.getTrainee()) {
-					// score = new Score();
-					// score.setName("haha");
-					// System.out.println("To Id: " + to.getId());
-					// System.out.println("Trainee Id: " + trainee.getId());
-					// score.setTrainingObjective(toRepository.getOne(to.getId()));
-					// score.setTrainee(traineeRepository.getOne(trainee.getId()));
-					// score.setValue(rand.nextInt(6) + 5);
-					scoreRepository.insertScore(trainee.getId(), to.getId(), rand.nextInt(6) + 5, "haha");
+	// public void createScore() {
+	// 	Score score = null;
+	// 	// ScoreId scoreId = null;
+	// 	Random rand = new Random(System.currentTimeMillis());
+	// 	for (TrainingObjective to : toRepository.findAll()) {
+	// 		for (Course course : to.getTrainer().getCourseList()) {
+	// 			for (Trainee trainee : course.getTrainee()) {
+	// 				// score = new Score();
+	// 				// score.setName("haha");
+	// 				// System.out.println("To Id: " + to.getId());
+	// 				// System.out.println("Trainee Id: " + trainee.getId());
+	// 				// score.setTrainingObjective(toRepository.getOne(to.getId()));
+	// 				// score.setTrainee(traineeRepository.getOne(trainee.getId()));
+	// 				// score.setValue(rand.nextInt(6) + 5);
+	// 				scoreRepository.insertScore(trainee.getId(), to.getId(), rand.nextInt(6) + 5, "haha");
 					
-				}
-			}
-		}
-	}
+	// 			}
+	// 		}
+	// 	}
+	// }
 
 }

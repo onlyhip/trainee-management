@@ -927,3 +927,7 @@ span.tags {
 .table > thead > tr > th {
   text-align: center !important;
 }
+
+.backclo {
+  background-color: #ffffff;
+}

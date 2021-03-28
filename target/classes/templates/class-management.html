@@ -23,7 +23,7 @@
 					<button type="submit" class="btn btn-primary btn-block">Add Class Planning</button>
 				</div>
 			</div>
-			<div>
+			<form method="post" th:action="@{/class-management}">
 				<div class="row mt-4 d-flex justify-content-between">
 
 					<div class="col-md-1">
@@ -35,9 +35,10 @@
 							<span class="input-group-text">Page size:&nbsp;</span>
 						</div>
 						<input type="text" class="form-control" name="page-size" id="page-size" value="10">
+						<input type="submit" hidden>
 					</div>
 				</div>
-			</div>
+			</form>
 
 			<div class="row">
 				<div class="col-md-12">
@@ -69,10 +70,31 @@
 										<td>Fresher</td>
 										<td th:text="${class.status}"></td>
 										<td><button type="button" class="btn btn-primary">Issues</button></td>
-									
+
 									</tr>
 								</tbody>
 							</table>
+							<ul class="pagination">
+								<li><a>Total : [[${totalItems}]]</a></li>
+								<li><a th:if="${currentPage > 1}" th:href="@{'/page/' + ${currentPage - 1}}">prive</a>
+								</li>
+								<li>
+									<span th:each="i: ${#numbers.sequence(1, totalPages)}">
+										<a th:if="${currentPage != i}" th:href="@{'/page/' + ${i}}">[[${i}]]</a>
+										<span th:unless="${currentPage != i}">[[${i}]]</span>
+									</span>
+								</li>
+								<li>
+									<a th:if="${currentPage < totalPages}"
+										th:href="@{'/page/' + ${currentPage + 1}}">Next</a>
+									<span th:unless="${currentPage < totalPages}">Next</span>
+								</li>
+								<li>
+									<a th:if="${currentPage < totalPages}"
+										th:href="@{'/page/' + ${currentPage}}">Last</a>
+									<span th:unless="${currentPage < totalPages}">Last</span>
+								</li>
+							</ul>
 						</div>
 					</div>
 				</div>
