@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    layout:decorate="~{layout/layout-template.html}" th:with="currentPage='Class Management'">
+    layout:decorate="~{layout/layout-template.html}"
+    th:with="currentPage='Class Management',currentLink='Class Management'">
 
 <head>
     <title>Class Management</title>
@@ -24,7 +25,8 @@
                                     </div>
                                     <div class="d-flex flex-row bd-highlight">
                                         <div class="p-2 bd-highlight">Start:</div>
-                                        <div th:text="${#dates.format(class.openDate, 'dd-MM-yyyy')}" class="p-2 bd-highlight text-primary">01/03/2017</div>
+                                        <div th:text="${#dates.format(class.openDate, 'dd-MM-yyyy')}"
+                                            class="p-2 bd-highlight text-primary">01/03/2017</div>
                                     </div>
                                     <div class="d-flex flex-row bd-highlight">
                                         <div class="p-2 bd-highlight">Group Name:</div>
@@ -39,7 +41,8 @@
                                     </div>
                                     <div class="d-flex flex-row bd-highlight">
                                         <div class="p-2 bd-highlight">End Date:</div>
-                                        <div th:text="${#dates.format(class.endDate, 'dd-MM-yyyy')}" class="p-2 bd-highlight text-primary"></div>
+                                        <div th:text="${#dates.format(class.endDate, 'dd-MM-yyyy')}"
+                                            class="p-2 bd-highlight text-primary"></div>
                                     </div>
 
                                 </div>
@@ -88,22 +91,63 @@
                             </div>
                         </div>
 
-                        <div>
+
+                        <ul class="nav nav-pills nav-justified" id="pills-tab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="pills-account-tab" data-toggle="pill"
+                                    href="#pills-account" role="tab" aria-controls="pills-account"
+                                    aria-selected="true">Account</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="pills-phone-tab" data-toggle="pill" href="#pills-phone"
+                                    role="tab" aria-controls="pills-phone" aria-selected="false">Phone</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="pills-email-tab" data-toggle="pill" href="#pills-email"
+                                    role="tab" aria-controls="pills-email" aria-selected="false">Email</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="pills-skill-tab" data-toggle="pill" href="#pills-skill"
+                                    role="tab" aria-controls="pills-skill" aria-selected="false">Skill</a>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content ml-4 mt-2 mb-4" id="pills-tabContent">
+                            <div class="tab-pane fade show active" id="pills-account" role="tabpanel"
+                                aria-labelledby="pills-account-tab">
+                                <h3 th:text="${class.trainer.name}"></h3>
+                            </div>
+                            <div class="tab-pane fade" id="pills-phone" role="tabpanel"
+                                aria-labelledby="pills-phone-tab">
+                                <h3 th:text="${class.trainer.telNumber}"></h3>
+                            </div>
+                            <div class="tab-pane fade" id="pills-email" role="tabpanel"
+                                aria-labelledby="pills-email-tab">
+                                <h3 th:text="${class.trainer.email}"></h3>
+                            </div>
+                            <div class="tab-pane fade" id="pills-skill" role="tabpanel"
+                                aria-labelledby="pills-skill-tab">
+                                <h3 th:text="${class.trainer.email}"></h3>
+                            </div>
+
+                        </div>
+
+                        <!-- <div>
                             <nav class="nav nav-pills nav-justified nav-custom">
                                 <a class="nav-item nav-link active" href="#">Account</a>
                                 <a class="nav-item nav-link" href="#">Phone</a>
                                 <a class="nav-item nav-link" href="#">Email</a>
                                 <a class="nav-item nav-link" href="#">Skill</a>
                             </nav>
-                        </div>
+                        </div> -->
 
-                        <div class="ml-4 mt-2 mb-4">
+                        <!-- <div class="ml-4 mt-2 mb-4">
                             <h3 th:text="${class.trainer.name}">DuongMH</h3>
                         </div>
 
                         <div class="button-container mr-auto ml-auto">
 
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -166,7 +210,8 @@
                             </p>
                             <p class="mb-1"> <span class="fa fa-graduation-cap mr-1"></span><strong>Rank: </strong> A+
                             </p>
-                            <p class="mb-1 text-primary"> <span class="fa fa-envelope mr-1 text-dark"></span><strong class="text-dark">Email: </strong>
+                            <p class="mb-1 text-primary"> <span class="fa fa-envelope mr-1 text-dark"></span><strong
+                                    class="text-dark">Email: </strong>
                                 phminh.chip@gmail.com</p>
                             <p class="mb-1"> <span class="fa fa-university mr-1"></span><strong>Unniversity: </strong>
                                 FPT
@@ -207,7 +252,8 @@
                             </p>
                             <p class="mb-1"> <span class="fa fa-graduation-cap mr-1"></span><strong>Rank: </strong> A+
                             </p>
-                            <p class="mb-1 text-primary"> <span class="fa fa-envelope mr-1 text-dark"></span><strong class="text-dark">Email: </strong>
+                            <p class="mb-1 text-primary"> <span class="fa fa-envelope mr-1 text-dark"></span><strong
+                                    class="text-dark">Email: </strong>
                                 phminh.chip@gmail.com</p>
                             <p class="mb-1"> <span class="fa fa-university mr-1"></span><strong>Unniversity: </strong>
                                 FPT
@@ -248,7 +294,8 @@
                             </p>
                             <p class="mb-1"> <span class="fa fa-graduation-cap mr-1"></span><strong>Rank: </strong> A+
                             </p>
-                            <p class="mb-1 text-primary"> <span class="fa fa-envelope mr-1 text-dark"></span><strong class="text-dark">Email: </strong>
+                            <p class="mb-1 text-primary"> <span class="fa fa-envelope mr-1 text-dark"></span><strong
+                                    class="text-dark">Email: </strong>
                                 phminh.chip@gmail.com</p>
                             <p class="mb-1"> <span class="fa fa-university mr-1"></span><strong>Unniversity: </strong>
                                 FPT
@@ -289,7 +336,8 @@
                             </p>
                             <p class="mb-1"> <span class="fa fa-graduation-cap mr-1"></span><strong>Rank: </strong> A+
                             </p>
-                            <p class="mb-1 text-primary"> <span class="fa fa-envelope mr-1 text-dark"></span><strong class="text-dark">Email: </strong>
+                            <p class="mb-1 text-primary"> <span class="fa fa-envelope mr-1 text-dark"></span><strong
+                                    class="text-dark">Email: </strong>
                                 phminh.chip@gmail.com</p>
                             <p class="mb-1"> <span class="fa fa-university mr-1"></span><strong>Unniversity: </strong>
                                 FPT

@@ -49,13 +49,13 @@ public class test {
 		tenDemList.add("Dang");
 		tenDemList.add("Cuc");
 		List<String> uniList = new ArrayList<String>();
-			uniList.add("FPT");
-			uniList.add("FTU");
-			uniList.add("BKU");
-			uniList.add("UTH");
-			uniList.add("RMIT");
-			uniList.add("TDT");
-			uniList.add("TDM");
+		uniList.add("FPT");
+		uniList.add("FTU");
+		uniList.add("BKU");
+		uniList.add("UTH");
+		uniList.add("RMIT");
+		uniList.add("TDT");
+		uniList.add("TDM");
 
 		for (int i = 0; i < 100; i++) {
 			trainee = new Fresher();
@@ -111,13 +111,13 @@ public class test {
 		tenDemList.add("Dang");
 		tenDemList.add("Cuc");
 		List<String> uniList = new ArrayList<String>();
-			uniList.add("FPT");
-			uniList.add("FTU");
-			uniList.add("BKU");
-			uniList.add("UTH");
-			uniList.add("RMIT");
-			uniList.add("TDT");
-			uniList.add("TDM");
+		uniList.add("FPT");
+		uniList.add("FTU");
+		uniList.add("BKU");
+		uniList.add("UTH");
+		uniList.add("RMIT");
+		uniList.add("TDT");
+		uniList.add("TDM");
 
 		for (int i = 0; i < 100; i++) {
 			trainee = new Internship();
@@ -251,7 +251,7 @@ public class test {
 
 	public static void createTO() {
 		TrainingObjective to = null;
-		for(int i = 4; i <= 13; i ++) {
+		for (int i = 4; i <= 13; i++) {
 			to = new TrainingObjective();
 			to.setName("ahuhu");
 			to.setCode("ACBD");
@@ -265,9 +265,8 @@ public class test {
 	}
 
 	public static void createScore() {
-		
+
 		Score score = new Score();
-		
 
 	}
 
@@ -276,6 +275,6 @@ public class test {
 		// createCourse();
 		// createFresher();
 		// createStatus();
-		createInternship();
+		// createInternship();
 	}
 }

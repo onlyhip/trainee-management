@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layout/layout-template.html}" th:with="currentPage='Dashboard'">
+	layout:decorate="~{layout/layout-template.html}" th:with="currentPage='Dashboard',currentLink='Dashboard'">
 
 <head>
-	<title>User Management System</title>
+	<title>Dashboard</title>
 </head>
 
 <body>
 	<div layout:fragment="content" class="content">
 		<div class="container-fluid">
-			<form action="/examples/actions/confirmation.php" method="post">
+			<form action="/" method="get">
 				<div th:if="${result != null}" style="display:none">
 					<input type="text" id="check-success" value="success">
 				</div>
 				<div class="row">
 					<div class="col-md-5">
-						<input class="form-control" type="date" value="2011-08-19" name="start-date" id="start-date">
+						<input class="form-control" type="date" value="2019-08-19" name="start-date" id="start-date">
 					</div>
 					<div class="col-md-5">
-						<input class="form-control" type="date" value="2011-08-19" name="end-date" id="end-date">
+						<input class="form-control" type="date" value="2022-08-19" name="end-date" id="end-date">
 					</div>
 					<div class="col-md-2">
 						<button type="submit" class="btn btn-primary btn-block">Show Report</button>
@@ -54,19 +54,19 @@
 							<div class="stats">
 								<div class="d-flex justify-content-around text-center">
 									<div class="d-flex flex-column bd-highlight mb-3" style="color: #22CE22;">
-										<div class="p-2 bd-highlight h3" th:text= "${totalCourse}" >12</div>
+										<div class="p-2 bd-highlight h3" th:text= "${totalCourse}" ></div>
 										<div class="p-2 bd-highlight">Total</div>
 									</div>
 									<div class="d-flex flex-column bd-highlight mb-3" style="color: #FF3D67;">
-										<div class="p-2 bd-highlight h3" th:text= "${wCourse}">4</div>
+										<div class="p-2 bd-highlight h3" th:text= "${wCourse}"></div>
 										<div class="p-2 bd-highlight">Waiting</div>
 									</div>
 									<div class="d-flex flex-column bd-highlight mb-3" style="color: #FFC233;">
-										<div class="p-2 bd-highlight h3" th:text= "${rCourse}">2</div>
+										<div class="p-2 bd-highlight h3" th:text= "${rCourse}"></div>
 										<div class="p-2 bd-highlight">Release</div>
 									</div>
 									<div class="d-flex flex-column bd-highlight mb-3" style="color: #059BFF;">
-										<div class="p-2 bd-highlight h3" th:text= "${rnCourse}">6</div>
+										<div class="p-2 bd-highlight h3" th:text= "${rnCourse}"></div>
 										<div class="p-2 bd-highlight">Running</div>
 									</div>
 								</div>
@@ -97,19 +97,19 @@
 							<div class="stats">
 								<div class="d-flex justify-content-around text-center">
 									<div class="d-flex flex-column bd-highlight mb-3" style="color: #22CE22;">
-										<div class="p-2 bd-highlight h3" th:text= "${totalFresher}">167</div>
+										<div class="p-2 bd-highlight h3" th:text= "${totalFresher}"></div>
 										<div class="p-2 bd-highlight">Total</div>
 									</div>
 									<div class="d-flex flex-column bd-highlight mb-3" style="color: #FF3D67;">
-										<div class="p-2 bd-highlight h3" th:text= "${wFresher}">70</div>
+										<div class="p-2 bd-highlight h3" th:text= "${wFresher}"></div>
 										<div class="p-2 bd-highlight">Waiting</div>
 									</div>
 									<div class="d-flex flex-column bd-highlight mb-3" style="color: #FFC233;">
-										<div class="p-2 bd-highlight h3" th:text= "${rFresher}">10</div>
+										<div class="p-2 bd-highlight h3" th:text= "${rFresher}"></div>
 										<div class="p-2 bd-highlight">Release</div>
 									</div>
 									<div class="d-flex flex-column bd-highlight mb-3" style="color: #059BFF;">
-										<div class="p-2 bd-highlight h3" th:text= "${rnFresher}">87</div>
+										<div class="p-2 bd-highlight h3" th:text= "${rnFresher}"></div>
 										<div class="p-2 bd-highlight">Running</div>
 									</div>
 								</div>

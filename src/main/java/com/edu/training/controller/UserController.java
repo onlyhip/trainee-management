@@ -50,6 +50,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
+@RequestMapping("/")
 public class UserController {
 
 	@Autowired
@@ -107,17 +108,25 @@ public class UserController {
 		int runningFresher = 0;
 		for (Course c : listCourse) {
 			c.setCurrCount(traineeRepository.countCourseByCourseId(c.getId()));
-			c.setStatus(Timestamp.valueOf(LocalDateTime.now()).compareTo(c.getEndDate()) > 0 ? "Done" : Timestamp.valueOf(LocalDateTime.now()).compareTo(c.getOpenDate()) < 0 ? "Waiting" : "In Process");
-			if(c.getStatus().equals("Done")) releaseCourse++;
-			else if(c.getStatus().equals("Waiting")) waitingCourse++;
-			else runningCourse++;
+			c.setStatus(Timestamp.valueOf(LocalDateTime.now()).compareTo(c.getEndDate()) > 0 ? "Done"
+					: Timestamp.valueOf(LocalDateTime.now()).compareTo(c.getOpenDate()) < 0 ? "Waiting" : "In Process");
+			if (c.getStatus().equals("Done"))
+				releaseCourse++;
+			else if (c.getStatus().equals("Waiting"))
+				waitingCourse++;
+			else
+				runningCourse++;
 		}
 
 		for (Fresher f : listFresher) {
-			if (Timestamp.valueOf(LocalDateTime.now()).compareTo(f.getTraineeStatus().getStartDay()) < 0) waitingFresher++;
-			else if (Timestamp.valueOf(LocalDateTime.now()).compareTo(f.getTraineeStatus().getEndDate()) > 0) releaseFresher++;
-			else runningFresher++;
+			if (Timestamp.valueOf(LocalDateTime.now()).compareTo(f.getTraineeStatus().getStartDay()) < 0)
+				waitingFresher++;
+			else if (Timestamp.valueOf(LocalDateTime.now()).compareTo(f.getTraineeStatus().getEndDate()) > 0)
+				releaseFresher++;
+			else
+				runningFresher++;
 		}
+
 		model.addAttribute("totalCourse", listCourse.size());
 		model.addAttribute("totalFresher", listFresher.size());
 		model.addAttribute("wCourse", waitingCourse);
@@ -126,6 +135,7 @@ public class UserController {
 		model.addAttribute("wFresher", waitingFresher);
 		model.addAttribute("rFresher", releaseFresher);
 		model.addAttribute("rnFresher", runningFresher);
+
 		return "index";
 	}
 
@@ -135,7 +145,7 @@ public class UserController {
 	}
 
 	@GetMapping("/logout")
-	public String logout(HttpServletRequest request, HttpServletResponse response) {			
+	public String logout(HttpServletRequest request, HttpServletResponse response) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if (auth != null) {
 			new SecurityContextLogoutHandler().logout(request, response, auth);
@@ -177,12 +187,15 @@ public class UserController {
 
 		Page<Course> page = courseService.findPaginated(1, pageSize, "name");
 		List<Course> listCourses = page.getContent();
-		// listCourses.forEach(c -> c.setCurrCount(traineeRepository.countCourseByCourseId(c.getId())));
+		// listCourses.forEach(c ->
+		// c.setCurrCount(traineeRepository.countCourseByCourseId(c.getId())));
 		for (Course c : listCourses) {
 			c.setCurrCount(traineeRepository.countCourseByCourseId(c.getId()));
 			c.setStatus(Timestamp.valueOf(LocalDateTime.now()).compareTo(c.getEndDate()) > 0 ? "Done" : "In Process");
 		}
-		// listCourses.forEach(c -> c.setStatus(Timestamp.valueOf(LocalDateTime.now()).compareTo(c.getEndDate()) > 0 ? "Done" : "In Process"));
+		// listCourses.forEach(c ->
+		// c.setStatus(Timestamp.valueOf(LocalDateTime.now()).compareTo(c.getEndDate())
+		// > 0 ? "Done" : "In Process"));
 		listCourses.forEach(c -> System.out.println(c));
 		model.addAttribute("classes", listCourses);
 
@@ -203,38 +216,53 @@ public class UserController {
 		return "class-management";
 	}
 
-	@RequestMapping(value = "/class-details", method = RequestMethod.GET) 
-	public String displayClassDetail(Model model, @RequestParam("class-id") int classId) {
+	// @RequestMapping(value = "/class-details", method = RequestMethod.GET)
+	// public String displayClassDetail(Model model, @RequestParam("id") int
+	// classId) {
 
-		Course course = courseRepository.findById(classId);
-		course.setCurrCount(traineeRepository.countCourseByCourseId(course.getId()));
-		course.setStatus(Timestamp.valueOf(LocalDateTime.now()).compareTo(course.getEndDate()) > 0 ? "Done" : "In Process");
-		model.addAttribute("class", course);
+	// Course course = courseRepository.findById(classId);
+	// course.setCurrCount(traineeRepository.countCourseByCourseId(course.getId()));
+	// course.setStatus(
+	// Timestamp.valueOf(LocalDateTime.now()).compareTo(course.getEndDate()) > 0 ?
+	// "Done" : "In Process");
+	// model.addAttribute("class", course);
 
-		List<Trainee> listTrainee = traineeRepository.findTraineeByCourseId(classId);
-		model.addAttribute("trainees", listTrainee);
-		
-		return "class-details";
+	// List<Trainee> listTrainee = traineeRepository.findTraineeByCourseId(classId);
+	// model.addAttribute("trainees", listTrainee);
+
+	// return "class-details";
+	// }
+
+	@GetMapping("/trainee-management")
+	public String displayTraineeManagement() {
+		return "trainee-management";
+	}
+
+	@GetMapping("/download-templates")
+	public String displayDownloadTemplates() {
+		return "trainee-details";
 	}
 
 	// @GetMapping("/page/{pageNo}")
-	// public String findPaginated(@PathVariable(value = "pageNo") int pageNo, @RequestParam("sortField") String sortField,
-	// 		@RequestParam("sortDir") String sortDir, Model model) {
-	// 	int pageSize = 5;
+	// public String findPaginated(@PathVariable(value = "pageNo") int pageNo,
+	// @RequestParam("sortField") String sortField,
+	// @RequestParam("sortDir") String sortDir, Model model) {
+	// int pageSize = 5;
 
-	// 	Page<User> page = userService.findPaginated(pageNo, pageSize, sortField, sortDir);
-	// 	List<User> listUsers = page.getContent();
+	// Page<User> page = userService.findPaginated(pageNo, pageSize, sortField,
+	// sortDir);
+	// List<User> listUsers = page.getContent();
 
-	// 	model.addAttribute("currentPage", pageNo);
-	// 	model.addAttribute("totalPages", page.getTotalPages());
-	// 	model.addAttribute("totalItems", page.getTotalElements());
+	// model.addAttribute("currentPage", pageNo);
+	// model.addAttribute("totalPages", page.getTotalPages());
+	// model.addAttribute("totalItems", page.getTotalElements());
 
-	// 	model.addAttribute("sortField", sortField);
-	// 	model.addAttribute("sortDir", sortDir);
-	// 	model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+	// model.addAttribute("sortField", sortField);
+	// model.addAttribute("sortDir", sortDir);
+	// model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
 
-	// 	model.addAttribute("listUsers", listUsers);
-	// 	return "index";
+	// model.addAttribute("listUsers", listUsers);
+	// return "index";
 	// }
 
 	@GetMapping("/404")
@@ -517,24 +545,25 @@ public class UserController {
 	}
 
 	// public void createScore() {
-	// 	Score score = null;
-	// 	// ScoreId scoreId = null;
-	// 	Random rand = new Random(System.currentTimeMillis());
-	// 	for (TrainingObjective to : toRepository.findAll()) {
-	// 		for (Course course : to.getTrainer().getCourseList()) {
-	// 			for (Trainee trainee : course.getTrainee()) {
-	// 				// score = new Score();
-	// 				// score.setName("haha");
-	// 				// System.out.println("To Id: " + to.getId());
-	// 				// System.out.println("Trainee Id: " + trainee.getId());
-	// 				// score.setTrainingObjective(toRepository.getOne(to.getId()));
-	// 				// score.setTrainee(traineeRepository.getOne(trainee.getId()));
-	// 				// score.setValue(rand.nextInt(6) + 5);
-	// 				scoreRepository.insertScore(trainee.getId(), to.getId(), rand.nextInt(6) + 5, "haha");
-					
-	// 			}
-	// 		}
-	// 	}
+	// Score score = null;
+	// // ScoreId scoreId = null;
+	// Random rand = new Random(System.currentTimeMillis());
+	// for (TrainingObjective to : toRepository.findAll()) {
+	// for (Course course : to.getTrainer().getCourseList()) {
+	// for (Trainee trainee : course.getTrainee()) {
+	// // score = new Score();
+	// // score.setName("haha");
+	// // System.out.println("To Id: " + to.getId());
+	// // System.out.println("Trainee Id: " + trainee.getId());
+	// // score.setTrainingObjective(toRepository.getOne(to.getId()));
+	// // score.setTrainee(traineeRepository.getOne(trainee.getId()));
+	// // score.setValue(rand.nextInt(6) + 5);
+	// scoreRepository.insertScore(trainee.getId(), to.getId(), rand.nextInt(6) + 5,
+	// "haha");
+
+	// }
+	// }
+	// }
 	// }
 
 }

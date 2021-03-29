@@ -7,7 +7,7 @@ Tip 2: you can also add an image using data-image tag
 -->
 <div class="sidebar-wrapper">
     <div class="logo">
-        <a href="#" class="simple-text">
+        <a th:href="@{'/'}" class="simple-text">
             FRESH REPORT
         </a>
         <!-- <a href="#" class="simple-text">
@@ -29,13 +29,13 @@ Tip 2: you can also add an image using data-image tag
             </a>
         </li>
         <li class="nav-item" id="link-3">
-            <a class="nav-link" href="./table.html">
+            <a class="nav-link" th:href="@{/trainee-management}">
                 <i class="fa fa-user-circle-o"></i>
                 <p>Trainee Management</p>
             </a>
         </li>
         <li class="nav-item" id="link-4">
-            <a class="nav-link" href="./typography.html">
+            <a class="nav-link" th:href="@{/download-templates}">
                 <i class="fa fa-cloud-download"></i>
                 <p>Download Templates</p>
             </a>

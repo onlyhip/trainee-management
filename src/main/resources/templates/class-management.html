@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layout/layout-template.html}" th:with="currentPage='Class Management'">
+	layout:decorate="~{layout/layout-template.html}" th:with="currentPage='Class Management',currentLink='Class Management'">
 
 <head>
 	<title>Class Management</title>
@@ -60,7 +60,7 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr th:each="class : ${classes}">
+									<tr th:each="class : ${classes}" th:onclick="'javascript:rowClicked(\'' + ${class.id} + '\');'">
 										<td th:text="${class.name}">1</td>
 										<td th:text="${class.planCount}"></td>
 										<td th:text="${class.currCount}"></td>

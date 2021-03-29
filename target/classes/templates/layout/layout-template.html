@@ -72,23 +72,18 @@
     <script th:inline="javascript">
         /*<![CDATA[*/
 
-        var currentPage = /*[[${currentPage}]]*/ 'Dashboard';
+        var totalCourse = /*[[${totalCourse}]]*/ '0';
+        var totalFresher = /*[[${totalFresher}]]*/ '0';
+        var wCourse = /*[[${wCourse}]]*/ '0';
+        var rCourse = /*[[${rCourse}]]*/ '0';
+        var rnCourse = /*[[${rnCourse}]]*/ '0';
+        var wFresher = /*[[${wFresher}]]*/ '0';
+        var rFresher = /*[[${rFresher}]]*/ '0';
+        var rnFresher = /*[[${rnFresher}]]*/ '0';
 
-        if (currentPage == 'Dashboard') {
-            $("#link-1").addClass("active");
-        }
 
-        if (currentPage == 'Class Management') {
-            $("#link-2").addClass("active");
-        }
+        var currentLink = /*[[${currentLink}]]*/ 'NoPage';
 
-        if (currentPage == 'link-3') {
-            $("#link-3").addClass("active");
-        }
-
-        if (currentPage == 'link-4') {
-            $("#link-4").addClass("active");
-        }
         /*]]>*/
 
         
