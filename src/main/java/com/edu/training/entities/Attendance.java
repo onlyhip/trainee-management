@@ -1,6 +1,8 @@
 package com.edu.training.entities;
 
-import java.sql.Date;
+
+
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -55,8 +57,8 @@ public class Attendance {
         return date;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setDate(Date date2) {
+        this.date = (Date) date2;
     }
 
     public String getNote() {

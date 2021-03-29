@@ -1,12 +1,25 @@
 package com.edu.training.entities;
 
+import java.io.Serializable;
+
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Embeddable
-public class ScoreId {
+public class ScoreId implements Serializable {
     
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
+
+    @Column(name = "id")
     private int id;
+
+    @Column(name = "Id_to")
     private int IdTO;
+
+    @Column(name = "Id_trainee")
     private int IdTrainee;
     
     public ScoreId() {
@@ -46,6 +59,12 @@ public class ScoreId {
         this.id = id;
         IdTO = idTO;
         IdTrainee = idTrainee;
+    }
+
+    
+
+    public static long getSerialversionuid() {
+        return serialVersionUID;
     }
 
 

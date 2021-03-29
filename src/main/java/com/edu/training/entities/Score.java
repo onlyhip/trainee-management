@@ -3,6 +3,7 @@ package com.edu.training.entities;
 import java.io.Serializable;
 
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,18 +22,19 @@ public class Score implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JoinColumn(name = "id")
+    @Column(name = "id")
     private int id;
 
     @ManyToOne
-    @MapsId
     @JoinColumn(name = "IdTrainee", referencedColumnName="id")
     private Trainee trainee;
 
     @ManyToOne
-    @MapsId
     @JoinColumn(name = "IdTO", referencedColumnName = "id")
     private TrainingObjective trainingObjective;
+
+    // @EmbeddedId
+    // private ScoreId scoreId;
 
     // @EmbeddedId
     // private ScoreId scoreId = new ScoreId();
@@ -97,7 +99,9 @@ public class Score implements Serializable{
     public void setTrainingObjective(TrainingObjective trainingObjective) {
         this.trainingObjective = trainingObjective;
     }
- 
-    
+
+    public static long getSerialversionuid() {
+        return serialVersionUID;
+    }
     
 }

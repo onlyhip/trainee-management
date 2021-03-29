@@ -3,8 +3,10 @@ package com.edu.training.controller;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -12,6 +14,7 @@ import java.util.Random;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.edu.training.entities.Attendance;
 import com.edu.training.entities.ClassAdmin;
 import com.edu.training.entities.Course;
 import com.edu.training.entities.Fresher;
@@ -21,6 +24,9 @@ import com.edu.training.entities.Status;
 import com.edu.training.entities.Trainee;
 import com.edu.training.entities.Trainer;
 import com.edu.training.entities.TrainingObjective;
+import com.edu.training.entities.TypeAttendance;
+import com.edu.training.entities.User;
+import com.edu.training.repositories.AttendanceRepository;
 import com.edu.training.repositories.ClassAdminRepository;
 import com.edu.training.repositories.CourseRepository;
 import com.edu.training.repositories.FresherRepository;
@@ -33,6 +39,7 @@ import com.edu.training.repositories.TrainingObjectiveRepository;
 import com.edu.training.repositories.UserRepository;
 import com.edu.training.services.implementation.CourseServiceImpl;
 
+import org.aspectj.lang.annotation.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
@@ -88,15 +95,13 @@ public class UserController {
 	@Autowired
 	private CourseServiceImpl courseService;
 
+	@Autowired
+	private AttendanceRepository attendRepository;
+
 	@GetMapping("/")
 	public String viewHomePage(Model model) {
-		// createTrainer();
-		// createCourse();
-		// createStatus();
-		// createFresher();
-		// createInternship();
-		// createTO();
-		// createScore();
+
+		createData();
 		List<Course> listCourse = courseRepository.findAll();
 		List<Fresher> listFresher = fresherRepository.findAll();
 		int waitingCourse = 0;
@@ -107,16 +112,23 @@ public class UserController {
 		int runningFresher = 0;
 		for (Course c : listCourse) {
 			c.setCurrCount(traineeRepository.countCourseByCourseId(c.getId()));
-			c.setStatus(Timestamp.valueOf(LocalDateTime.now()).compareTo(c.getEndDate()) > 0 ? "Done" : Timestamp.valueOf(LocalDateTime.now()).compareTo(c.getOpenDate()) < 0 ? "Waiting" : "In Process");
-			if(c.getStatus().equals("Done")) releaseCourse++;
-			else if(c.getStatus().equals("Waiting")) waitingCourse++;
-			else runningCourse++;
+			c.setStatus(Timestamp.valueOf(LocalDateTime.now()).compareTo(c.getEndDate()) > 0 ? "Done"
+					: Timestamp.valueOf(LocalDateTime.now()).compareTo(c.getOpenDate()) < 0 ? "Waiting" : "In Process");
+			if (c.getStatus().equals("Done"))
+				releaseCourse++;
+			else if (c.getStatus().equals("Waiting"))
+				waitingCourse++;
+			else
+				runningCourse++;
 		}
 
 		for (Fresher f : listFresher) {
-			if (Timestamp.valueOf(LocalDateTime.now()).compareTo(f.getTraineeStatus().getStartDay()) < 0) waitingFresher++;
-			else if (Timestamp.valueOf(LocalDateTime.now()).compareTo(f.getTraineeStatus().getEndDate()) > 0) releaseFresher++;
-			else runningFresher++;
+			if (Timestamp.valueOf(LocalDateTime.now()).compareTo(f.getTraineeStatus().getStartDay()) < 0)
+				waitingFresher++;
+			else if (Timestamp.valueOf(LocalDateTime.now()).compareTo(f.getTraineeStatus().getEndDate()) > 0)
+				releaseFresher++;
+			else
+				runningFresher++;
 		}
 		model.addAttribute("totalCourse", listCourse.size());
 		model.addAttribute("totalFresher", listFresher.size());
@@ -135,7 +147,7 @@ public class UserController {
 	}
 
 	@GetMapping("/logout")
-	public String logout(HttpServletRequest request, HttpServletResponse response) {			
+	public String logout(HttpServletRequest request, HttpServletResponse response) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if (auth != null) {
 			new SecurityContextLogoutHandler().logout(request, response, auth);
@@ -177,12 +189,15 @@ public class UserController {
 
 		Page<Course> page = courseService.findPaginated(1, pageSize, "name");
 		List<Course> listCourses = page.getContent();
-		// listCourses.forEach(c -> c.setCurrCount(traineeRepository.countCourseByCourseId(c.getId())));
+		// listCourses.forEach(c ->
+		// c.setCurrCount(traineeRepository.countCourseByCourseId(c.getId())));
 		for (Course c : listCourses) {
 			c.setCurrCount(traineeRepository.countCourseByCourseId(c.getId()));
 			c.setStatus(Timestamp.valueOf(LocalDateTime.now()).compareTo(c.getEndDate()) > 0 ? "Done" : "In Process");
 		}
-		// listCourses.forEach(c -> c.setStatus(Timestamp.valueOf(LocalDateTime.now()).compareTo(c.getEndDate()) > 0 ? "Done" : "In Process"));
+		// listCourses.forEach(c ->
+		// c.setStatus(Timestamp.valueOf(LocalDateTime.now()).compareTo(c.getEndDate())
+		// > 0 ? "Done" : "In Process"));
 		listCourses.forEach(c -> System.out.println(c));
 		model.addAttribute("classes", listCourses);
 
@@ -203,38 +218,41 @@ public class UserController {
 		return "class-management";
 	}
 
-	@RequestMapping(value = "/class-details", method = RequestMethod.GET) 
+	@RequestMapping(value = "/class-details", method = RequestMethod.GET)
 	public String displayClassDetail(Model model, @RequestParam("class-id") int classId) {
 
 		Course course = courseRepository.findById(classId);
 		course.setCurrCount(traineeRepository.countCourseByCourseId(course.getId()));
-		course.setStatus(Timestamp.valueOf(LocalDateTime.now()).compareTo(course.getEndDate()) > 0 ? "Done" : "In Process");
+		course.setStatus(
+				Timestamp.valueOf(LocalDateTime.now()).compareTo(course.getEndDate()) > 0 ? "Done" : "In Process");
 		model.addAttribute("class", course);
 
 		List<Trainee> listTrainee = traineeRepository.findTraineeByCourseId(classId);
 		model.addAttribute("trainees", listTrainee);
-		
+
 		return "class-details";
 	}
 
 	// @GetMapping("/page/{pageNo}")
-	// public String findPaginated(@PathVariable(value = "pageNo") int pageNo, @RequestParam("sortField") String sortField,
-	// 		@RequestParam("sortDir") String sortDir, Model model) {
-	// 	int pageSize = 5;
+	// public String findPaginated(@PathVariable(value = "pageNo") int pageNo,
+	// @RequestParam("sortField") String sortField,
+	// @RequestParam("sortDir") String sortDir, Model model) {
+	// int pageSize = 5;
 
-	// 	Page<User> page = userService.findPaginated(pageNo, pageSize, sortField, sortDir);
-	// 	List<User> listUsers = page.getContent();
+	// Page<User> page = userService.findPaginated(pageNo, pageSize, sortField,
+	// sortDir);
+	// List<User> listUsers = page.getContent();
 
-	// 	model.addAttribute("currentPage", pageNo);
-	// 	model.addAttribute("totalPages", page.getTotalPages());
-	// 	model.addAttribute("totalItems", page.getTotalElements());
+	// model.addAttribute("currentPage", pageNo);
+	// model.addAttribute("totalPages", page.getTotalPages());
+	// model.addAttribute("totalItems", page.getTotalElements());
 
-	// 	model.addAttribute("sortField", sortField);
-	// 	model.addAttribute("sortDir", sortDir);
-	// 	model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+	// model.addAttribute("sortField", sortField);
+	// model.addAttribute("sortDir", sortDir);
+	// model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
 
-	// 	model.addAttribute("listUsers", listUsers);
-	// 	return "index";
+	// model.addAttribute("listUsers", listUsers);
+	// return "index";
 	// }
 
 	@GetMapping("/404")
@@ -324,7 +342,7 @@ public class UserController {
 				String sDate = String.valueOf(rand.nextInt(30) + 1) + "/" + String.valueOf(rand.nextInt(6) + 1)
 						+ "/2021";
 				String eDate = String.valueOf(rand.nextInt(30) + 1) + "/" + String.valueOf(rand.nextInt(6) + 7)
-						+ "/2022";
+						+ "/2021";
 				try {
 					date1 = new SimpleDateFormat("dd/MM/yyyy").parse(sDate);
 					date2 = new SimpleDateFormat("dd/MM/yyyy").parse(eDate);
@@ -516,25 +534,61 @@ public class UserController {
 		}
 	}
 
-	// public void createScore() {
-	// 	Score score = null;
-	// 	// ScoreId scoreId = null;
-	// 	Random rand = new Random(System.currentTimeMillis());
-	// 	for (TrainingObjective to : toRepository.findAll()) {
-	// 		for (Course course : to.getTrainer().getCourseList()) {
-	// 			for (Trainee trainee : course.getTrainee()) {
-	// 				// score = new Score();
-	// 				// score.setName("haha");
-	// 				// System.out.println("To Id: " + to.getId());
-	// 				// System.out.println("Trainee Id: " + trainee.getId());
-	// 				// score.setTrainingObjective(toRepository.getOne(to.getId()));
-	// 				// score.setTrainee(traineeRepository.getOne(trainee.getId()));
-	// 				// score.setValue(rand.nextInt(6) + 5);
-	// 				scoreRepository.insertScore(trainee.getId(), to.getId(), rand.nextInt(6) + 5, "haha");
-					
-	// 			}
-	// 		}
-	// 	}
-	// }
+	public void createScore() {
+		Score score = null;
+		// ScoreId scoreId = null;
+		Random rand = new Random(System.currentTimeMillis());
+		for (Trainee trainee : traineeRepository.findAll()) {
+			for (TrainingObjective to : trainee.getCourse().getTrainer().getTrainingObjectives()) {
+				score = new Score();
+				score.setName("haha");
+				System.out.println("To Id: " + to.getId());
+				System.out.println("Trainee Id: " + trainee.getId());
+				score.setTrainingObjective(toRepository.getOne(to.getId()));
+				score.setTrainee(traineeRepository.getOne(trainee.getId()));
+				score.setValue(rand.nextInt(6) + 5);
+				// scoreRepository.insertScore(trainee.getId(), to.getId(), rand.nextInt(6) + 5,
+				// "haha");
+				scoreRepository.save(score);
+
+			}
+		}
+	}
+
+	private void createAttendance() {
+
+		Calendar start = Calendar.getInstance();
+		Calendar end = Calendar.getInstance();
+		Attendance attendance = null;
+
+		for (Trainee trainee : traineeRepository.findAll()) {
+			if (Timestamp.valueOf(LocalDateTime.now()).compareTo(trainee.getCourse().getOpenDate()) > 0) {
+				start.setTime(trainee.getCourse().getOpenDate());
+				if (Timestamp.valueOf(LocalDateTime.now()).compareTo(trainee.getCourse().getEndDate()) > 0)
+					end.setTime(trainee.getCourse().getEndDate());
+				else
+					end.setTime(Timestamp.valueOf(LocalDateTime.now()));
+				for (Date date = start.getTime(); start.before(end); start.add(Calendar.DATE,
+						7), date = start.getTime()) {
+					attendance = new Attendance();
+					attendance.setUser(traineeRepository.getOne(trainee.getId()));
+					attendance.setDate(date);
+					attendance.setType(TypeAttendance.A);
+					attendRepository.save(attendance);
+				}
+			}
+		}
+	}
+
+	public void createData() {
+		// createTrainer();
+		// createCourse();
+		// createStatus();
+		// createFresher();
+		// createInternship();
+		// createTO();
+		// createScore();
+		// createAttendance();
+	}
 
 }
