@@ -17,7 +17,6 @@ import com.edu.training.entities.Course;
 import com.edu.training.entities.Fresher;
 import com.edu.training.entities.Internship;
 import com.edu.training.entities.Score;
-import com.edu.training.entities.ScoreId;
 import com.edu.training.entities.Status;
 import com.edu.training.entities.Trainee;
 import com.edu.training.entities.Trainer;
@@ -32,11 +31,9 @@ import com.edu.training.repositories.TraineeRepository;
 import com.edu.training.repositories.TrainerRepository;
 import com.edu.training.repositories.TrainingObjectiveRepository;
 import com.edu.training.repositories.UserRepository;
-import com.edu.training.services.core.CourseService;
 import com.edu.training.services.implementation.CourseServiceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -100,8 +97,36 @@ public class UserController {
 		// createInternship();
 		// createTO();
 		// createScore();
-	
-		return "trainee-management";
+		List<Course> listCourse = courseRepository.findAll();
+		List<Fresher> listFresher = fresherRepository.findAll();
+		int waitingCourse = 0;
+		int releaseCourse = 0;
+		int runningCourse = 0;
+		int waitingFresher = 0;
+		int releaseFresher = 0;
+		int runningFresher = 0;
+		for (Course c : listCourse) {
+			c.setCurrCount(traineeRepository.countCourseByCourseId(c.getId()));
+			c.setStatus(Timestamp.valueOf(LocalDateTime.now()).compareTo(c.getEndDate()) > 0 ? "Done" : Timestamp.valueOf(LocalDateTime.now()).compareTo(c.getOpenDate()) < 0 ? "Waiting" : "In Process");
+			if(c.getStatus().equals("Done")) releaseCourse++;
+			else if(c.getStatus().equals("Waiting")) waitingCourse++;
+			else runningCourse++;
+		}
+
+		for (Fresher f : listFresher) {
+			if (Timestamp.valueOf(LocalDateTime.now()).compareTo(f.getTraineeStatus().getStartDay()) < 0) waitingFresher++;
+			else if (Timestamp.valueOf(LocalDateTime.now()).compareTo(f.getTraineeStatus().getEndDate()) > 0) releaseFresher++;
+			else runningFresher++;
+		}
+		model.addAttribute("totalCourse", listCourse.size());
+		model.addAttribute("totalFresher", listFresher.size());
+		model.addAttribute("wCourse", waitingCourse);
+		model.addAttribute("rCourse", releaseCourse);
+		model.addAttribute("rnCourse", runningCourse);
+		model.addAttribute("wFresher", waitingFresher);
+		model.addAttribute("rFresher", releaseFresher);
+		model.addAttribute("rnFresher", runningFresher);
+		return "index";
 	}
 
 	@GetMapping("/login")
@@ -176,6 +201,20 @@ public class UserController {
 		model.addAttribute("classes", listCourses);
 
 		return "class-management";
+	}
+
+	@RequestMapping(value = "/class-details", method = RequestMethod.GET) 
+	public String displayClassDetail(Model model, @RequestParam("class-id") int classId) {
+
+		Course course = courseRepository.findById(classId);
+		course.setCurrCount(traineeRepository.countCourseByCourseId(course.getId()));
+		course.setStatus(Timestamp.valueOf(LocalDateTime.now()).compareTo(course.getEndDate()) > 0 ? "Done" : "In Process");
+		model.addAttribute("class", course);
+
+		List<Trainee> listTrainee = traineeRepository.findTraineeByCourseId(classId);
+		model.addAttribute("trainees", listTrainee);
+		
+		return "class-details";
 	}
 
 	// @GetMapping("/page/{pageNo}")
@@ -477,31 +516,25 @@ public class UserController {
 		}
 	}
 
-	public void createScore() {
-		Score score = null;
-		// ScoreId scoreId = null;
-		Random rand = new Random(System.currentTimeMillis());
-		for (TrainingObjective to : toRepository.findAll()) {
-			for (Course course : to.getTrainer().getCourseList()) {
-				for (Trainee trainee : course.getTrainee()) {
-					score = new Score();
-					score.setName("haha");
-					System.out.println("To Id: " + to.getId());
-					System.out.println("Trainee Id: " + trainee.getId());
-					score.setTrainingObjective(toRepository.getOne(to.getId()));
-					score.setTrainee(traineeRepository.getOne(trainee.getId()));
-					score.setValue(rand.nextInt(6) + 5);
-					// List<Score> list = to.getListScore();
-					// list.add(score);
-					// to.setListScore(list);
-					// toRepository.save(to);
-					List<Score> listScore = trainee.getScore();
-					listScore.add(score);
-					trainee.setScore(listScore);
-					traineeRepository.save(trainee);
-				}
-			}
-		}
-	}
+	// public void createScore() {
+	// 	Score score = null;
+	// 	// ScoreId scoreId = null;
+	// 	Random rand = new Random(System.currentTimeMillis());
+	// 	for (TrainingObjective to : toRepository.findAll()) {
+	// 		for (Course course : to.getTrainer().getCourseList()) {
+	// 			for (Trainee trainee : course.getTrainee()) {
+	// 				// score = new Score();
+	// 				// score.setName("haha");
+	// 				// System.out.println("To Id: " + to.getId());
+	// 				// System.out.println("Trainee Id: " + trainee.getId());
+	// 				// score.setTrainingObjective(toRepository.getOne(to.getId()));
+	// 				// score.setTrainee(traineeRepository.getOne(trainee.getId()));
+	// 				// score.setValue(rand.nextInt(6) + 5);
+	// 				scoreRepository.insertScore(trainee.getId(), to.getId(), rand.nextInt(6) + 5, "haha");
+					
+	// 			}
+	// 		}
+	// 	}
+	// }
 
 }

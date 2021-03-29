@@ -29,7 +29,7 @@ public class Course {
 
     @Column(name = "openDate")
     private Date openDate;
-
+    
     @Column(name = "endDate")
     private Date endDate;
 

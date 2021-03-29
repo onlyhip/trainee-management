@@ -64,8 +64,8 @@
 										<td th:text="${class.name}">1</td>
 										<td th:text="${class.planCount}"></td>
 										<td th:text="${class.currCount}"></td>
-										<td th:text="${class.openDate}"></td>
-										<td th:text="${class.endDate}"></td>
+										<td th:text="${#dates.format(class.openDate, 'dd-MM-yyyy')}"></td>
+										<td th:text="${#dates.format(class.endDate, 'dd-MM-yyyy')}"></td>
 										<td th:text="${class.trainer.name}"></td>
 										<td>Fresher</td>
 										<td th:text="${class.status}"></td>

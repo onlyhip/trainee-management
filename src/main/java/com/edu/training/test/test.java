@@ -7,16 +7,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
-import com.edu.training.controller.UserController;
 import com.edu.training.entities.Course;
 import com.edu.training.entities.Fresher;
 import com.edu.training.entities.Internship;
 import com.edu.training.entities.Score;
 import com.edu.training.entities.Status;
-import com.edu.training.entities.Trainee;
 import com.edu.training.entities.Trainer;
 import com.edu.training.entities.TrainingObjective;
-import com.edu.training.repositories.TrainerRepository;
 
 public class test {
 
