@@ -235,12 +235,19 @@ public class UserController {
 
 	@GetMapping("/trainee-management")
 	public String displayTraineeManagement() {
+
 		return "trainee-management";
 	}
 
 	@GetMapping("/download-templates")
 	public String displayDownloadTemplates() {
-		return "trainee-details";
+		return "download-templates";
+	}
+	
+
+	@GetMapping("/general-management")
+	public String displaySubjectList() {
+		return "subject-list";
 	}
 
 	// @GetMapping("/page/{pageNo}")
@@ -283,7 +290,6 @@ public class UserController {
 	}
 
 	public void createTrainer() {
-
 		Trainer trainer = null;
 		Random rand = new Random();
 		List<String> hoList = new ArrayList<String>();

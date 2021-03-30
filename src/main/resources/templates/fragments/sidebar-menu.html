@@ -6,16 +6,18 @@ Tip 1: You can change the color of the sidebar using: data-color="purple | blue 
 Tip 2: you can also add an image using data-image tag
 -->
 <div class="sidebar-wrapper">
-    <div class="logo">
-        <a href="#" class="simple-text">
+    <div th:switch="${currentTemplate}" class="logo">
+
+        <a th:case="'General Management'" th:href="@{/}" class="simple-text">
+            SRU MANAGEMENT
+        </a>
+
+        <a th:case="*" th:href="@{/}" class="simple-text">
             FRESH REPORT
         </a>
-        <!-- <a href="#" class="simple-text">
-            SRU MANAGEMENT
-        </a> -->
 
     </div>
-    <ul class="nav">
+    <ul th:if="${currentTemplate == 'Default Management'}" class="nav">
         <li class="nav-item" id="link-1">
             <a class="nav-link" th:href="@{/}">
                 <i class="fa fa-tachometer"></i>
@@ -40,28 +42,35 @@ Tip 2: you can also add an image using data-image tag
                 <p>Download Templates</p>
             </a>
         </li>
+
+        <li class="nav-item" id="link-5">
+            <a class="nav-link" th:href="@{/general-management}">
+                <i class="fa fa-table"></i>
+                <p>General Management</p>
+            </a>
+        </li>
     </ul>
 
-    <!-- <ul class="nav">
-        <li class="nav-item active">
-            <a class="nav-link" href="dashboard.html">
+    <ul th:unless="${currentTemplate == 'Default Management'}" class="nav">
+        <li class="nav-item" id="link-1">
+            <a class="nav-link" th:href="@{/general-management}">
                 <i class="fa fa-user"></i>
                 <p>Trainer</p>
             </a>
         </li>
-        <li>
-            <a class="nav-link" href="./user.html">
+        <li class="nav-item" id="link-2">
+            <a class="nav-link" th:href="@{/general-management}">
                 <i class="fa fa-users"></i>
                 <p>Trainee</p>
             </a>
         </li>
-        <li>
-            <a class="nav-link" href="./table.html">
+        <li class="nav-item" id="link-3">
+            <a class="nav-link" th:href="@{/general-management/subject-list}">
                 <i class="fa fa-book"></i>
                 <p>Subject</p>
             </a>
         </li>
-    </ul> -->
+    </ul>
 
 
 </div>

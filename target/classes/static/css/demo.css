@@ -931,3 +931,27 @@ span.tags {
 .backclo {
   background-color: #ffffff;
 }
+
+.nav-pills .nav-link-custom {
+  border-radius: 0rem;
+  border-bottom: 1px solid;
+  border-top: 1px solid;
+}
+.nav-link-custom {
+  display: block;
+  padding: 1.2rem 1rem;
+}
+
+.nav-link-custom:hover {
+  background-color: #007bff;
+  color: #ffffff;
+}
+
+.nav-pills .nav-link-custom.active {
+  background-color: #007bff;
+  color: #ffffff;
+}
+
+.btn-issues {
+  padding: 7px 16px;
+}

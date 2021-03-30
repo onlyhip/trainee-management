@@ -27,7 +27,7 @@ public class ClassController {
 
     @GetMapping("/class-details")
     public String displayClassDetail(Model model, @RequestParam("id") int classId) {
-
+      
         Course course = courseRepository.findById(classId);
         course.setCurrCount(traineeRepository.countCourseByCourseId(course.getId()));
         course.setStatus(

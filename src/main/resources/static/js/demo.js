@@ -791,10 +791,10 @@ function checkWrongPassword() {
 
 }
 
-// $('#myTab a').on('click', function (e) {
-//     e.preventDefault()
-//     $(this).tab('show')
-// })
+$('#pills-tab a').on('click', function (e) {
+    e.preventDefault()
+    $(this).tab('show')
+})
 
 $(function () {
     $('form').each(function () {
@@ -811,15 +811,15 @@ $(function () {
 
 
 function menuBar() {
-    if (currentLink == 'Dashboard') {
+    if (currentLink == 'Dashboard' || currentLink == 'Trainer') {
         $("#link-1").addClass("active");
     }
 
-    if (currentLink == 'Class Management') {
+    if (currentLink == 'Class Management' || currentLink == 'Trainee') {
         $("#link-2").addClass("active");
     }
 
-    if (currentLink == 'Trainee Management') {
+    if (currentLink == 'Trainee Management' || currentLink == 'Subject') {
         $("#link-3").addClass("active");
     }
 
