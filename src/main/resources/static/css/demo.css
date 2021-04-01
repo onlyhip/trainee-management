@@ -955,3 +955,7 @@ span.tags {
 .btn-issues {
   padding: 7px 16px;
 }
+
+.strpied-tabled-with-hover {
+  background-color: #ffffff;
+}

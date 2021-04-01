@@ -12,7 +12,7 @@
         <ul th:switch="${currentTemplate}" class="navbar-nav ml-auto">
             <li th:case="'General Management'" class="nav-item">
                 <p class="nav-link" th:href="@{/login}" sec:authorize="isAuthenticated()" >
-                    <span>Hi,</span>
+                    <span>Hi,&nbsp;</span>
                     <span class="no-icon" sec:authentication="name"></span>
                 </p>
                 <a class="nav-link" th:href="@{/change-password}" sec:authorize="isAuthenticated()">
@@ -30,6 +30,10 @@
                 <a class="nav-link" th:href="@{/login}" sec:authorize="isAnonymous()">
                     <span class="no-icon">Login</span>
                 </a>
+                <p class="nav-link" th:href="@{/login}" sec:authorize="isAuthenticated()" >
+                    <span>Hi,&nbsp;</span>
+                    <span class="no-icon" sec:authentication="name"></span>
+                </p>
                 <a class="nav-link" th:href="@{/logout}" sec:authorize="isAuthenticated()">
                     <span class="no-icon">Logout</span>
                 </a>
