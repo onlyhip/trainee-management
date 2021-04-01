@@ -9,6 +9,8 @@ $().ready(function () {
 
     checkSuccessChangePassword();
 
+    menuBar();
+
     $sidebar = $('.sidebar');
     $sidebar_img_container = $sidebar.find('.sidebar-background');
 
@@ -541,21 +543,21 @@ function createPieFirst() {
         data: {
             datasets: [{
                 data: [
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
+                    rCourse,
+                    wCourse,
+                    rnCourse,
                 ],
                 backgroundColor: [
-                    window.chartColors.red,
                     window.chartColors.yellow,
+                    window.chartColors.red,
                     window.chartColors.blue,
                 ],
                 label: 'Dataset 1'
             }],
             labels: [
-                'Red',
-                'Yellow',
-                'Blue'
+                'Release',
+                'Waiting',
+                'Running'
             ]
         },
         options: {
@@ -571,40 +573,6 @@ function createPieFirst() {
         window.myPie = new Chart(ctx, config);
 
     }
-    // document.getElementById('randomizeData').addEventListener('click', function () {
-    //     config.data.datasets.forEach(function (dataset) {
-    //         dataset.data = dataset.data.map(function () {
-    //             return randomScalingFactor();
-    //         });
-    //     });
-
-    //     window.myPie.update();
-    // });
-
-    // var colorNames = Object.keys(window.chartColors);
-    // document.getElementById('addDataset').addEventListener('click', function () {
-    //     var newDataset = {
-    //         backgroundColor: [],
-    //         data: [],
-    //         label: 'New dataset ' + config.data.datasets.length,
-    //     };
-
-    //     for (var index = 0; index < config.data.labels.length; ++index) {
-    //         newDataset.data.push(randomScalingFactor());
-
-    //         var colorName = colorNames[index % colorNames.length];
-    //         var newColor = window.chartColors[colorName];
-    //         newDataset.backgroundColor.push(newColor);
-    //     }
-
-    //     config.data.datasets.push(newDataset);
-    //     window.myPie.update();
-    // });
-
-    // document.getElementById('removeDataset').addEventListener('click', function () {
-    //     config.data.datasets.splice(0, 1);
-    //     window.myPie.update();
-    // });
 }
 
 function createPieSecond() {
@@ -617,21 +585,21 @@ function createPieSecond() {
         data: {
             datasets: [{
                 data: [
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
+                    rFresher,
+                    wFresher,
+                    rnFresher,
                 ],
                 backgroundColor: [
-                    window.chartColors.red,
                     window.chartColors.yellow,
+                    window.chartColors.red,
                     window.chartColors.blue,
                 ],
                 label: 'Dataset 1'
             }],
             labels: [
-                'Red',
-                'Yellow',
-                'Blue'
+                'Release',
+                'Waiting',
+                'Running'
             ]
         },
         options: {
@@ -643,40 +611,7 @@ function createPieSecond() {
         var ctx = document.getElementById('chart-area-second').getContext('2d');
         window.myPie = new Chart(ctx, config);
     }
-    // document.getElementById('randomizeData').addEventListener('click', function () {
-    //     config.data.datasets.forEach(function (dataset) {
-    //         dataset.data = dataset.data.map(function () {
-    //             return randomScalingFactor();
-    //         });
-    //     });
 
-    //     window.myPie.update();
-    // });
-
-    // var colorNames = Object.keys(window.chartColors);
-    // document.getElementById('addDataset').addEventListener('click', function () {
-    //     var newDataset = {
-    //         backgroundColor: [],
-    //         data: [],
-    //         label: 'New dataset ' + config.data.datasets.length,
-    //     };
-
-    //     for (var index = 0; index < config.data.labels.length; ++index) {
-    //         newDataset.data.push(randomScalingFactor());
-
-    //         var colorName = colorNames[index % colorNames.length];
-    //         var newColor = window.chartColors[colorName];
-    //         newDataset.backgroundColor.push(newColor);
-    //     }
-
-    //     config.data.datasets.push(newDataset);
-    //     window.myPie.update();
-    // });
-
-    // document.getElementById('removeDataset').addEventListener('click', function () {
-    //     config.data.datasets.splice(0, 1);
-    //     window.myPie.update();
-    // });
 }
 
 function successInsert() {
@@ -856,12 +791,10 @@ function checkWrongPassword() {
 
 }
 
-$(document).ready(function () {
-    $(".nav-tabs a").click(function () {
-        $(this).tab('show');
-    });
-});
-
+// $('#myTab a').on('click', function (e) {
+//     e.preventDefault()
+//     $(this).tab('show')
+// })
 
 $(function () {
     $('form').each(function () {
@@ -875,3 +808,26 @@ $(function () {
         $(this).find('input[type=submit]').hide();
     });
 });
+
+
+function menuBar() {
+    if (currentLink == 'Dashboard') {
+        $("#link-1").addClass("active");
+    }
+
+    if (currentLink == 'Class Management') {
+        $("#link-2").addClass("active");
+    }
+
+    if (currentLink == 'Trainee Management') {
+        $("#link-3").addClass("active");
+    }
+
+    if (currentLink == 'Download Templates') {
+        $("#link-4").addClass("active");
+    }
+}
+
+function rowClicked(value) {
+    location.href = "class-management/class-details?id=" + value;
+}

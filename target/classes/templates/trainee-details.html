@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    layout:decorate="~{layout/layout-template.html}" th:with="currentPage='Trainee Details'">
+    layout:decorate="~{layout/layout-template.html}"
+    th:with="currentPage='Trainee Details',currentLink='Trainee Management'">
 
 <head>
     <title>Trainee Details</title>
@@ -92,24 +93,31 @@
             </div>
 
             <div>
-                <ul class="nav nav-tabs">
+
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#comment">Comment</a>
+                        <a class="nav-link active" id="comment-tab" data-toggle="tab" href="#comment" role="tab"
+                            aria-controls="comment" aria-selected="true">Comment</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#score">Score</a>
+                        <a class="nav-link" id="score-tab" data-toggle="tab" href="#score" role="tab"
+                            aria-controls="score" aria-selected="false">Score</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#attendance">Attendance</a>
+                        <a class="nav-link" id="attendance-tab" data-toggle="tab" href="#attendance" role="tab"
+                            aria-controls="attendance" aria-selected="false">Attendance</a>
                     </li>
+
                     <li class="nav-item">
-                        <a class="nav-link" href="#result">Interview Result</a>
+                        <a class="nav-link" id="result-tab" data-toggle="tab" href="#result" role="tab"
+                            aria-controls="result" aria-selected="false">Interview Result</a>
                     </li>
                 </ul>
 
-                <!-- Tab panes -->
-                <div class="tab-content">
-                    <div id="comment" class="container tab-pane active"><br>
+
+                <div class="tab-content" id="myTabContent">
+                    <div class="container tab-pane fade show active" id="comment" role="tabpanel"
+                        aria-labelledby="comment-tab"><br>
 
                         <div class="card">
                             <div class="d-flex lfex-row mt-3 mb-3">
@@ -190,9 +198,8 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
-                    <div id="score" class="container tab-pane fade"><br>
+                    <div class="container tab-pane fade" id="score" role="tabpanel" aria-labelledby="score-tab">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class=" strpied-tabled-with-hover">
@@ -290,11 +297,10 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
-
                     </div>
-                    <div id="attendance" class="container tab-pane fade"><br>
+                    <div class="container tab-pane fade" id="attendance" role="tabpanel"
+                        aria-labelledby="attendance-tab">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class=" strpied-tabled-with-hover">
@@ -350,11 +356,9 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
-
                     </div>
-                    <div id="result" class="container tab-pane fade"><br>
+                    <div class="container tab-pane fade" id="comment" role="tabpanel" aria-labelledby="comment-tab">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class=" strpied-tabled-with-hover">
@@ -415,9 +419,7 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
-
                     </div>
                 </div>
             </div>

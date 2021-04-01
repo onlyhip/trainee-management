@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -25,7 +26,6 @@ import com.edu.training.entities.Trainee;
 import com.edu.training.entities.Trainer;
 import com.edu.training.entities.TrainingObjective;
 import com.edu.training.entities.TypeAttendance;
-import com.edu.training.entities.User;
 import com.edu.training.repositories.AttendanceRepository;
 import com.edu.training.repositories.ClassAdminRepository;
 import com.edu.training.repositories.CourseRepository;
@@ -57,6 +57,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
+@RequestMapping("/")
 public class UserController {
 
 	@Autowired
@@ -98,6 +99,11 @@ public class UserController {
 	@Autowired
 	private AttendanceRepository attendRepository;
 
+	@PostConstruct
+	public void haha() {
+		
+	}
+
 	@GetMapping("/")
 	public String viewHomePage(Model model) {
 
@@ -130,6 +136,7 @@ public class UserController {
 			else
 				runningFresher++;
 		}
+
 		model.addAttribute("totalCourse", listCourse.size());
 		model.addAttribute("totalFresher", listFresher.size());
 		model.addAttribute("wCourse", waitingCourse);
@@ -138,6 +145,7 @@ public class UserController {
 		model.addAttribute("wFresher", waitingFresher);
 		model.addAttribute("rFresher", releaseFresher);
 		model.addAttribute("rnFresher", runningFresher);
+
 		return "index";
 	}
 
@@ -229,6 +237,8 @@ public class UserController {
 
 		List<Trainee> listTrainee = traineeRepository.findTraineeByCourseId(classId);
 		model.addAttribute("trainees", listTrainee);
+
+
 
 		return "class-details";
 	}
@@ -335,7 +345,8 @@ public class UserController {
 		alphabet.add("D");
 		alphabet.add("E");
 		alphabet.add("F");
-		for (int i = 0; i < 6; i += 2) {
+		int count = 4;
+		for (int i = 0; i < 4; i += 2) {
 			for (int j = 1; j < 6; j++) {
 				course = new Course();
 				course.setName(alphabet.get(i) + alphabet.get(j) + String.valueOf(i * 10 + j));
@@ -353,7 +364,7 @@ public class UserController {
 				course.setEndDate(date2);
 				course.setPlanCount(rand.nextInt(5) + 15);
 				course.setCurrCount(0);
-				course.setTrainer(trainerRepository.getOne(rand.nextInt(10) + 4));
+				course.setTrainer(trainerRepository.getOne(count++));
 				courseRepository.save(course);
 				System.out.println(course);
 			}
@@ -440,7 +451,7 @@ public class UserController {
 				telephone += String.valueOf(rand.nextInt(10));
 			trainee.setTelNumber(telephone);
 			trainee.setFacebook(ho.substring(0, 1) + tenDem.substring(0, 1) + ten.substring(0, 1) + String.valueOf(i));
-			trainee.setCourse(courseRepository.getOne(rand.nextInt(15) + 1));
+			trainee.setCourse(courseRepository.getOne(rand.nextInt(10) + 2));
 			trainee.setTraineeStatus(statusRepository.getOne(rand.nextInt(30) + 1));
 			trainee.setUniversity(uniList.get(rand.nextInt(7)));
 			// trainee.setFullTimeWorkingAvailable(fullTimeWorkingAvailable);
@@ -510,7 +521,7 @@ public class UserController {
 				telephone += String.valueOf(rand.nextInt(10));
 			trainee.setTelNumber(telephone);
 			trainee.setFacebook(ho.substring(0, 1) + tenDem.substring(0, 1) + ten.substring(0, 1) + String.valueOf(i));
-			trainee.setCourse(courseRepository.getOne(rand.nextInt(15) + 1));
+			trainee.setCourse(courseRepository.getOne(rand.nextInt(10) + 2));
 			trainee.setTraineeStatus(statusRepository.getOne(rand.nextInt(30) + 1));
 			trainee.setUniversity(uniList.get(rand.nextInt(7)));
 			internshipRepository.save(trainee);
