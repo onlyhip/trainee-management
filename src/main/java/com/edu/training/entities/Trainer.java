@@ -12,8 +12,8 @@ import javax.persistence.Table;
 @Table(name = "Trainer")
 public class Trainer extends User{
 
-    @OneToMany(mappedBy = "trainer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Course> courseList;
+    // @OneToMany(mappedBy = "trainer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    // private List<Course> courseList;
 
     @OneToMany(mappedBy = "trainer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<TrainingObjective> trainingObjectives;
@@ -21,21 +21,21 @@ public class Trainer extends User{
     public Trainer() {
     }
 
-    public Trainer(List<Course> courseList, List<TrainingObjective> trainingObjectives) {
-        this.courseList = courseList;
-        this.trainingObjectives = trainingObjectives;
-    }
+    // public Trainer(List<Course> courseList, List<TrainingObjective> trainingObjectives) {
+    //     this.courseList = courseList;
+    //     this.trainingObjectives = trainingObjectives;
+    // }
 
-    public List<Course> getCourseList() {
-        return courseList;
-    }
+    // public List<Course> getCourseList() {
+    //     return courseList;
+    // }
 
-    public void setCourseList(List<Course> courseList) {
-        for(Course child : courseList) {
-            child.setTrainer(this);
-        }
-        this.courseList = courseList;
-    }
+    // public void setCourseList(List<Course> courseList) {
+    //     for(Course child : courseList) {
+    //         child.setTrainer(this);
+    //     }
+    //     this.courseList = courseList;
+    // }
 
     public List<TrainingObjective> getTrainingObjectives() {
         return trainingObjectives;
@@ -61,13 +61,9 @@ public class Trainer extends User{
         if (((Trainer)obj).getId() == this.getId()) return true;
         return false;
     }
-
-
-
+    
     public Trainer(int id) {
         super(id);
     }
-
-    
 
 }

@@ -11,8 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -45,9 +45,10 @@ public class Course {
     @Column(name = "status")
     private String status;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "IdTrainer", nullable = false, referencedColumnName = "Id")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "trainer_id")
     private Trainer trainer;
+
 
     @OneToMany(mappedBy = "course", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Trainee> trainee;
