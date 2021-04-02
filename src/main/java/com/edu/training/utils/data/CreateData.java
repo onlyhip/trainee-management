@@ -322,7 +322,7 @@ public class CreateData {
                     // score.setTrainingObjective(toRepository.getOne(to.getId()));
                     // score.setTrainee(traineeRepository.getOne(trainee.getId()));
                     // score.setValue(rand.nextInt(6) + 5);
-                    scoreRepository.insertScore(trainee.getId(), to.getId(), rand.nextInt(6) + 5, "haha");
+                    //scoreRepository.insertScore(trainee.getId(), to.getId(), rand.nextInt(6) + 5, "haha");
 
                 }
             }

@@ -1,6 +1,8 @@
 package com.edu.training.entities;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -36,17 +38,16 @@ public class TrainingObjective {
     @OneToMany(mappedBy = "trainingObjective", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<FeedBack> feedBacks;
 
-    @OneToMany(mappedBy = "trainingObjective", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Score> listScore;
+    @OneToMany(mappedBy = "primaryKey.trainingObjective", cascade = CascadeType.ALL)
+	private Set<Score> scores = new HashSet<Score>();
 
-    public TrainingObjective(int id, String name, String code, Trainer trainer, List<FeedBack> feedBacks,
-            List<Score> listScore) {
+
+    public TrainingObjective(int id, String name, String code, Trainer trainer, List<FeedBack> feedBacks) {
         this.id = id;
         this.name = name;
         this.code = code;
         this.trainer = trainer;
         this.feedBacks = feedBacks;
-        this.listScore = listScore;
     }
 
     public TrainingObjective(int id, String name, String code, Trainer trainer) {
@@ -100,21 +101,23 @@ public class TrainingObjective {
         this.feedBacks = feedBacks;
     }
 
-    public List<Score> getListScore() {
-        return listScore;
-    }
-
-    public void setListScore(List<Score> listScore) {
-        this.listScore = listScore;
-    }
-
+    
     public TrainingObjective() {
+    }
+
+    
+
+    public Set<Score> getScores() {
+        return scores;
+    }
+
+    public void setScores(Set<Score> scores) {
+        this.scores = scores;
     }
 
     @Override
     public String toString() {
-        return "TrainingObjective [code=" + code + ", feedBacks=" + feedBacks + ", id=" + id + ", listScore="
-                + listScore + ", name=" + name + ", trainer=" + trainer + "]";
+        return "TrainingObjective [code=" + code + ", id=" + id + ", name=" + name + ", trainer=" + trainer + "]";
     }
 
     
