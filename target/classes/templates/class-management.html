@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layout/layout-template.html}" th:with="currentPage='Class Management',currentLink='Class Management'">
+	layout:decorate="~{layout/layout-template.html}"
+	th:with="currentPage='Class Management',currentLink='Class Management',currentTemplate='Default Management'">
 
 <head>
 	<title>Class Management</title>
@@ -42,7 +43,7 @@
 
 			<div class="row">
 				<div class="col-md-12">
-					<div class="strpied-tabled-with-hover">
+					<div class="strpied-tabled-with-hover mt-2">
 						<div class="card-body table-full-width table-responsive">
 							<table class="table table-hover text-center">
 								<thead>
@@ -60,16 +61,16 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr th:each="class : ${classes}" th:onclick="'javascript:rowClicked(\'' + ${class.id} + '\');'">
-										<td th:text="${class.name}">1</td>
-										<td th:text="${class.planCount}"></td>
-										<td th:text="${class.currCount}"></td>
-										<td th:text="${#dates.format(class.openDate, 'dd-MM-yyyy')}"></td>
-										<td th:text="${#dates.format(class.endDate, 'dd-MM-yyyy')}"></td>
-										<td th:text="${class.trainer.name}"></td>
-										<td>Fresher</td>
-										<td th:text="${class.status}"></td>
-										<td><button type="button" class="btn btn-primary">Issues</button></td>
+									<tr th:each="class : ${classes}">
+										<td th:text="${class.name}" th:onclick="'javascript:rowClicked(\'' + ${class.id} + '\');'">1</td>
+										<td th:text="${class.planCount}" th:onclick="'javascript:rowClicked(\'' + ${class.id} + '\');'"></td>
+										<td th:text="${class.currCount}" th:onclick="'javascript:rowClicked(\'' + ${class.id} + '\');'"></td>
+										<td th:text="${#dates.format(class.openDate, 'dd-MM-yyyy')}" th:onclick="'javascript:rowClicked(\'' + ${class.id} + '\');'"></td>
+										<td th:text="${#dates.format(class.endDate, 'dd-MM-yyyy')}" th:onclick="'javascript:rowClicked(\'' + ${class.id} + '\');'"></td>
+										<td th:text="${class.trainer.name}" th:onclick="'javascript:rowClicked(\'' + ${class.id} + '\');'"></td>
+										<td th:onclick="'javascript:rowClicked(\'' + ${class.id} + '\');'">Fresher</td>
+										<td th:text="${class.status}" th:onclick="'javascript:rowClicked(\'' + ${class.id} + '\');'"></td>
+										<td><button type="button" class="btn btn-primary" th:href="@{/class-management}">Issues</button></td>
 
 									</tr>
 								</tbody>

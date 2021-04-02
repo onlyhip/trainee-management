@@ -1,7 +1,9 @@
 package com.edu.training.entities;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -54,8 +56,13 @@ public class Trainee extends User{
     @OneToMany(mappedBy = "trainee", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Certificates> certificate;
 
-    @OneToMany(mappedBy = "trainee", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Score> score;
+    @OneToMany(mappedBy = "pk.trainee", cascade = CascadeType.ALL)
+    private Set<Score> score = new HashSet<>();
+
+    // @ManyToMany
+    // @JoinTable(name = "Score", 
+    //         joinColumns = { @JoinColumn(name = "trainee_id")})
+    // private Set<Score> score;
 
     public Trainee(Course course) {
         this.course = course;
@@ -152,11 +159,11 @@ public class Trainee extends User{
         this.certificate = certificate;
     }
 
-    public List<Score> getScore() {
+    public Set<Score> getScore() {
         return score;
     }
 
-    public void setScore(List<Score> score) {
+    public void setScore(Set<Score> score) {
         this.score = score;
     }
 

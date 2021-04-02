@@ -1,6 +1,8 @@
 package com.edu.training.entities;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -36,19 +38,15 @@ public class TrainingObjective {
     @OneToMany(mappedBy = "trainingObjective", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<FeedBack> feedBacks;
 
-    @OneToMany(mappedBy = "trainingObjective", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Score> listScore;
+    @OneToMany(mappedBy = "pk.trainingObjective", cascade = CascadeType.ALL)
+    private Set<Score> score = new HashSet<>();
 
-    public TrainingObjective(int id, String name, String code, Trainer trainer, List<FeedBack> feedBacks,
-            List<Score> listScore) {
-        this.id = id;
-        this.name = name;
-        this.code = code;
-        this.trainer = trainer;
-        this.feedBacks = feedBacks;
-        this.listScore = listScore;
-    }
+    // @ManyToMany
+    // @JoinTable(name = "Score", 
+    //         joinColumns = { @JoinColumn(name = "to_id")})
+    // private Set<Score> score;
 
+    
     public TrainingObjective(int id, String name, String code, Trainer trainer) {
         this.id = id;
         this.name = name;
@@ -100,22 +98,26 @@ public class TrainingObjective {
         this.feedBacks = feedBacks;
     }
 
-    public List<Score> getListScore() {
-        return listScore;
-    }
-
-    public void setListScore(List<Score> listScore) {
-        this.listScore = listScore;
-    }
+    
 
     public TrainingObjective() {
     }
 
+    public Set<Score> getScore() {
+        return score;
+    }
+
+    public void setScore(Set<Score> score) {
+        this.score = score;
+    }
+
     @Override
     public String toString() {
-        return "TrainingObjective [code=" + code + ", feedBacks=" + feedBacks + ", id=" + id + ", listScore="
-                + listScore + ", name=" + name + ", trainer=" + trainer + "]";
+        return "TrainingObjective [code=" + code + ", feedBacks=" + feedBacks + ", id=" + id + ", name=" + name
+                + ", score=" + score + ", trainer=" + trainer + "]";
     }
+
+    
 
     
 
