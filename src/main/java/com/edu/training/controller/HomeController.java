@@ -162,8 +162,8 @@ public class HomeController {
 	
 
 	@GetMapping("/general-management")
-	public String displaySubjectList() {
-		return "subject-list";
+	public String displayTrainerList() {
+		return "trainer-list";
 	}
 
 	// @GetMapping("/page/{pageNo}")

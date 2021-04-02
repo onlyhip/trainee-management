@@ -922,6 +922,11 @@ span.tags {
 
 .progress {
   background-color: #ffffff;
+  font-size: 1rem;
+}
+
+.progress-bar {
+  height: 1.4rem;
 }
 
 .table > thead > tr > th {
