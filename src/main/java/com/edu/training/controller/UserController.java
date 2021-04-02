@@ -5,11 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.edu.training.entities.ClassAdmin;
 import com.edu.training.repositories.ClassAdminRepository;
-import com.edu.training.repositories.CourseRepository;
-import com.edu.training.repositories.FresherRepository;
-import com.edu.training.repositories.TraineeRepository;
 import com.edu.training.repositories.UserRepository;
-import com.edu.training.services.implementation.CourseServiceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -40,6 +36,9 @@ public class UserController {
 
 	@GetMapping("/login")
 	public String getLogin() {
+
+
+		
 		return "login";
 	}
 
