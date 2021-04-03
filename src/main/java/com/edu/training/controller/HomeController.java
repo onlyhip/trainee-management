@@ -118,12 +118,24 @@ public class HomeController {
 
     @RequestMapping(value = "/class-management", method = RequestMethod.GET)
     public String displayCourseList(Model model, @RequestParam("page") Optional<Integer> page,
-                                    @RequestParam("size") Optional<Integer> size) {
+                                    @RequestParam("size") Optional<Integer> size, @RequestParam("field") Optional<String> field) {
 
         int cPage = page.orElse(1);
         int pageSize = size.orElse(5);
+        String sortField = field.orElse("default");
 
-        Page<Course> classPage = courseService.findPaginated(cPage, pageSize, "name");
+        Page<Course> classPage;
+
+        if (sortField.equals("default")) {
+            classPage = courseService.findPaginated(cPage, pageSize);
+        } else {
+            if(sortField.equals("head-teacher")) {
+                classPage = courseService.findPaginated(cPage, pageSize, "trainer.name");
+            }else
+            {
+                classPage = courseService.findPaginated(cPage, pageSize, sortField);
+            }
+        }
 //        List<Course> listCourses = classPage.getContent();
 //        // listCourses.forEach(c ->
 //        // c.setCurrCount(traineeRepository.countCourseByCourseId(c.getId())));
@@ -134,9 +146,12 @@ public class HomeController {
         // listCourses.forEach(c ->
         // c.setStatus(Timestamp.valueOf(LocalDateTime.now()).compareTo(c.getEndDate())
         // > 0 ? "Done" : "In Process"));
-      //  listCourses.forEach(c -> System.out.println(c));
+        //  listCourses.forEach(c -> System.out.println(c));
         model.addAttribute("classPage", classPage);
         model.addAttribute("cPage", cPage);
+        model.addAttribute("size", pageSize);
+        model.addAttribute("field",sortField);
+
 
         return "class-management";
     }

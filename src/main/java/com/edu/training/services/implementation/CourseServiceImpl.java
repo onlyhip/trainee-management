@@ -16,25 +16,25 @@ import org.springframework.stereotype.Service;
 @Service
 public class CourseServiceImpl implements CourseService {
 
-    @Autowired 
+    @Autowired
     private CourseRepository courseRepository;
 
     @Override
     public void save(Course t) {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
     public void update(Course t) {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
     public void delete(long theId) {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
@@ -52,12 +52,17 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public Page<Course> findPaginated(int pageNo, int pageSize, String sortField) {
         Sort sort = Sort.by(sortField).ascending();
-			// Sort.by(sortField).descending();
-		
-		Pageable pageable = PageRequest.of(pageNo - 1, pageSize, sort);
-		return courseRepository.findAll(pageable); 
+        // Sort.by(sortField).descending();
+
+        Pageable pageable = PageRequest.of(pageNo - 1, pageSize, sort);
+        return courseRepository.findAll(pageable);
+    }
+
+    @Override
+    public Page<Course> findPaginated(int pageNo, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
+        return courseRepository.findAll(pageable);
     }
 
 
-    
 }
