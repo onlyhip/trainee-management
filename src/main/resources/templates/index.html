@@ -1,126 +1,127 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layout/layout-template.html}"
-	th:with="currentPage='Dashboard',currentLink='Dashboard',currentTemplate='Default Management'">
+      layout:decorate="~{layout/layout-template.html}"
+      th:with="currentPage='Dashboard',currentLink='Dashboard',currentTemplate='Default Management'"
+      xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<title>Dashboard</title>
+    <title>Dashboard</title>
 </head>
 
 <body>
-	<div layout:fragment="content" class="content">
-		<div class="container-fluid">
-			<form action="/" method="get">
-				<div th:if="${result != null}" style="display:none">
-					<input type="text" id="check-success" value="success">
-				</div>
-				<div class="row">
-					<div class="col-md-5">
-						<input class="form-control" type="date" value="2019-08-19" name="start-date" id="start-date">
-					</div>
-					<div class="col-md-5">
-						<input class="form-control" type="date" value="2022-08-19" name="end-date" id="end-date">
-					</div>
-					<div class="col-md-2">
-						<button type="submit" class="btn btn-primary btn-block">Show Report</button>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-12 h2">Freher Statistic</div>
-				</div>
-			</form>
-			<div class="row">
-				<div class="col-md-6">
-					<div class="card ">
+<div layout:fragment="content" class="content">
+    <div class="container-fluid">
+        <form action="/" method="get">
+            <div th:if="${result != null}" style="display:none">
+                <input type="text" id="check-success" value="success">
+            </div>
+            <div class="row">
+                <div class="col-md-5">
+                    <input class="form-control" type="date" value="2019-08-19" name="start-date" id="start-date">
+                </div>
+                <div class="col-md-5">
+                    <input class="form-control" type="date" value="2022-08-19" name="end-date" id="end-date">
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary btn-block">Show Report</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 h2">Freher Statistic</div>
+            </div>
+        </form>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card ">
 
-						<div class="card-header d-flex justify-content-between">
-							<h4 class="card-title">Class</h4>
-							<button type="submit" class="btn btn-primary btn-issues">Issues</button>
-						</div>
-						<div class="card-body ">
-							<hr class="mt-0 mb-4">
-							<div id="canvas-holder">
-								<div class="chartjs-size-monitor">
-									<div class="chartjs-size-monitor-expand">
-										<div class=""></div>
-									</div>
-									<div class="chartjs-size-monitor-shrink">
-										<div class=""></div>
-									</div>
-								</div>
-								<canvas id="chart-area-first" style="display: block; height: 304px; width: 608px;"
-									width="760" height="380" class="chartjs-render-monitor">
-								</canvas>
-							</div>
-							<div class="stats">
-								<div class="d-flex justify-content-around text-center">
-									<div class="d-flex flex-column bd-highlight mb-3" style="color: #22CE22;">
-										<div class="p-2 bd-highlight h3" th:text="${totalCourse}"></div>
-										<div class="p-2 bd-highlight">Total</div>
-									</div>
-									<div class="d-flex flex-column bd-highlight mb-3" style="color: #FF3D67;">
-										<div class="p-2 bd-highlight h3" th:text="${wCourse}"></div>
-										<div class="p-2 bd-highlight">Waiting</div>
-									</div>
-									<div class="d-flex flex-column bd-highlight mb-3" style="color: #FFC233;">
-										<div class="p-2 bd-highlight h3" th:text="${rCourse}"></div>
-										<div class="p-2 bd-highlight">Release</div>
-									</div>
-									<div class="d-flex flex-column bd-highlight mb-3" style="color: #059BFF;">
-										<div class="p-2 bd-highlight h3" th:text="${rnCourse}"></div>
-										<div class="p-2 bd-highlight">Running</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6">
-					<div class="card ">
-						<div class="card-header ">
-							<h4 class="card-title mb-2">Person</h4>
-						</div>
-						<div class="card-body ">
-							<hr class="mt-0 mb-4">
-							<div id="canvas-holder">
-								<div class="chartjs-size-monitor">
-									<div class="chartjs-size-monitor-expand">
-										<div class=""></div>
-									</div>
-									<div class="chartjs-size-monitor-shrink">
-										<div class=""></div>
-									</div>
-								</div>
-								<canvas id="chart-area-second" style="display: block; height: 304px; width: 608px;"
-									width="760" height="380" class="chartjs-render-monitor">
-								</canvas>
-							</div>
-							<div class="stats">
-								<div class="d-flex justify-content-around text-center">
-									<div class="d-flex flex-column bd-highlight mb-3" style="color: #22CE22;">
-										<div class="p-2 bd-highlight h3" th:text="${totalFresher}"></div>
-										<div class="p-2 bd-highlight">Total</div>
-									</div>
-									<div class="d-flex flex-column bd-highlight mb-3" style="color: #FF3D67;">
-										<div class="p-2 bd-highlight h3" th:text="${wFresher}"></div>
-										<div class="p-2 bd-highlight">Waiting</div>
-									</div>
-									<div class="d-flex flex-column bd-highlight mb-3" style="color: #FFC233;">
-										<div class="p-2 bd-highlight h3" th:text="${rFresher}"></div>
-										<div class="p-2 bd-highlight">Release</div>
-									</div>
-									<div class="d-flex flex-column bd-highlight mb-3" style="color: #059BFF;">
-										<div class="p-2 bd-highlight h3" th:text="${rnFresher}"></div>
-										<div class="p-2 bd-highlight">Running</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+                    <div class="card-header d-flex justify-content-between">
+                        <h4 class="card-title">Class</h4>
+                        <button type="submit" class="btn btn-primary btn-issues">Issues</button>
+                    </div>
+                    <div class="card-body ">
+                        <hr class="mt-0 mb-4">
+                        <div id="canvas-holder">
+                            <div class="chartjs-size-monitor">
+                                <div class="chartjs-size-monitor-expand">
+                                    <div class=""></div>
+                                </div>
+                                <div class="chartjs-size-monitor-shrink">
+                                    <div class=""></div>
+                                </div>
+                            </div>
+                            <canvas id="chart-area-first" style="display: block; height: 304px; width: 608px;"
+                                    width="760" height="380" class="chartjs-render-monitor">
+                            </canvas>
+                        </div>
+                        <div class="stats">
+                            <div class="d-flex justify-content-around text-center">
+                                <div class="d-flex flex-column bd-highlight mb-3" style="color: #22CE22;">
+                                    <div class="p-2 bd-highlight h3" th:text="${totalCourse}"></div>
+                                    <div class="p-2 bd-highlight">Total</div>
+                                </div>
+                                <div class="d-flex flex-column bd-highlight mb-3" style="color: #FF3D67;">
+                                    <div class="p-2 bd-highlight h3" th:text="${wCourse}"></div>
+                                    <div class="p-2 bd-highlight">Waiting</div>
+                                </div>
+                                <div class="d-flex flex-column bd-highlight mb-3" style="color: #FFC233;">
+                                    <div class="p-2 bd-highlight h3" th:text="${rCourse}"></div>
+                                    <div class="p-2 bd-highlight">Release</div>
+                                </div>
+                                <div class="d-flex flex-column bd-highlight mb-3" style="color: #059BFF;">
+                                    <div class="p-2 bd-highlight h3" th:text="${rnCourse}"></div>
+                                    <div class="p-2 bd-highlight">Running</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card ">
+                    <div class="card-header ">
+                        <h4 class="card-title mb-2">Person</h4>
+                    </div>
+                    <div class="card-body ">
+                        <hr class="mt-0 mb-4">
+                        <div id="canvas-holder">
+                            <div class="chartjs-size-monitor">
+                                <div class="chartjs-size-monitor-expand">
+                                    <div class=""></div>
+                                </div>
+                                <div class="chartjs-size-monitor-shrink">
+                                    <div class=""></div>
+                                </div>
+                            </div>
+                            <canvas id="chart-area-second" style="display: block; height: 304px; width: 608px;"
+                                    width="760" height="380" class="chartjs-render-monitor">
+                            </canvas>
+                        </div>
+                        <div class="stats">
+                            <div class="d-flex justify-content-around text-center">
+                                <div class="d-flex flex-column bd-highlight mb-3" style="color: #22CE22;">
+                                    <div class="p-2 bd-highlight h3" th:text="${totalFresher}"></div>
+                                    <div class="p-2 bd-highlight">Total</div>
+                                </div>
+                                <div class="d-flex flex-column bd-highlight mb-3" style="color: #FF3D67;">
+                                    <div class="p-2 bd-highlight h3" th:text="${wFresher}"></div>
+                                    <div class="p-2 bd-highlight">Waiting</div>
+                                </div>
+                                <div class="d-flex flex-column bd-highlight mb-3" style="color: #FFC233;">
+                                    <div class="p-2 bd-highlight h3" th:text="${rFresher}"></div>
+                                    <div class="p-2 bd-highlight">Release</div>
+                                </div>
+                                <div class="d-flex flex-column bd-highlight mb-3" style="color: #059BFF;">
+                                    <div class="p-2 bd-highlight h3" th:text="${rnFresher}"></div>
+                                    <div class="p-2 bd-highlight">Running</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 </body>
 
