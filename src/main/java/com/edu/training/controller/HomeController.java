@@ -63,14 +63,14 @@ public class HomeController {
     public String viewHomePage(Model model) {
 
 
-        //CreateData createData = new CreateData();
-
-        //createData.createTrainer(trainerRepository);
-        //createData.createCourse(trainerRepository,courseRepository);
-        //createData.createStatus(statusRepository);
-        //createData.createFresher(courseRepository,statusRepository,fresherRepository);
-        //createData.createInternship(courseRepository,statusRepository,internshipRepository);
-        //createData.createTO(trainerRepository,toRepository);
+//        CreateData createData = new CreateData();
+//
+//        createData.createTrainer(trainerRepository);
+//        createData.createCourse(trainerRepository,courseRepository);
+//        createData.createStatus(statusRepository);
+//        createData.createFresher(courseRepository,statusRepository,fresherRepository);
+//        createData.createInternship(courseRepository,statusRepository,internshipRepository);
+//        createData.createTO(trainerRepository,toRepository);
         //CreateData.createScore();
 
         List<Course> listCourse = courseRepository.findAll();
