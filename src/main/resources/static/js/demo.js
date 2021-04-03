@@ -548,9 +548,9 @@ function createPieFirst() {
                     rnCourse,
                 ],
                 backgroundColor: [
-                    window.chartColors.yellow,
-                    window.chartColors.red,
-                    window.chartColors.blue,
+                    'rgb(255, 205, 86)',
+                    'rgb(255, 99, 132)',
+                    'rgb(54, 162, 235)'
                 ],
                 label: 'Dataset 1'
             }],
@@ -590,9 +590,9 @@ function createPieSecond() {
                     rnFresher,
                 ],
                 backgroundColor: [
-                    window.chartColors.yellow,
-                    window.chartColors.red,
-                    window.chartColors.blue,
+                    'rgb(255, 205, 86)',
+                    'rgb(255, 99, 132)',
+                    'rgb(54, 162, 235)'
                 ],
                 label: 'Dataset 1'
             }],

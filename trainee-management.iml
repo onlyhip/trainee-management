@@ -23,6 +23,12 @@
     <facet type="Spring" name="Spring">
       <configuration />
     </facet>
+    <facet type="hibernate" name="Hibernate">
+      <configuration>
+        <datasource-map />
+        <naming-strategy-map />
+      </configuration>
+    </facet>
   </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_11">
     <output url="file://$MODULE_DIR$/target/classes" />
@@ -160,5 +166,18 @@
     <orderEntry type="library" name="Maven: com.google.guava:guava:19.0" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-messaging:5.3.4" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-beans:5.3.4" level="project" />
+    <orderEntry type="library" name="Maven: org.thymeleaf:thymeleaf:Release" level="project" />
+    <orderEntry type="library" name="Maven: org.thymeleaf:thymeleaf:Release1" level="project" />
+    <orderEntry type="library" name="Maven: org.thymeleaf.extras:thymeleaf-extras-conditionalcomments:Release" level="project" />
+    <orderEntry type="library" name="Maven: org.thymeleaf.extras:thymeleaf-extras-tiles2:Release" level="project" />
+    <orderEntry type="library" name="Maven: org.thymeleaf.extras:thymeleaf-extras-java8time:Release" level="project" />
+    <orderEntry type="library" name="Maven: org.thymeleaf:thymeleaf-testing:Release" level="project" />
+    <orderEntry type="library" name="Maven: org.thymeleaf.extras:thymeleaf-extras-springsecurity3:Release" level="project" />
+    <orderEntry type="library" name="Maven: org.thymeleaf.extras:thymeleaf-extras-springsecurity4:Release" level="project" />
+    <orderEntry type="library" name="Maven: org.thymeleaf:thymeleaf-spring3:Release" level="project" />
+    <orderEntry type="library" name="Maven: org.thymeleaf:thymeleaf-spring4:Release" level="project" />
+    <orderEntry type="library" name="Maven: org.hibernate:hibernate-core:5.4.28.Final" level="project" />
+    <orderEntry type="library" name="Maven: org.thymeleaf:thymeleaf:Release2" level="project" />
+    <orderEntry type="library" name="Maven: org.thymeleaf:thymeleaf:Latest" level="project" />
   </component>
 </module>
