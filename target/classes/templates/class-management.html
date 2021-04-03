@@ -62,7 +62,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="class : ${classes}">
+                            <tr th:each="class : ${classPage.content}">
                                 <td th:text="${class.name}"
                                     th:onclick="'javascript:rowClicked(\'' + ${class.id} + '\');'">1
                                 </td>
@@ -88,32 +88,44 @@
                             </tr>
                             </tbody>
                         </table>
-                        <!-- <ul class="pagination">
-                            <li><a>Total : [[${totalItems}]]</a></li>
-                            <li><a th:if="${currentPage > 1}" th:href="@{'/page/' + ${currentPage - 1}}">prive</a>
-                            </li>
-                            <li>
-                                <span th:each="i: ${#numbers.sequence(1, totalPages)}">
-                                    <a th:if="${currentPage != i}" th:href="@{'/page/' + ${i}}">[[${i}]]</a>
-                                    <span th:unless="${currentPage != i}">[[${i}]]</span>
-                                </span>
-                            </li>
-                            <li>
-                                <a th:if="${currentPage < totalPages}"
-                                    th:href="@{'/page/' + ${currentPage + 1}}">Next</a>
-                                <span th:unless="${currentPage < totalPages}">Next</span>
-                            </li>
-                            <li>
-                                <a th:if="${currentPage < totalPages}"
-                                    th:href="@{'/page/' + ${currentPage}}">Last</a>
-                                <span th:unless="${currentPage < totalPages}">Last</span>
-                            </li>
-                        </ul> -->
                     </div>
                 </div>
             </div>
 
         </div>
+
+        <div class="row">
+            <div class="col-md-12 mt-3">
+                <!-- directors pagination -->
+                <nav aria-label="Pagination" th:if="${classPage.totalPages gt 0}">
+                    <ul class="pagination justify-content-center font-weight-bold">
+                        <li class="page-item" th:classappend="${classPage.number eq 0} ? 'disabled'">
+                            <a class="page-link"
+                               th:href="@{/class-management(size=${classPage.size},page=${cPage lt 2 ? 1 : classPage.number})}"
+                               aria-label="Previous" title="Previous Page" data-toggle="tooltip">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li class="page-item" th:classappend="${i eq classPage.number + 1} ? 'active'"
+                            th:each="i : ${#numbers.sequence( 1, classPage.totalPages, 1)}">
+                            <a class="page-link" th:href="@{/class-management(size=${classPage.size},page=${i})}"
+                               th:text="${i}"
+                               th:title="${'Page '+ i}" data-toggle="tooltip"></a>
+                        </li>
+                        <li class="page-item"
+                            th:classappend="${classPage.number + 1 eq classPage.totalPages} ? 'disabled'">
+                            <a class="page-link"
+                               th:href="@{/class-management(size=${classPage.size},page=${cPage + 2})}"
+                               aria-label="Next" title="Next Page" data-toggle="tooltip">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+
     </div>
 </div>
 

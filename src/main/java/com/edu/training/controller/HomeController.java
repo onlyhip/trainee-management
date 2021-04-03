@@ -3,6 +3,9 @@ package com.edu.training.controller;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import com.edu.training.entities.ClassAdmin;
 import com.edu.training.entities.Course;
@@ -56,7 +59,6 @@ public class HomeController {
 
     @Autowired
     private TrainingObjectiveRepository toRepository;
-
 
 
     @GetMapping("/")
@@ -115,32 +117,38 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/class-management", method = RequestMethod.GET)
-    public String displayCourseList(Model model) {
+    public String displayCourseList(Model model, @RequestParam("page") Optional<Integer> page,
+                                    @RequestParam("size") Optional<Integer> size) {
 
-        int pageSize = 5;
+        int cPage = page.orElse(1);
+        int pageSize = size.orElse(5);
 
-        Page<Course> page = courseService.findPaginated(1, pageSize, "name");
-        List<Course> listCourses = page.getContent();
-        // listCourses.forEach(c ->
-        // c.setCurrCount(traineeRepository.countCourseByCourseId(c.getId())));
-        for (Course c : listCourses) {
-            c.setCurrCount(traineeRepository.countCourseByCourseId(c.getId()));
-            c.setStatus(Timestamp.valueOf(LocalDateTime.now()).compareTo(c.getEndDate()) > 0 ? "Done" : "In Process");
-        }
+        Page<Course> classPage = courseService.findPaginated(cPage, pageSize, "name");
+//        List<Course> listCourses = classPage.getContent();
+//        // listCourses.forEach(c ->
+//        // c.setCurrCount(traineeRepository.countCourseByCourseId(c.getId())));
+//        for (Course c : listCourses) {
+//            c.setCurrCount(traineeRepository.countCourseByCourseId(c.getId()));
+//            c.setStatus(Timestamp.valueOf(LocalDateTime.now()).compareTo(c.getEndDate()) > 0 ? "Done" : "In Process");
+//        }
         // listCourses.forEach(c ->
         // c.setStatus(Timestamp.valueOf(LocalDateTime.now()).compareTo(c.getEndDate())
         // > 0 ? "Done" : "In Process"));
-        listCourses.forEach(c -> System.out.println(c));
-        model.addAttribute("classes", listCourses);
+      //  listCourses.forEach(c -> System.out.println(c));
+        model.addAttribute("classPage", classPage);
+        model.addAttribute("cPage", cPage);
 
         return "class-management";
     }
 
     @RequestMapping(value = "/class-management", method = RequestMethod.POST)
-    public String displayCourseListByPageSize(Model model, @RequestParam("page-size") int pageSize) {
+    public String displayCourseListByPageSize(Model model, @RequestParam("page") Optional<Integer> page,
+                                              @RequestParam("size") Optional<Integer> size) {
 
-        Page<Course> page = courseService.findPaginated(1, pageSize, "name");
-        List<Course> listCourses = page.getContent();
+        int currentPage = page.orElse(1);
+        int pageSize = size.orElse(5);
+        Page<Course> ClassPage = courseService.findPaginated(currentPage, pageSize, "name");
+        List<Course> listCourses = ClassPage.getContent();
         for (Course c : listCourses) {
             c.setCurrCount(traineeRepository.countCourseByCourseId(c.getId()));
             c.setStatus(Timestamp.valueOf(LocalDateTime.now()).compareTo(c.getEndDate()) > 0 ? "Done" : "In Process");
