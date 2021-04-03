@@ -1,4 +1,3 @@
-
 package com.edu.training.utils.data;
 
 import java.text.ParseException;
