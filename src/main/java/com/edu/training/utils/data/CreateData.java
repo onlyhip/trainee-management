@@ -28,39 +28,9 @@ import com.edu.training.repositories.TrainingObjectiveRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+
 public class CreateData {
 
-    @Autowired
-    private static TrainerRepository trainerRepository;
-
-    @Autowired
-    private static CourseRepository courseRepository;
-
-    @Autowired
-    private static StatusRepository statusRepository;
-
-    @Autowired
-    private static FresherRepository fresherRepository;
-
-    @Autowired
-    private static InternshipRepository internshipRepository;
-
-    @Autowired
-    private static TrainingObjectiveRepository toRepository;
-
-    @Autowired
-    private static ScoreRepository scoreRepository;
-
-    public CreateData() {
-        createTrainer();
-        createCourse();
-        createStatus();
-        createFresher();
-        createInternship();
-        createTO();
-        createScore();
-        createAttendance();
-    }
 
     public static void createTrainer() {
         Trainer trainer = null;
@@ -111,7 +81,7 @@ public class CreateData {
 
     }
 
-    public static void createCourse() {
+    public void createCourse(TrainerRepository trainerRepository,CourseRepository courseRepository) {
 
         Course course = new Course();
         Random rand = new Random(System.currentTimeMillis());
@@ -150,7 +120,7 @@ public class CreateData {
 
     }
 
-    public static void createStatus() {
+    public void createStatus(StatusRepository statusRepository) {
 
         Random rand = new Random(System.currentTimeMillis());
         Status status = new Status();
@@ -175,7 +145,7 @@ public class CreateData {
 
     }
 
-    public static void createFresher() {
+    public void createFresher(CourseRepository courseRepository,StatusRepository statusRepository,FresherRepository fresherRepository) {
 
         Fresher trainee = null;
         Random rand = new Random(System.currentTimeMillis());
@@ -244,7 +214,7 @@ public class CreateData {
         }
     }
 
-    public static void createInternship() {
+    public void createInternship(CourseRepository courseRepository,StatusRepository statusRepository,InternshipRepository internshipRepository) {
         Internship trainee = null;
         Random rand = new Random(System.currentTimeMillis());
         List<String> hoList = new ArrayList<String>();
@@ -307,7 +277,7 @@ public class CreateData {
         }
     }
 
-    public static void createTO() {
+    public void createTO(TrainerRepository trainerRepository,TrainingObjectiveRepository toRepository) {
         TrainingObjective to = null;
         for (int i = 4; i <= 13; i++) {
             to = new TrainingObjective();
@@ -323,7 +293,7 @@ public class CreateData {
         }
     }
 
-    public static void createScore() {
+    public void createScore(TrainingObjectiveRepository toRepository) {
         // Score score = null;
         // ScoreId scoreId = null;
         Random rand = new Random(System.currentTimeMillis());
