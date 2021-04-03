@@ -10,6 +10,7 @@ public class TraineeController {
 
     @GetMapping("/trainee-details")
     public String displayTraineeDetails() {
+        
         return "trainee-details";
     }
 }

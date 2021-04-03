@@ -38,13 +38,17 @@ public class TrainingObjective {
     @OneToMany(mappedBy = "trainingObjective", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<FeedBack> feedBacks;
 
-    @OneToMany(mappedBy = "pk.trainingObjective", cascade = CascadeType.ALL)
-    private Set<Score> score = new HashSet<>();
+    @OneToMany(mappedBy = "primaryKey.trainingObjective", cascade = CascadeType.ALL)
+	private Set<Score> scores = new HashSet<Score>();
 
-    // @ManyToMany
-    // @JoinTable(name = "Score", 
-    //         joinColumns = { @JoinColumn(name = "to_id")})
-    // private Set<Score> score;
+
+    public TrainingObjective(int id, String name, String code, Trainer trainer, List<FeedBack> feedBacks) {
+        this.id = id;
+        this.name = name;
+        this.code = code;
+        this.trainer = trainer;
+        this.feedBacks = feedBacks;
+    }
 
     
     public TrainingObjective(int id, String name, String code, Trainer trainer) {
@@ -99,26 +103,22 @@ public class TrainingObjective {
     }
 
     
-
     public TrainingObjective() {
     }
 
-    public Set<Score> getScore() {
-        return score;
+    
+
+    public Set<Score> getScores() {
+        return scores;
     }
 
-    public void setScore(Set<Score> score) {
-        this.score = score;
+    public void setScores(Set<Score> scores) {
+        this.scores = scores;
     }
 
     @Override
     public String toString() {
-        return "TrainingObjective [code=" + code + ", feedBacks=" + feedBacks + ", id=" + id + ", name=" + name
-                + ", score=" + score + ", trainer=" + trainer + "]";
+        return "TrainingObjective [code=" + code + ", id=" + id + ", name=" + name + ", trainer=" + trainer + "]";
     }
-
-    
-
-    
 
 }

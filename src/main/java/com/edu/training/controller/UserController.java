@@ -6,11 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.edu.training.entities.Attendance;
 import com.edu.training.entities.ClassAdmin;
 import com.edu.training.repositories.ClassAdminRepository;
-import com.edu.training.repositories.CourseRepository;
-import com.edu.training.repositories.FresherRepository;
-import com.edu.training.repositories.TraineeRepository;
 import com.edu.training.repositories.UserRepository;
-import com.edu.training.services.implementation.CourseServiceImpl;
 
 import org.aspectj.lang.annotation.Before;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +38,9 @@ public class UserController {
 
 	@GetMapping("/login")
 	public String getLogin() {
+
+
+		
 		return "login";
 	}
 
@@ -81,6 +80,8 @@ public class UserController {
 		return "redirect:/";
 	}
 
+	
+
 
 	public boolean checkOldPassword(String username, String oldPassword) {
 		return userRepository.findPasswordByAccountClassAdmin(username).equals(oldPassword);
@@ -93,5 +94,7 @@ public class UserController {
 		ClassAdmin loginedUser = classAdminRepository.getOne(id);
 		return loginedUser;
 	}
+
+
 
 }

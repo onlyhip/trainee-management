@@ -8,8 +8,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/general-management")
 public class GeneralManagement {
 
-    @GetMapping(value = { "/subject-list", "/" })
+    @GetMapping(value = { "/trainer-list", "/" })
+    public String displayTrainerList() {
+        return "trainer-list";
+    }
+
+    @GetMapping("/trainee-list")
+    public String displayTraineeList() {
+        return "trainee-list";
+    }
+
+    @GetMapping("/subject-list")
     public String displaySubjectList() {
         return "subject-list";
     }
+
 }

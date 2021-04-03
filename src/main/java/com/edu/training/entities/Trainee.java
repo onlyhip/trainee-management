@@ -56,13 +56,8 @@ public class Trainee extends User{
     @OneToMany(mappedBy = "trainee", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Certificates> certificate;
 
-    @OneToMany(mappedBy = "pk.trainee", cascade = CascadeType.ALL)
-    private Set<Score> score = new HashSet<>();
-
-    // @ManyToMany
-    // @JoinTable(name = "Score", 
-    //         joinColumns = { @JoinColumn(name = "trainee_id")})
-    // private Set<Score> score;
+    @OneToMany(mappedBy = "primaryKey.trainee", cascade = CascadeType.ALL)
+	private Set<Score> scores = new HashSet<Score>();
 
     public Trainee(Course course) {
         this.course = course;
@@ -159,14 +154,12 @@ public class Trainee extends User{
         this.certificate = certificate;
     }
 
-    public Set<Score> getScore() {
-        return score;
+    public Set<Score> getScores() {
+        return scores;
     }
 
-    public void setScore(Set<Score> score) {
-        this.score = score;
+    public void setScores(Set<Score> scores) {
+        this.scores = scores;
     }
-
-    
 
 }

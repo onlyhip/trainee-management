@@ -1,53 +1,25 @@
 package com.edu.training.entities;
 
-import java.io.Serializable;
-
+import javax.persistence.AssociationOverride;
+import javax.persistence.AssociationOverrides;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
+import com.edu.training.models.ScoreId;
 
 @Entity
 @Table(name = "Score")
-public class Score implements Serializable{
+@AssociationOverrides({
+        @AssociationOverride(name = "primaryKey.trainee", joinColumns = @JoinColumn(name = "IdTrainee")),
+        @AssociationOverride(name = "primaryKey.trainingObjective", joinColumns = @JoinColumn(name = "IdTO")) })
+public class Score {
 
-    private static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int id;
-
-    @ManyToOne
-    @JoinColumn(name = "IdTrainee", referencedColumnName="id")
-    private Trainee trainee;
-
-    @ManyToOne
-    @JoinColumn(name = "IdTO", referencedColumnName = "id")
-    private TrainingObjective trainingObjective;
-
-    // @EmbeddedId
-    // private ScoreId scoreId;
-
-    // @EmbeddedId
-    // private ScoreId scoreId = new ScoreId();
-    // @ManyToOne
-    // @MapsId("IdTrainee")
-    // @JoinColumn(name = "IdTrainee")
-    // private Trainee trainee;
-    // @ManyToOne
-    // @MapsId("IdTO")
-    // @JoinColumn(name = "IdTO")
-    // private TrainingObjective trainingObjective;
-
-    
+    @EmbeddedId
+    private ScoreId primaryKey = new ScoreId();
 
     @Column(name = "Name")
     private String name;
@@ -55,7 +27,40 @@ public class Score implements Serializable{
     @Column(name = "Value")
     private float value;
 
-    // private String note;
+    public Score() {
+    }
+
+    public Score(ScoreId primaryKey, String name, float value) {
+        this.primaryKey = primaryKey;
+        this.name = name;
+        this.value = value;
+    }
+
+    public ScoreId getPrimaryKey() {
+        return primaryKey;
+    }
+
+    public void setPrimaryKey(ScoreId primaryKey) {
+        this.primaryKey = primaryKey;
+    }
+
+    @Transient
+    public Trainee getTrainee() {
+        return getPrimaryKey().getTrainee();
+    }
+
+    public void setTrainee(Trainee trainee) {
+        getPrimaryKey().setTrainee(trainee);
+    }
+
+    @Transient
+    public TrainingObjective getTrainingObjective() {
+        return getPrimaryKey().getTrainingObjective();
+    }
+
+    public void setTrainingObjective(TrainingObjective trainingObjective) {
+        getPrimaryKey().setTrainingObjective(trainingObjective);
+    }
 
     public String getName() {
         return name;
@@ -73,35 +78,38 @@ public class Score implements Serializable{
         this.value = value;
     }
 
-    public Score() {
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((name == null) ? 0 : name.hashCode());
+        result = prime * result + ((primaryKey == null) ? 0 : primaryKey.hashCode());
+        result = prime * result + Float.floatToIntBits(value);
+        return result;
     }
 
-    public int getId() {
-        return id;
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Score other = (Score) obj;
+        if (name == null) {
+            if (other.name != null)
+                return false;
+        } else if (!name.equals(other.name))
+            return false;
+        if (primaryKey == null) {
+            if (other.primaryKey != null)
+                return false;
+        } else if (!primaryKey.equals(other.primaryKey))
+            return false;
+        if (Float.floatToIntBits(value) != Float.floatToIntBits(other.value))
+            return false;
+        return true;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public Trainee getTrainee() {
-        return trainee;
-    }
-
-    public void setTrainee(Trainee trainee) {
-        this.trainee = trainee;
-    }
-
-    public TrainingObjective getTrainingObjective() {
-        return trainingObjective;
-    }
-
-    public void setTrainingObjective(TrainingObjective trainingObjective) {
-        this.trainingObjective = trainingObjective;
-    }
-
-    public static long getSerialversionuid() {
-        return serialVersionUID;
-    }
-    
 }
