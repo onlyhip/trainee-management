@@ -67,4 +67,5 @@ Tip 2: you can also add an image using data-image tag
 
 
 </div>
-<div class="sidebar-background" th:style="'background-image:url(' + @{/img/sidebar-5.jpg} + ');'"></div>
+<div th:with="image='/img/sidebar-5.jpg'" class="sidebar-background" th:style="'background-image:url(' + ${image} + ');'"></div>
+</html>

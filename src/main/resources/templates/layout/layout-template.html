@@ -3,92 +3,83 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
-        name='viewport' />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no"
+          name="viewport">
     <!--     Fonts and icons     -->
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
-    <link rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css}" />
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css}">
     <!-- CSS Files -->
-    <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+    <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
     <link type="text/css" rel="stylesheet" href="/css/light-bootstrap-dashboard.css?v=2.0.0"
-        th:href="@{/css/light-bootstrap-dashboard.css?v=2.0.0}" />
+          th:href="@{/css/light-bootstrap-dashboard.css}">
     <!-- CSS Just for demo purpose, don't include it in your project -->
-    <link type="text/css" rel="stylesheet" href="/css/demo.css" th:href="@{/css/demo.css}" />
+    <link type="text/css" rel="stylesheet" href="/css/demo.css" th:href="@{/css/demo.css}">
 </head>
 
 <body>
-    <div class="wrapper">
-        <div layout:insert="fragments/sidebar-menu" class="sidebar" th:attr="data-image='/img/sidebar-5.jpg'"></div>
-        <div class="main-panel">
-            <nav layout:insert="fragments/header" class="navbar navbar-expand-lg " color-on-scroll="500"></nav>
-            <div layout:fragment="content">
-                <p>This is content of layout for UNLOGIN</p>
-            </div>
-            <footer layout:insert="fragments/footer" class="footer"></footer>
+<div class="wrapper">
+    <div layout:insert="fragments/sidebar-menu" class="sidebar" th:attr="data-image='/img/sidebar-5.jpg'"></div>
+    <div class="main-panel">
+        <nav layout:insert="fragments/header" class="navbar navbar-expand-lg " color-on-scroll="500"></nav>
+        <div layout:fragment="content">
+            <p>This is content of layout for not login</p>
         </div>
+        <footer layout:insert="fragments/footer" class="footer"></footer>
     </div>
+</div>
 
 
+<!-- Jquery -->
+<script th:src="@{/js/core/jquery.3.2.1.min.js}" type="text/javascript"></script>
+
+<script th:src="@{/js/core/popper.min.js}" type="text/javascript"></script>
+
+<script th:src="@{/js/core/bootstrap.min.js}" type="text/javascript"></script>
+<!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
+
+<script th:src="@{/js/plugins/bootstrap-switch.js}" type="text/javascript"></script>
+<!--  Notifications Plugin    -->
+<script th:src="@{/js/plugins/bootstrap-notify.js}" type="text/javascript"></script>
 
 
-    <!-- Jquery -->
-    <script th:src="@{/js/core/jquery.3.2.1.min.js}" type="text/javascript"></script>
-
-    <script th:src="@{/js/core/popper.min.js}" type="text/javascript"></script>
-
-    <script th:src="@{/js/core/bootstrap.min.js}" type="text/javascript"></script>
-    <!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
-
-    <script th:src="@{/js/plugins/bootstrap-switch.js}" type="text/javascript"></script>
-    <!--  Notifications Plugin    -->
-    <script th:src="@{/js/plugins/bootstrap-notify.js}" type="text/javascript"></script>
+<!-- Control Center for Light Bootstrap Dashboard: scripts for the example pages etc -->
+<!-- <script th:src="@{/js/light-bootstrap-dashboard.js?v=2.0.0}" type="text/javascript"></script> -->
+<!-- Light Bootstrap Dashboard DEMO methods, don't include it in your project! -->
 
 
+<!-- Chart pie -->
+<script async th:src="@{https://www.google-analytics.com/analytics.js}" type="text/javascript"></script>
+<script th:src="@{https://www.chartjs.org/dist/2.9.4/Chart.min.js}" type="text/javascript"></script>
 
-    <!-- Control Center for Light Bootstrap Dashboard: scripts for the example pages etc -->
-    <!-- <script th:src="@{/js/light-bootstrap-dashboard.js?v=2.0.0}" type="text/javascript"></script> -->
-    <!-- Light Bootstrap Dashboard DEMO methods, don't include it in your project! -->
-
-
-
-
-    <!-- Chart pie -->
-    <script async th:src="@{https://www.google-analytics.com/analytics.js}" type="text/javascript"></script>
-    <script th:src="@{https://www.chartjs.org/dist/2.9.4/Chart.min.js}" type="text/javascript"></script>
-    <!-- Sweet Alert  -->
-    <script th:src="@{/js/sweetalert2.all.min.js}" type="text/javascript"></script>
+<!-- Sweet Alert  -->
+<script th:src="@{/js/sweetalert2.all.min.js}" type="text/javascript"></script>
 
 
-    <!-- Light bootstrap-dashboard  -->
-    <script th:src="@{/js/light-bootstrap-dashboard.js?v=2.0.0 }" type="text/javascript"></script>
+<!-- Light bootstrap-dashboard  -->
+<script th:src="@{/js/light-bootstrap-dashboard.js}" type="text/javascript"></script>
 
 
-    <!-- Custom js -->
-    <script th:src="@{/js/demo.js}" type="text/javascript"></script>
+<!-- Custom js -->
+<script th:src="@{/js/demo.js}" type="text/javascript"></script>
 
-    <script th:inline="javascript">
-        /*<![CDATA[*/
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    let totalCourse = /*[[${totalCourse}]]*/ '0';
+    let totalFresher = /*[[${totalFresher}]]*/ '0';
+    let wCourse = /*[[${wCourse}]]*/ '0';
+    let rCourse = /*[[${rCourse}]]*/ '0';
+    let rnCourse = /*[[${rnCourse}]]*/ '0';
+    let wFresher = /*[[${wFresher}]]*/ '0';
+    let rFresher = /*[[${rFresher}]]*/ '0';
+    let rnFresher = /*[[${rnFresher}]]*/ '0';
 
-        var totalCourse = /*[[${totalCourse}]]*/ '0';
-        var totalFresher = /*[[${totalFresher}]]*/ '0';
-        var wCourse = /*[[${wCourse}]]*/ '0';
-        var rCourse = /*[[${rCourse}]]*/ '0';
-        var rnCourse = /*[[${rnCourse}]]*/ '0';
-        var wFresher = /*[[${wFresher}]]*/ '0';
-        var rFresher = /*[[${rFresher}]]*/ '0';
-        var rnFresher = /*[[${rnFresher}]]*/ '0';
+    let currentLink = /*[[${currentLink}]]*/ 'NoPage';
+    /*]]>*/
+
+</script>
 
 
-        var currentLink = /*[[${currentLink}]]*/ 'NoPage';
-
-        /*]]>*/
-
-        
-
-    </script>
-
-   
 </body>
 
 </html>

@@ -1,108 +1,121 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layout/layout-template.html}"
-	th:with="currentPage='Class Management',currentLink='Class Management',currentTemplate='Default Management'">
+      layout:decorate="~{layout/layout-template.html}"
+      th:with="currentPage='Class Management',currentLink='Class Management',currentTemplate='Default Management'"
+      xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<title>Class Management</title>
+    <title>Class Management</title>
 </head>
 
 <body>
-	<div layout:fragment="content" class="content">
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-md-2">
-					<button type="submit" class="btn btn-primary btn-block">Import Classes</button>
-				</div>
-				<div class="col-md-3">
-					<button type="submit" class="btn btn-primary btn-block">Import Class Information</button>
-				</div>
-				<div class="col-md-2">
-					<button type="submit" class="btn btn-primary btn-block">Import Internships</button>
-				</div>
-				<div class="col-md-2">
-					<button type="submit" class="btn btn-primary btn-block">Add Class Planning</button>
-				</div>
-			</div>
-			<form method="post" th:action="@{/class-management}">
-				<div class="row mt-4 d-flex justify-content-between">
+<div layout:fragment="content" class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary btn-block">Import Classes</button>
+            </div>
+            <div class="col-md-3">
+                <button type="submit" class="btn btn-primary btn-block">Import Class Information</button>
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary btn-block">Import Internships</button>
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary btn-block">Add Class Planning</button>
+            </div>
+        </div>
+        <form method="post" th:action="@{/class-management}">
+            <div class="row mt-4 d-flex justify-content-between">
 
-					<div class="col-md-1">
-						<button type="button" class="btn btn-primary"><i class="fa fa-bars"
-								aria-hidden="true"></i>&nbsp;Filter</button>
-					</div>
-					<div class="input-group col-md-3">
-						<div class="input-group-prepend align-self-center">
-							<span class="input-group-text">Page size:&nbsp;</span>
-						</div>
-						<input type="text" class="form-control" name="page-size" id="page-size" value="10">
-						<input type="submit" hidden>
-					</div>
-				</div>
-			</form>
+                <div class="col-md-1">
+                    <button type="button" class="btn btn-primary"><i class="fa fa-bars" aria-hidden="true"></i>&nbsp;Filter
+                    </button>
+                </div>
+                <div class="input-group col-md-3">
+                    <div class="input-group-prepend align-self-center">
+                        <span class="input-group-text">Page size:&nbsp;</span>
+                    </div>
+                    <input type="text" class="form-control" name="page-size" id="page-size" value="10">
+                    <input type="submit" hidden>
+                </div>
+            </div>
+        </form>
 
-			<div class="row">
-				<div class="col-md-12">
-					<div class="strpied-tabled-with-hover mt-2">
-						<div class="card-body table-full-width table-responsive">
-							<table class="table table-hover text-center">
-								<thead>
-									<tr>
-										<th>NAME</th>
-										<th>PLAN COUNT</th>
-										<th>CURRENT COUNT</th>
-										<th>START DATE</th>
-										<th>END DATE</th>
-										<th>HEAD TEACHER</th>
-										<th>TYPE</th>
-										<th>STATUS</th>
-										<th>ISSUES</th>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="strpied-tabled-with-hover mt-2">
+                    <div class="card-body table-full-width table-responsive">
+                        <table class="table table-hover text-center">
+                            <thead>
+                            <tr>
+                                <th>NAME</th>
+                                <th>PLAN COUNT</th>
+                                <th>CURRENT COUNT</th>
+                                <th>START DATE</th>
+                                <th>END DATE</th>
+                                <th>HEAD TEACHER</th>
+                                <th>TYPE</th>
+                                <th>STATUS</th>
+                                <th>ISSUES</th>
 
-									</tr>
-								</thead>
-								<tbody>
-									<tr th:each="class : ${classes}">
-										<td th:text="${class.name}" th:onclick="'javascript:rowClicked(\'' + ${class.id} + '\');'">1</td>
-										<td th:text="${class.planCount}" th:onclick="'javascript:rowClicked(\'' + ${class.id} + '\');'"></td>
-										<td th:text="${class.currCount}" th:onclick="'javascript:rowClicked(\'' + ${class.id} + '\');'"></td>
-										<td th:text="${#dates.format(class.openDate, 'dd-MM-yyyy')}" th:onclick="'javascript:rowClicked(\'' + ${class.id} + '\');'"></td>
-										<td th:text="${#dates.format(class.endDate, 'dd-MM-yyyy')}" th:onclick="'javascript:rowClicked(\'' + ${class.id} + '\');'"></td>
-										<td th:text="${class.trainer.name}" th:onclick="'javascript:rowClicked(\'' + ${class.id} + '\');'"></td>
-										<td th:onclick="'javascript:rowClicked(\'' + ${class.id} + '\');'">Fresher</td>
-										<td th:text="${class.status}" th:onclick="'javascript:rowClicked(\'' + ${class.id} + '\');'"></td>
-										<td><button type="button" class="btn btn-primary" th:href="@{/class-management}">Issues</button></td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="class : ${classes}">
+                                <td th:text="${class.name}"
+                                    th:onclick="'javascript:rowClicked(\'' + ${class.id} + '\');'">1
+                                </td>
+                                <td th:text="${class.planCount}"
+                                    th:onclick="'javascript:rowClicked(\'' + ${class.id} + '\');'"></td>
+                                <td th:text="${class.currCount}"
+                                    th:onclick="'javascript:rowClicked(\'' + ${class.id} + '\');'"></td>
+                                <td th:text="${#dates.format(class.openDate, 'dd-MM-yyyy')}"
+                                    th:onclick="'javascript:rowClicked(\'' + ${class.id} + '\');'"></td>
+                                <td th:text="${#dates.format(class.endDate, 'dd-MM-yyyy')}"
+                                    th:onclick="'javascript:rowClicked(\'' + ${class.id} + '\');'"></td>
+                                <td th:text="${class.trainer.name}"
+                                    th:onclick="'javascript:rowClicked(\'' + ${class.id} + '\');'"></td>
+                                <td th:onclick="'javascript:rowClicked(\'' + ${class.id} + '\');'">Fresher</td>
+                                <td th:text="${class.status}"
+                                    th:onclick="'javascript:rowClicked(\'' + ${class.id} + '\');'"></td>
+                                <td>
+                                    <button type="button" class="btn btn-primary" th:href="@{/class-management}">
+                                        Issues
+                                    </button>
+                                </td>
 
-									</tr>
-								</tbody>
-							</table>
-							<!-- <ul class="pagination">
-								<li><a>Total : [[${totalItems}]]</a></li>
-								<li><a th:if="${currentPage > 1}" th:href="@{'/page/' + ${currentPage - 1}}">prive</a>
-								</li>
-								<li>
-									<span th:each="i: ${#numbers.sequence(1, totalPages)}">
-										<a th:if="${currentPage != i}" th:href="@{'/page/' + ${i}}">[[${i}]]</a>
-										<span th:unless="${currentPage != i}">[[${i}]]</span>
-									</span>
-								</li>
-								<li>
-									<a th:if="${currentPage < totalPages}"
-										th:href="@{'/page/' + ${currentPage + 1}}">Next</a>
-									<span th:unless="${currentPage < totalPages}">Next</span>
-								</li>
-								<li>
-									<a th:if="${currentPage < totalPages}"
-										th:href="@{'/page/' + ${currentPage}}">Last</a>
-									<span th:unless="${currentPage < totalPages}">Last</span>
-								</li>
-							</ul> -->
-						</div>
-					</div>
-				</div>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <!-- <ul class="pagination">
+                            <li><a>Total : [[${totalItems}]]</a></li>
+                            <li><a th:if="${currentPage > 1}" th:href="@{'/page/' + ${currentPage - 1}}">prive</a>
+                            </li>
+                            <li>
+                                <span th:each="i: ${#numbers.sequence(1, totalPages)}">
+                                    <a th:if="${currentPage != i}" th:href="@{'/page/' + ${i}}">[[${i}]]</a>
+                                    <span th:unless="${currentPage != i}">[[${i}]]</span>
+                                </span>
+                            </li>
+                            <li>
+                                <a th:if="${currentPage < totalPages}"
+                                    th:href="@{'/page/' + ${currentPage + 1}}">Next</a>
+                                <span th:unless="${currentPage < totalPages}">Next</span>
+                            </li>
+                            <li>
+                                <a th:if="${currentPage < totalPages}"
+                                    th:href="@{'/page/' + ${currentPage}}">Last</a>
+                                <span th:unless="${currentPage < totalPages}">Last</span>
+                            </li>
+                        </ul> -->
+                    </div>
+                </div>
+            </div>
 
-			</div>
-		</div>
-	</div>
+        </div>
+    </div>
+</div>
 
 </body>
 
