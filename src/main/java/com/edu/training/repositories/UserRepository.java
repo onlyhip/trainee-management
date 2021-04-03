@@ -1,10 +1,12 @@
 package com.edu.training.repositories;
 
 
+import com.edu.training.entities.ClassAdmin;
 import com.edu.training.entities.User;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -18,5 +20,11 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     @Query("SELECT u.id FROM User u WHERE u.account = ?1")
     int findByAccount(String username);
+
+    public default boolean checkOldPassword(String username, String oldPassword) {
+		return findPasswordByAccountClassAdmin(username).equals(oldPassword);
+	}
+
+    
 
 }

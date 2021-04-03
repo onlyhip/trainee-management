@@ -1,3 +1,4 @@
+
 package com.edu.training.utils.data;
 
 import java.text.ParseException;
@@ -7,17 +8,21 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
+import com.edu.training.constrant.constraint;
+import com.edu.training.entities.Attendance;
 import com.edu.training.entities.Course;
 import com.edu.training.entities.Fresher;
 import com.edu.training.entities.Trainer;
 import com.edu.training.entities.Internship;
 import com.edu.training.entities.Status;
+import com.edu.training.entities.Trainee;
 import com.edu.training.entities.TrainingObjective;
 import com.edu.training.repositories.CourseRepository;
 import com.edu.training.repositories.FresherRepository;
 import com.edu.training.repositories.InternshipRepository;
 import com.edu.training.repositories.ScoreRepository;
 import com.edu.training.repositories.StatusRepository;
+import com.edu.training.repositories.TraineeRepository;
 import com.edu.training.repositories.TrainerRepository;
 import com.edu.training.repositories.TrainingObjectiveRepository;
 
@@ -45,6 +50,17 @@ public class CreateData {
 
     @Autowired
     private static ScoreRepository scoreRepository;
+
+    public CreateData() {
+        createTrainer();
+        createCourse();
+        createStatus();
+        createFresher();
+        createInternship();
+        createTO();
+        createScore();
+        createAttendance();
+    }
 
     public static void createTrainer() {
         Trainer trainer = null;
@@ -311,19 +327,31 @@ public class CreateData {
         // Score score = null;
         // ScoreId scoreId = null;
         Random rand = new Random(System.currentTimeMillis());
-        for (TrainingObjective to : toRepository.findAll()) {
-            for (Course course : to.getTrainer().getCourse()) {
-                for (Trainee trainee : course.getTrainee()) {
-                    score = new Score();
-                    score.setName("haha");
-                    score.setTrainingObjective(toRepository.getOne(to.getId()));
-                    score.setTrainee(traineeRepository.getOne(trainee.getId()));
-                    score.setValue(rand.nextInt(6) + 5);
-                    scoreRepository.save(score);
-                    // scoreRepository.insertScore(trainee.getId(), to.getId(), rand.nextInt(6) + 5, "haha");
-                }
+        for (Trainee trainee : traineeRepository.findAll()) {
+            for (TrainingObjective to : trainee.getCourse().getTrainer().getTrainingObjectives()) {
+                score = new Score();
+                score.setName("haha");
+                score.setTrainingObjective(toRepository.getOne(to.getId()));
+                score.setTrainee(traineeRepository.getOne(trainee.getId()));
+                score.setValue(rand.nextInt(6) + 5);
+                scoreRepository.save(score);
+                // scoreRepository.insertScore(trainee.getId(), to.getId(), rand.nextInt(6) + 5,
+                // "haha");
             }
         }
+    }
+
+    public static void createAttendance() {
+
+        Attendance att = null;
+        Random rand = new Random(System.currentTimeMillis());
+
+        for(Trainee trainee : trainerRepository.findAll()) {
+            att = new Attendance();
+            att.setType(constraint.TYPE_ATTENDANCE.get(rand.nextInt(7)));
+            att.setUser(user);
+        }
+
     }
 
 }

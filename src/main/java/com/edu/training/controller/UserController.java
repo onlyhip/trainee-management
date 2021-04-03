@@ -36,6 +36,8 @@ public class UserController {
 	@Autowired
 	private ClassAdminRepository classAdminRepository;
 
+	
+
 	@GetMapping("/login")
 	public String getLogin() {
 
@@ -55,7 +57,7 @@ public class UserController {
 
 	@GetMapping("/change-password")
 	public String updateUserPasswordForm(Model model) {
-		ClassAdmin loginedAdmin = getLoginedAccount();
+		ClassAdmin loginedAdmin = classAdminRepository.getLoginedAccount();
 		model.addAttribute("user", loginedAdmin);
 
 		return "change-password";
@@ -65,7 +67,7 @@ public class UserController {
 	public String updateUserPassword(ModelMap modelMap, @RequestParam("new-password") String newPassword,
 			@RequestParam("oldPassword") String oldPassword, RedirectAttributes attributes) {
 
-		ClassAdmin loginedAdmin = getLoginedAccount();
+		ClassAdmin loginedAdmin = classAdminRepository.getLoginedAccount();
 		if (passwordEncoder.matches(oldPassword, loginedAdmin.getPassword()) == false) {
 			return "redirect:/change-password?error=true";
 		}
@@ -80,20 +82,12 @@ public class UserController {
 		return "redirect:/";
 	}
 
+
+
+
 	
 
-
-	public boolean checkOldPassword(String username, String oldPassword) {
-		return userRepository.findPasswordByAccountClassAdmin(username).equals(oldPassword);
-	}
-
-	public ClassAdmin getLoginedAccount() {
-
-		String loginedAccount = SecurityContextHolder.getContext().getAuthentication().getName();
-		int id = classAdminRepository.findIdByAccount(loginedAccount);
-		ClassAdmin loginedUser = classAdminRepository.getOne(id);
-		return loginedUser;
-	}
+	
 
 
 
