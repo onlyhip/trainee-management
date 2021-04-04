@@ -57,21 +57,21 @@ public class HomeController {
     @Autowired
     private TrainingObjectiveRepository toRepository;
 
-
+    @Autowired
+    private ScoreRepository scoreRepository;
 
     @GetMapping("/")
     public String viewHomePage(Model model) {
 
-
         CreateData createData = new CreateData();
 
-        createData.createTrainer(trainerRepository);
-        createData.createCourse(trainerRepository,courseRepository);
-        createData.createStatus(statusRepository);
-        createData.createFresher(courseRepository,statusRepository,fresherRepository);
-        createData.createInternship(courseRepository,statusRepository,internshipRepository);
-        createData.createTO(trainerRepository,toRepository);
-        //CreateData.createScore();
+        // createData.createTrainer(trainerRepository);
+        // createData.createCourse(trainerRepository,courseRepository);
+        // createData.createStatus(statusRepository);
+        // createData.createFresher(courseRepository,statusRepository,fresherRepository);
+        // createData.createInternship(courseRepository,statusRepository,internshipRepository);
+        // createData.createTO(trainerRepository,toRepository);
+        // createData.createScore(toRepository, traineeRepository, scoreRepository);
 
         List<Course> listCourse = courseRepository.findAll();
         List<Fresher> listFresher = fresherRepository.findAll();

@@ -22,9 +22,9 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     int findByAccount(String username);
 
     public default boolean checkOldPassword(String username, String oldPassword) {
-		return findPasswordByAccountClassAdmin(username).equals(oldPassword);
-	}
+		  return findPasswordByAccountClassAdmin(username).equals(oldPassword);
+	  }
 
     
-
+  
 }

@@ -1,36 +1,21 @@
 package com.edu.training.dto;
 
-import com.edu.training.entities.Trainee;
+
 
 public class TraineeScoreDTO {
     
-    private Trainee trainee;
+    // public int traineeId;
 
-    private double avgScore;
+    // public String traineeUni;
 
-    public TraineeScoreDTO() {
-    }
+    // public String traineeAccount;
 
-    public TraineeScoreDTO(Trainee trainee, double avgScore) {
-        this.trainee = trainee;
-        this.avgScore = avgScore;
-    }
+    // public String traineeEmail;
 
-    public Trainee getTrainee() {
-        return trainee;
-    }
+    // public String traineeName;
 
-    public void setTrainee(Trainee trainee) {
-        this.trainee = trainee;
-    }
+    // public double avgScore;
 
-    public double getAvgScore() {
-        return avgScore;
-    }
-
-    public void setAvgScore(double avgScore) {
-        this.avgScore = avgScore;
-    }
-
+    
     
 }

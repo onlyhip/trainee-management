@@ -7,6 +7,7 @@ import com.edu.training.entities.Attendance;
 import com.edu.training.entities.ClassAdmin;
 import com.edu.training.repositories.ClassAdminRepository;
 import com.edu.training.repositories.UserRepository;
+import com.edu.training.services.implementation.UserServiceImpl;
 
 import org.aspectj.lang.annotation.Before;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,12 +37,8 @@ public class UserController {
 	@Autowired
 	private ClassAdminRepository classAdminRepository;
 
-	
-
 	@GetMapping("/login")
 	public String getLogin() {
-
-
 		
 		return "login";
 	}
@@ -81,14 +78,5 @@ public class UserController {
 
 		return "redirect:/";
 	}
-
-
-
-
-	
-
-	
-
-
 
 }
