@@ -7,6 +7,7 @@ import java.util.List;
 import com.edu.training.dto.TraineeScoreDTO;
 import com.edu.training.entities.Course;
 import com.edu.training.entities.Trainee;
+import com.edu.training.models.TraineeScoreDto;
 import com.edu.training.repositories.CourseRepository;
 import com.edu.training.repositories.TraineeRepository;
 import com.edu.training.repositories.TraineeRepositoryImpl;
@@ -40,8 +41,10 @@ public class ClassController {
                 Timestamp.valueOf(LocalDateTime.now()).compareTo(course.getEndDate()) > 0 ? "Done" : "In Process");
         model.addAttribute("class", course);
 
-        List<TraineeScoreDTO> traineeScoreList = traineeRepositoryImpl.findAvgScoreTraineeByCourseId(classId);
-        model.addAttribute("trainees", traineeScoreList);
+
+        List<TraineeScoreDto> trainees = traineeRepository.findScoreByTrainee(classId);
+
+        model.addAttribute("trainees", trainees);
 
         return "class-details";
     }

@@ -530,7 +530,6 @@ demo = {
     }
 
 
-
 }
 
 function createPieFirst() {
@@ -548,9 +547,9 @@ function createPieFirst() {
                     rnCourse,
                 ],
                 backgroundColor: [
-                    window.chartColors.yellow,
-                    window.chartColors.red,
-                    window.chartColors.blue,
+                    'rgb(255, 205, 86)',
+                    'rgb(255, 99, 132)',
+                    'rgb(54, 162, 235)'
                 ],
                 label: 'Dataset 1'
             }],
@@ -590,9 +589,9 @@ function createPieSecond() {
                     rnFresher,
                 ],
                 backgroundColor: [
-                    window.chartColors.yellow,
-                    window.chartColors.red,
-                    window.chartColors.blue,
+                    'rgb(255, 205, 86)',
+                    'rgb(255, 99, 132)',
+                    'rgb(54, 162, 235)'
                 ],
                 label: 'Dataset 1'
             }],
@@ -657,7 +656,6 @@ function emptyPassword() {
         text: 'Empty field input password or confirm password, input password please!'
     })
 }
-
 
 
 function successChangePassword() {
@@ -746,7 +744,6 @@ function checkInputLogin() {
 }
 
 
-
 function checkWrongUser() {
 
     var checkErrorInput = document.getElementById("check-error-input");
@@ -800,8 +797,13 @@ $(function () {
     $('form').each(function () {
         $(this).find('input').keypress(function (e) {
             // Enter pressed?
-            if (e.which == 10 || e.which == 13) {
-                this.form.submit();
+            let t = $('#size').val();
+            if (t < 1) {
+                this.form.checkValidity();
+            } else {
+                if (e.which == 10 || e.which == 13) {
+                    this.form.submit();
+                }
             }
         });
 
@@ -829,5 +831,5 @@ function menuBar() {
 }
 
 function rowClicked(value) {
-    location.href = "class-management/class-details?id=" + value;
+    location.href = "../class-management/class-details?id=" + value;
 }

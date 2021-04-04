@@ -1,25 +1,53 @@
 package com.edu.training.entities;
 
+import com.edu.training.models.TraineeScoreDto;
+
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
+
 
 @Entity
 @Table(name = "Trainee")
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Trainee extends User{
+
+@NamedNativeQuery(
+        name = "find_trainee_score_dto",
+        query =
+                "SELECT" +
+                        " trainee.id AS id, " +
+                        " user.full_name AS name, " +
+                        " user.account, " +
+                        " avg(score.value) as score, " +
+                        " user.email, " +
+                        " trainee.university " +
+                        " FROM course " +
+                        " INNER JOIN trainee " +
+                        " ON course.id = trainee.id_course " +
+                        " INNER JOIN score " +
+                        " ON score.id_trainee = trainee.id " +
+                        " INNER JOIN user " +
+                        " ON user.id = trainee.id " +
+                        " WHERE course.id = :idCourse " +
+                        " GROUP BY score.id_trainee ",
+        resultSetMapping = "trainee_score_dto"
+)
+@SqlResultSetMapping(
+        name = "trainee_score_dto",
+        classes = @ConstructorResult(
+                targetClass = TraineeScoreDto.class,
+                columns = {@ColumnResult(name = "id", type = Integer.class),
+                        @ColumnResult(name = "name", type = String.class),
+                        @ColumnResult(name = "account", type = String.class),
+                        @ColumnResult(name = "score", type = Float.class),
+                        @ColumnResult(name = "email", type = String.class),
+                        @ColumnResult(name = "university", type = String.class)}
+        )
+)
+public class Trainee extends User {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "IdCourse", referencedColumnName = "Id")
@@ -57,7 +85,8 @@ public class Trainee extends User{
     private List<Certificates> certificate;
 
     @OneToMany(mappedBy = "primaryKey.trainee", cascade = CascadeType.ALL)
-	private Set<Score> scores = new HashSet<Score>();
+    private Set<Score> scores = new HashSet<Score>();
+
 
     public Trainee(Course course) {
         this.course = course;
