@@ -36,14 +36,14 @@
                         <a class="dropdown-item" th:href="@{/class-management(size=${size},field = ${'name'})}">Sort by Name</a>
                         <a class="dropdown-item" th:href="@{/class-management(size=${size},field = ${'head-teacher'})}">Sort by Head Teacher</a>
                         <a class="dropdown-item" th:href="@{/class-management(size=${size},field = ${'status'})}">Sort by Status</a>
-                        <a class="dropdown-item" th:href="@{/class-management(size=${size},field = ${'default'})}">Reset the Default Order</a>
+                        <a class="dropdown-item" th:href="@{/class-management(size=${size},field = ${'default'})}">Reset the Order</a>
                     </div>
                 </div>
                 <div class="input-group col-md-3">
                     <div class="input-group-prepend align-self-center">
                         <span class="input-group-text">Page size:&nbsp;</span>
                     </div>
-                    <input type="text" class="form-control" name="size" id="size" th:value="${size}">
+                    <input type="number" class="form-control" name="size" id="size" min="1" th:value="${size}">
                     <input name="field" id="field" th:value="${field}" hidden>
                     <input type="submit" hidden>
                 </div>

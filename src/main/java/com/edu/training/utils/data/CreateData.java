@@ -7,20 +7,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
-import com.edu.training.entities.Course;
-import com.edu.training.entities.Fresher;
-import com.edu.training.entities.Trainer;
-import com.edu.training.entities.Internship;
-import com.edu.training.entities.Status;
-import com.edu.training.entities.Trainee;
-import com.edu.training.entities.TrainingObjective;
-import com.edu.training.repositories.CourseRepository;
-import com.edu.training.repositories.FresherRepository;
-import com.edu.training.repositories.InternshipRepository;
-import com.edu.training.repositories.ScoreRepository;
-import com.edu.training.repositories.StatusRepository;
-import com.edu.training.repositories.TrainerRepository;
-import com.edu.training.repositories.TrainingObjectiveRepository;
+import com.edu.training.entities.*;
+import com.edu.training.models.ScoreId;
+import com.edu.training.repositories.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -77,7 +66,7 @@ public class CreateData {
 
     }
 
-    public void createCourse(TrainerRepository trainerRepository,CourseRepository courseRepository) {
+    public void createCourse(TrainerRepository trainerRepository, CourseRepository courseRepository) {
 
         Course course = new Course();
         Random rand = new Random(System.currentTimeMillis());
@@ -141,7 +130,7 @@ public class CreateData {
 
     }
 
-    public void createFresher(CourseRepository courseRepository,StatusRepository statusRepository,FresherRepository fresherRepository) {
+    public void createFresher(CourseRepository courseRepository, StatusRepository statusRepository, FresherRepository fresherRepository) {
 
         Fresher trainee = null;
         Random rand = new Random(System.currentTimeMillis());
@@ -210,7 +199,7 @@ public class CreateData {
         }
     }
 
-    public void createInternship(CourseRepository courseRepository,StatusRepository statusRepository,InternshipRepository internshipRepository) {
+    public void createInternship(CourseRepository courseRepository, StatusRepository statusRepository, InternshipRepository internshipRepository) {
         Internship trainee = null;
         Random rand = new Random(System.currentTimeMillis());
         List<String> hoList = new ArrayList<String>();
@@ -273,7 +262,7 @@ public class CreateData {
         }
     }
 
-    public void createTO(TrainerRepository trainerRepository,TrainingObjectiveRepository toRepository) {
+    public void createTO(TrainerRepository trainerRepository, TrainingObjectiveRepository toRepository) {
         TrainingObjective to = null;
         for (int i = 4; i <= 13; i++) {
             to = new TrainingObjective();
@@ -289,25 +278,40 @@ public class CreateData {
         }
     }
 
-    public void createScore(TrainingObjectiveRepository toRepository) {
-        // Score score = null;
-        // ScoreId scoreId = null;
-        Random rand = new Random(System.currentTimeMillis());
-        for (TrainingObjective to : toRepository.findAll()) {
-            for (Course course : to.getTrainer().getCourseList()) {
-                for (Trainee trainee : course.getTrainee()) {
-                    // score = new Score();
-                    // score.setName("haha");
-                    // System.out.println("To Id: " + to.getId());
-                    // System.out.println("Trainee Id: " + trainee.getId());
-                    // score.setTrainingObjective(toRepository.getOne(to.getId()));
-                    // score.setTrainee(traineeRepository.getOne(trainee.getId()));
-                    // score.setValue(rand.nextInt(6) + 5);
-                    //scoreRepository.insertScore(trainee.getId(), to.getId(), rand.nextInt(6) + 5, "haha");
+    public void createScore(CourseRepository courseRepository, ScoreRepository scoreRepository, TrainingObjectiveRepository toRepository) {
+        List<String> nameScore = new ArrayList<>();
+        nameScore.add("SQL");
+        nameScore.add("Java SE");
+        nameScore.add("Java EE");
+        nameScore.add("JavaScript");
+        nameScore.add("Hibernate");
+        nameScore.add("Angular");
+        nameScore.add("React");
+        nameScore.add("Python");
+        nameScore.add("Mock Project");
+        nameScore.add("Front End");
+        nameScore.add("Java Web Back End");
 
+
+        Random rand = new Random(System.currentTimeMillis());
+        Score score = null;
+        for (Course course : courseRepository.findAll()) {
+            if (course.getTrainee() != null) {
+                for (Trainee trainee : course.getTrainee()) {
+                    for (TrainingObjective to : toRepository.findAll()) {
+                        score = new Score();
+                        String name = nameScore.get(rand.nextInt(11));
+                        score.setName(name);
+                        score.setTrainingObjective(to);
+                        score.setTrainee(trainee);
+                        score.setValue(rand.nextInt(6) + 5);
+                        scoreRepository.save(score);
+                    }
                 }
             }
         }
     }
 
 }
+
+

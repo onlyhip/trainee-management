@@ -92,7 +92,7 @@
                             <a href="#">
                                 <img class="avatar border-gray" src="/img/avt.jpg" alt="...">
                             </a>
-                            <h2 class="mt-0 mb-0" th:text="${class.trainer.name}">Mai Hoang Duong</h2>
+                            <h2 class="mt-0 mb-0" th:text="${class.trainer.name}"></h2>
 
                         </div>
                     </div>
@@ -177,26 +177,14 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-6" th:each="trainee : ${trainees}">
                 <div class="card profile d-flex flex-row">
                     <div class="col-md-4 text-center">
                         <figure>
                             <img src="/img/avt.jpg" alt="" class="rounded-circle img-fluid mt-4">
                             <figcaption class="ratings">
                                 <p>
-                                    <a class="text-warning" href="#">
-                                        <span class="fa fa-star"></span>
-                                    </a>
-                                    <a class="text-warning" href="#">
-                                        <span class="fa fa-star"></span>
-                                    </a>
-                                    <a class="text-warning" href="#">
-                                        <span class="fa fa-star"></span>
-                                    </a>
-                                    <a class="text-warning" href="#">
-                                        <span class="fa fa-star"></span>
-                                    </a>
-                                    <a class="text-warning" href="#">
+                                    <a class="text-warning" th:each="i : ${#numbers.sequence( 1,trainee.score + 1, 2)}">
                                         <span class="fa fa-star"></span>
                                     </a>
                                 </p>
@@ -204,144 +192,52 @@
                         </figure>
                     </div>
                     <div class="col-md-8">
-                        <h4 class="text-primary"><span class="fa fa-user mr-1 text-dark"></span>Nicole Pearson</h4>
-                        <p class="mb-1"><span class="fa fa-info-circle mr-1"></span><strong>Account: </strong>
-                            DuongMH
+                        <h4 class="text-primary"><span
+                                class="fa fa-user mr-1 text-dark"></span>
+                            <a href="#">[[${trainee.name}]]</a>
+                        </h4>
+                        <p class="mb-1"><span
+                                class="fa fa-info-circle mr-1"></span><strong>Account: </strong>
+                            [[${trainee.account}]]
                         </p>
-                        <p class="mb-1"><span class="fa fa-graduation-cap mr-1"></span><strong>Rank: </strong> A+
+                        <p class="mb-1"
+                           th:if="${trainee.score <= 10 and trainee.score >= 9}"
+                        ><span class="fa fa-graduation-cap mr-1"></span><strong>Rank: </strong>
+                            A++
                         </p>
-                        <p class="mb-1 text-primary"><span class="fa fa-envelope mr-1 text-dark"></span><strong
+                        <p class="mb-1"
+                           th:if="${trainee.score < 9 and trainee.score >= 8}"
+                        ><span class="fa fa-graduation-cap mr-1"></span><strong>Rank: </strong>
+                            A+
+                        </p>
+                        <p class="mb-1"
+                           th:if="${trainee.score < 8 and trainee.score >= 7}"
+                        ><span class="fa fa-graduation-cap mr-1"></span><strong>Rank: </strong>
+                            A
+                        </p>
+                        <p class="mb-1"
+                           th:if="${trainee.score < 7 and trainee.score >= 6}"
+                        ><span class="fa fa-graduation-cap mr-1"></span><strong>Rank: </strong>
+                            B
+                        </p>
+                        <p class="mb-1"
+                           th:if="${trainee.score < 6 and trainee.score >= 5}"
+                        ><span class="fa fa-graduation-cap mr-1"></span><strong>Rank: </strong>
+                            C
+                        </p>
+                        <p class="mb-1" th:if="${trainee.score < 5}"
+                        ><span class="fa fa-graduation-cap mr-1"></span><strong>Rank: </strong>
+                            D
+                        </p>
+
+                        <p class="mb-1 text-primary"><span
+                                class="fa fa-envelope mr-1 text-dark"></span><strong
                                 class="text-dark">Email: </strong>
-                            phminh.chip@gmail.com</p>
+                            [[${trainee.email}]]
+                        </p>
                         <p class="mb-1"><span class="fa fa-university mr-1"></span><strong>University: </strong>
-                            FPT
-                            University</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card profile d-flex flex-row">
-                    <div class="col-md-4 text-center">
-                        <figure>
-                            <img src="/img/avt.jpg" alt="" class="rounded-circle img-fluid mt-4">
-                            <figcaption class="ratings">
-                                <p>
-                                    <a class="text-warning" href="#">
-                                        <span class="fa fa-star"></span>
-                                    </a>
-                                    <a class="text-warning" href="#">
-                                        <span class="fa fa-star"></span>
-                                    </a>
-                                    <a class="text-warning" href="#">
-                                        <span class="fa fa-star"></span>
-                                    </a>
-                                    <a class="text-warning" href="#">
-                                        <span class="fa fa-star"></span>
-                                    </a>
-                                    <a class="text-warning" href="#">
-                                        <span class="fa fa-star"></span>
-                                    </a>
-                                </p>
-                            </figcaption>
-                        </figure>
-                    </div>
-                    <div class="col-md-8">
-                        <h4 class="text-primary"><span class="fa fa-user mr-1 text-dark"></span>Nicole Pearson</h4>
-                        <p class="mb-1"><span class="fa fa-info-circle mr-1"></span><strong>Account: </strong>
-                            DuongMH
+                            [[${trainee.university}]]
                         </p>
-                        <p class="mb-1"><span class="fa fa-graduation-cap mr-1"></span><strong>Rank: </strong> A+
-                        </p>
-                        <p class="mb-1 text-primary"><span class="fa fa-envelope mr-1 text-dark"></span><strong
-                                class="text-dark">Email: </strong>
-                            phminh.chip@gmail.com</p>
-                        <p class="mb-1"><span class="fa fa-university mr-1"></span><strong>Unniversity: </strong>
-                            FPT
-                            University</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card profile d-flex flex-row">
-                    <div class="col-md-4 text-center">
-                        <figure>
-                            <img src="/img/avt.jpg" alt="" class="rounded-circle img-fluid mt-4">
-                            <figcaption class="ratings">
-                                <p>
-                                    <a class="text-warning" href="#">
-                                        <span class="fa fa-star"></span>
-                                    </a>
-                                    <a class="text-warning" href="#">
-                                        <span class="fa fa-star"></span>
-                                    </a>
-                                    <a class="text-warning" href="#">
-                                        <span class="fa fa-star"></span>
-                                    </a>
-                                    <a class="text-warning" href="#">
-                                        <span class="fa fa-star"></span>
-                                    </a>
-                                    <a class="text-warning" href="#">
-                                        <span class="fa fa-star"></span>
-                                    </a>
-                                </p>
-                            </figcaption>
-                        </figure>
-                    </div>
-                    <div class="col-md-8">
-                        <h4 class="text-primary"><span class="fa fa-user mr-1 text-dark"></span>Nicole Pearson</h4>
-                        <p class="mb-1"><span class="fa fa-info-circle mr-1"></span><strong>Account: </strong>
-                            DuongMH
-                        </p>
-                        <p class="mb-1"><span class="fa fa-graduation-cap mr-1"></span><strong>Rank: </strong> A+
-                        </p>
-                        <p class="mb-1 text-primary"><span class="fa fa-envelope mr-1 text-dark"></span><strong
-                                class="text-dark">Email: </strong>
-                            phminh.chip@gmail.com</p>
-                        <p class="mb-1"><span class="fa fa-university mr-1"></span><strong>University: </strong>
-                            FPT
-                            University</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card profile d-flex flex-row">
-                    <div class="col-md-4 text-center">
-                        <figure>
-                            <img src="/img/avt.jpg" alt="" class="rounded-circle img-fluid mt-4">
-                            <figcaption class="ratings">
-                                <p>
-                                    <a class="text-warning" href="#">
-                                        <span class="fa fa-star"></span>
-                                    </a>
-                                    <a class="text-warning" href="#">
-                                        <span class="fa fa-star"></span>
-                                    </a>
-                                    <a class="text-warning" href="#">
-                                        <span class="fa fa-star"></span>
-                                    </a>
-                                    <a class="text-warning" href="#">
-                                        <span class="fa fa-star"></span>
-                                    </a>
-                                    <a class="text-warning" href="#">
-                                        <span class="fa fa-star"></span>
-                                    </a>
-                                </p>
-                            </figcaption>
-                        </figure>
-                    </div>
-                    <div class="col-md-8">
-                        <h4 class="text-primary"><span class="fa fa-user mr-1 text-dark"></span>Nicole Pearson</h4>
-                        <p class="mb-1"><span class="fa fa-info-circle mr-1"></span><strong>Account: </strong>
-                            DuongMH
-                        </p>
-                        <p class="mb-1"><span class="fa fa-graduation-cap mr-1"></span><strong>Rank: </strong> A+
-                        </p>
-                        <p class="mb-1 text-primary"><span class="fa fa-envelope mr-1 text-dark"></span><strong
-                                class="text-dark">Email: </strong>
-                            phminh.chip@gmail.com</p>
-                        <p class="mb-1"><span class="fa fa-university mr-1"></span><strong>University: </strong>
-                            FPT
-                            University</p>
                     </div>
                 </div>
             </div>

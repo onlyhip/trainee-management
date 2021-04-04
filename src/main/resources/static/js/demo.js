@@ -530,7 +530,6 @@ demo = {
     }
 
 
-
 }
 
 function createPieFirst() {
@@ -659,7 +658,6 @@ function emptyPassword() {
 }
 
 
-
 function successChangePassword() {
     Swal.fire({
         position: 'center',
@@ -746,7 +744,6 @@ function checkInputLogin() {
 }
 
 
-
 function checkWrongUser() {
 
     var checkErrorInput = document.getElementById("check-error-input");
@@ -800,8 +797,13 @@ $(function () {
     $('form').each(function () {
         $(this).find('input').keypress(function (e) {
             // Enter pressed?
-            if (e.which == 10 || e.which == 13) {
-                this.form.submit();
+            let t = $('#size').val();
+            if (t < 1) {
+                this.form.checkValidity();
+            } else {
+                if (e.which == 10 || e.which == 13) {
+                    this.form.submit();
+                }
             }
         });
 
@@ -829,5 +831,5 @@ function menuBar() {
 }
 
 function rowClicked(value) {
-    location.href = "class-management/class-details?id=" + value;
+    location.href = "../class-management/class-details?id=" + value;
 }

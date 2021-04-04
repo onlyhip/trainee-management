@@ -61,19 +61,12 @@ public class HomeController {
     private TrainingObjectiveRepository toRepository;
 
 
+    @Autowired
+    private ScoreRepository scoreRepository;
+
+
     @GetMapping("/")
     public String viewHomePage(Model model) {
-
-
-//        CreateData createData = new CreateData();
-//
-//        createData.createTrainer(trainerRepository);
-//        createData.createCourse(trainerRepository,courseRepository);
-//        createData.createStatus(statusRepository);
-//        createData.createFresher(courseRepository,statusRepository,fresherRepository);
-//        createData.createInternship(courseRepository,statusRepository,internshipRepository);
-//        createData.createTO(trainerRepository,toRepository);
-        //CreateData.createScore();
 
         List<Course> listCourse = courseRepository.findAll();
         List<Fresher> listFresher = fresherRepository.findAll();
@@ -129,14 +122,14 @@ public class HomeController {
         if (sortField.equals("default")) {
             classPage = courseService.findPaginated(cPage, pageSize);
         } else {
-            if(sortField.equals("head-teacher")) {
+            if (sortField.equals("head-teacher")) {
                 classPage = courseService.findPaginated(cPage, pageSize, "trainer.name");
-            }else
-            {
+            } else {
                 classPage = courseService.findPaginated(cPage, pageSize, sortField);
             }
         }
-//        List<Course> listCourses = classPage.getContent();
+
+//        //List<Course> listCourses = classPage.getContent();
 //        // listCourses.forEach(c ->
 //        // c.setCurrCount(traineeRepository.countCourseByCourseId(c.getId())));
 //        for (Course c : listCourses) {
@@ -150,7 +143,7 @@ public class HomeController {
         model.addAttribute("classPage", classPage);
         model.addAttribute("cPage", cPage);
         model.addAttribute("size", pageSize);
-        model.addAttribute("field",sortField);
+        model.addAttribute("field", sortField);
 
 
         return "class-management";
@@ -229,4 +222,27 @@ public class HomeController {
         ClassAdmin loginedUser = classAdminRepository.getOne(id);
         return loginedUser;
     }
+
+
+    @GetMapping("/create-data-first")
+    public String createDataFirst(){
+        CreateData createData = new CreateData();
+        createData.createTrainer(trainerRepository);
+        createData.createCourse(trainerRepository,courseRepository);
+        createData.createStatus(statusRepository);
+        createData.createFresher(courseRepository,statusRepository,fresherRepository);
+        createData.createInternship(courseRepository,statusRepository,internshipRepository);
+        createData.createTO(trainerRepository,toRepository);
+        createData.createScore(courseRepository,scoreRepository,toRepository);
+        return "create-database";
+    }
+
+
+    @GetMapping("/create-data-second")
+    public String createDataSecond(){
+        CreateData createData = new CreateData();
+        createData.createScore(courseRepository,scoreRepository,toRepository);
+        return "create-database";
+    }
+
 }
