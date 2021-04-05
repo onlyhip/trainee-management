@@ -294,7 +294,7 @@ public class CreateData {
         for (Course course : courseRepository.findAll()) {
             if (course.getTrainee() != null) {
                 for (Trainee trainee : course.getTrainee()) {
-                    for (TrainingObjective to : toRepository.findAll()) {
+                    for (TrainingObjective to : course.getTrainer().getTrainingObjectives()) {
                         score = new Score();
                         String name = nameScore.get(rand.nextInt(11));
                         score.setName(name);

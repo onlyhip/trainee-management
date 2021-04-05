@@ -4,8 +4,6 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 import com.edu.training.entities.ClassAdmin;
 import com.edu.training.entities.Course;
@@ -114,7 +112,7 @@ public class HomeController {
                                     @RequestParam("size") Optional<Integer> size, @RequestParam("field") Optional<String> field) {
 
         int cPage = page.orElse(1);
-        int pageSize = size.orElse(5);
+        int pageSize = size.orElse(10);
         String sortField = field.orElse("default");
 
         Page<Course> classPage;
@@ -234,6 +232,12 @@ public class HomeController {
         createData.createInternship(courseRepository,statusRepository,internshipRepository);
         createData.createTO(trainerRepository,toRepository);
         createData.createScore(courseRepository,scoreRepository,toRepository);
+        for(Course c : courseRepository.findAll()) {
+            c.setCurrCount(traineeRepository.countCourseByCourseId(c.getId()));
+            c.setStatus(
+                Timestamp.valueOf(LocalDateTime.now()).compareTo(c.getEndDate()) > 0 ? "Done" : "In Process");
+            courseRepository.save(c);
+        }
         return "create-database";
     }
 

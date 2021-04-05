@@ -107,7 +107,7 @@ public class UserServiceImpl implements UserService {
         cd.createFresher(courseRepository, statusRepository, fresherRepository);
         cd.createInternship(courseRepository, statusRepository, internshipRepository);
         cd.createTO(trainerRepository, toRepository);
-        cd.createScore(toRepository, traineeRepository, scoreRepository);
+        // cd.createScore(toRepository, traineeRepository, scoreRepository);
     }
 
 
