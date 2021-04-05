@@ -1,11 +1,11 @@
-package com.edu.training.constrant;
+package com.edu.training.utils.data;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.edu.training.entities.TypeAttendance;
 
-public class constraint {
+public class CONSTRAINT {
     
     public static final List<TypeAttendance> TYPE_ATTENDANCE = new ArrayList<>();
     

@@ -10,7 +10,6 @@ import com.edu.training.entities.Trainee;
 import com.edu.training.models.TraineeScoreDto;
 import com.edu.training.repositories.CourseRepository;
 import com.edu.training.repositories.TraineeRepository;
-import com.edu.training.repositories.TraineeRepositoryImpl;
 
 import com.edu.training.services.core.TraineeService;
 import com.edu.training.utils.page.Pagination;
@@ -27,9 +26,6 @@ public class ClassController {
 
     @Autowired
     private CourseRepository courseRepository;
-
-    @Autowired
-    private TraineeRepositoryImpl traineeRepositoryImpl;
 
     @Autowired
     private TraineeRepository traineeRepository;

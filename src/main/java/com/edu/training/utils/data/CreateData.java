@@ -1,7 +1,11 @@
 package com.edu.training.utils.data;
 
+import java.nio.charset.Charset;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,7 +17,7 @@ import com.edu.training.repositories.*;
 
 public class CreateData {
 
-    public static void createTrainer(TrainerRepository trainerRepository) {
+    public void createTrainer(TrainerRepository trainerRepository) {
         Trainer trainer = null;
         Random rand = new Random();
         List<String> hoList = new ArrayList<String>();
@@ -126,7 +130,8 @@ public class CreateData {
 
     }
 
-    public void createFresher(CourseRepository courseRepository, StatusRepository statusRepository, FresherRepository fresherRepository) {
+    public void createFresher(CourseRepository courseRepository, StatusRepository statusRepository,
+            FresherRepository fresherRepository) {
 
         Fresher trainee = null;
         Random rand = new Random(System.currentTimeMillis());
@@ -195,7 +200,8 @@ public class CreateData {
         }
     }
 
-    public void createInternship(CourseRepository courseRepository, StatusRepository statusRepository, InternshipRepository internshipRepository) {
+    public void createInternship(CourseRepository courseRepository, StatusRepository statusRepository,
+            InternshipRepository internshipRepository) {
         Internship trainee = null;
         Random rand = new Random(System.currentTimeMillis());
         List<String> hoList = new ArrayList<String>();
@@ -258,23 +264,30 @@ public class CreateData {
         }
     }
 
-    public void createTO(TrainerRepository trainerRepository, TrainingObjectiveRepository toRepository) {
+    public void createTO(TrainerRepository trainerRepository, TrainingObjectiveRepository toRepository,
+            CourseRepository courseRepository) {
         TrainingObjective to = null;
-        for (int i = 4; i <= 13; i++) {
-            to = new TrainingObjective();
-            to.setName("ahuhu");
-            to.setCode("ACBD");
-            to.setTrainer(trainerRepository.getOne(i));
-            toRepository.save(to);
-            to = new TrainingObjective();
-            to.setName("ahehe");
-            to.setCode("EFGH");
-            to.setTrainer(trainerRepository.getOne(i));
-            toRepository.save(to);
+        byte[] array = new byte[4]; // length is bounded by 7
+        
+        Random rand = new Random(System.currentTimeMillis());
+        for (Course c : courseRepository.findAll()) {
+            for (int i = 1; i < (rand.nextInt(6) + 1); i++) {
+                to = new TrainingObjective();
+                new Random().nextBytes(array);
+                String name = new String(array, Charset.forName("UTF-8"));
+                to.setName(name);
+                new Random().nextBytes(array);
+                String code = new String(array, Charset.forName("UTF-8")).toUpperCase();
+                to.setCode(code);
+                to.setTrainer(trainerRepository.getOne(c.getTrainer().getId()));
+                toRepository.save(to);
+            }
+
         }
     }
 
-    public void createScore(CourseRepository courseRepository, ScoreRepository scoreRepository, TrainingObjectiveRepository toRepository) {
+    public void createScore(CourseRepository courseRepository, ScoreRepository scoreRepository,
+            TrainingObjectiveRepository toRepository, TraineeRepository traineeRepository) {
         List<String> nameScore = new ArrayList<>();
         nameScore.add("SQL");
         nameScore.add("Java SE");
@@ -288,7 +301,6 @@ public class CreateData {
         nameScore.add("Front End");
         nameScore.add("Java Web Back End");
 
-
         Random rand = new Random(System.currentTimeMillis());
         Score score = null;
         for (Course course : courseRepository.findAll()) {
@@ -298,8 +310,8 @@ public class CreateData {
                         score = new Score();
                         String name = nameScore.get(rand.nextInt(11));
                         score.setName(name);
-                        score.setTrainingObjective(to);
-                        score.setTrainee(trainee);
+                        score.setTrainingObjective(toRepository.getOne(to.getId()));
+                        score.setTrainee(traineeRepository.getOne(trainee.getId()));
                         score.setValue(rand.nextInt(6) + 5);
                         scoreRepository.save(score);
                     }
@@ -308,19 +320,29 @@ public class CreateData {
         }
     }
 
-    // public static void createAttendance(TrainerRepository trainerRepository) {
+    public void createAttendance(TraineeRepository traineeRepository) {
 
-    //     Attendance att = null;
-    //     Random rand = new Random(System.currentTimeMillis());
+        Attendance att = null;
+        Random rand = new Random(System.currentTimeMillis());
 
-    //     for(Trainee trainee : trainerRepository.findAll()) {
-    //         att = new Attendance();
-    //         att.setType(constraint.TYPE_ATTENDANCE.get(rand.nextInt(7)));
-    //         att.setUser(user);
-    //     }
+        for (Trainee trainee : traineeRepository.findAll()) {
 
-    // }
+            LocalDate startDate = trainee.getCourse().getOpenDate().toInstant().atZone(ZoneId.systemDefault())
+                    .toLocalDate();
+            LocalDate endDate = trainee.getCourse().getEndDate().toInstant().atZone(ZoneId.systemDefault())
+                    .toLocalDate();
+
+            for (LocalDate date = startDate; date.isBefore(endDate); date = date.plusDays(2)) {
+                if (date.getDayOfWeek().equals(DayOfWeek.SUNDAY))
+                    date = date.plusDays(1);
+                att = new Attendance();
+                att.setType(CONSTRAINT.TYPE_ATTENDANCE.get(rand.nextInt(7)));
+                att.setUser(trainee);
+                att.setDate(java.sql.Date.valueOf(date));
+            }
+
+        }
+
+    }
 
 }
-
-

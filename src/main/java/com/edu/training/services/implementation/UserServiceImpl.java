@@ -98,17 +98,17 @@ public class UserServiceImpl implements UserService {
         
     }
 
-    public void createData() {
+    // public void createData() {
         
-        CreateData cd = new CreateData();
-        cd.createTrainer(trainerRepository);
-        cd.createCourse(trainerRepository, courseRepository);
-        cd.createStatus(statusRepository);
-        cd.createFresher(courseRepository, statusRepository, fresherRepository);
-        cd.createInternship(courseRepository, statusRepository, internshipRepository);
-        cd.createTO(trainerRepository, toRepository);
-        // cd.createScore(toRepository, traineeRepository, scoreRepository);
-    }
+    //     CreateData cd = new CreateData();
+    //     cd.createTrainer(trainerRepository);
+    //     cd.createCourse(trainerRepository, courseRepository);
+    //     cd.createStatus(statusRepository);
+    //     cd.createFresher(courseRepository, statusRepository, fresherRepository);
+    //     cd.createInternship(courseRepository, statusRepository, internshipRepository);
+    //     cd.createTO(trainerRepository, toRepository);
+    //     // cd.createScore(toRepository, traineeRepository, scoreRepository);
+    // }
 
 
     

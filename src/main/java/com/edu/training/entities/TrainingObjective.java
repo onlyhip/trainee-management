@@ -20,7 +20,6 @@ import javax.persistence.ConstructorResult;
 import javax.persistence.NamedNativeQuery;
 import javax.persistence.SqlResultSetMapping;
 
-import com.edu.training.dto.TraineeScoreDTO;
 
 
 // @NamedNativeQuery(

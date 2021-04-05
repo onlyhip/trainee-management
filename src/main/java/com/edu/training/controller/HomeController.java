@@ -8,10 +8,12 @@ import java.util.Optional;
 import com.edu.training.entities.ClassAdmin;
 import com.edu.training.entities.Course;
 import com.edu.training.entities.Fresher;
+import com.edu.training.models.TraineeScoreDto;
 import com.edu.training.repositories.*;
 import com.edu.training.services.implementation.CourseServiceImpl;
 
 import com.edu.training.utils.data.CreateData;
+import com.edu.training.utils.page.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -75,9 +77,8 @@ public class HomeController {
         int releaseFresher = 0;
         int runningFresher = 0;
         for (Course c : listCourse) {
-            c.setCurrCount(traineeRepository.countCourseByCourseId(c.getId()));
-            c.setStatus(Timestamp.valueOf(LocalDateTime.now()).compareTo(c.getEndDate()) > 0 ? "Done"
-                    : Timestamp.valueOf(LocalDateTime.now()).compareTo(c.getOpenDate()) < 0 ? "Waiting" : "In Process");
+            // c.setCurrCount(traineeRepository.countCourseByCourseId(c.getId()));
+            
             if (c.getStatus().equals("Done"))
                 releaseCourse++;
             else if (c.getStatus().equals("Waiting"))
@@ -155,10 +156,7 @@ public class HomeController {
         int pageSize = size.orElse(5);
         Page<Course> ClassPage = courseService.findPaginated(currentPage, pageSize, "name");
         List<Course> listCourses = ClassPage.getContent();
-        for (Course c : listCourses) {
-            c.setCurrCount(traineeRepository.countCourseByCourseId(c.getId()));
-            c.setStatus(Timestamp.valueOf(LocalDateTime.now()).compareTo(c.getEndDate()) > 0 ? "Done" : "In Process");
-        }
+
         model.addAttribute("classes", listCourses);
 
         return "class-management";
@@ -166,7 +164,27 @@ public class HomeController {
 
 
     @GetMapping("/trainee-management")
-    public String displayTraineeManagement() {
+    public String displayTraineeManagement(Model model,
+                                           @RequestParam("page") Optional<Integer> page,
+                                           @RequestParam("size") Optional<Integer> size,
+                                           @RequestParam("field") Optional<String> field) {
+
+        int cPage = page.orElse(1);
+        int pageSize = size.orElse(10);
+        String sortField = field.orElse("default");
+
+
+        List<TraineeScoreDto> listTrainees = traineeRepository.findScoreByAllTrainee();
+
+
+        List<TraineeScoreDto> trainees = Pagination.getPage(listTrainees, cPage, pageSize);
+
+
+        model.addAttribute("trainees", trainees);
+        model.addAttribute("cPage", cPage);
+        model.addAttribute("size", pageSize);
+        model.addAttribute("totalPages", (listTrainees.size() / (pageSize + 1)) + 1);
+        model.addAttribute("field", sortField);
 
         return "trainee-management";
     }
@@ -230,12 +248,12 @@ public class HomeController {
         createData.createStatus(statusRepository);
         createData.createFresher(courseRepository,statusRepository,fresherRepository);
         createData.createInternship(courseRepository,statusRepository,internshipRepository);
-        createData.createTO(trainerRepository,toRepository);
-        createData.createScore(courseRepository,scoreRepository,toRepository);
+        createData.createTO(trainerRepository,toRepository, courseRepository);
+        // createData.createScore(courseRepository,scoreRepository,toRepository, traineeRepository);
         for(Course c : courseRepository.findAll()) {
             c.setCurrCount(traineeRepository.countCourseByCourseId(c.getId()));
-            c.setStatus(
-                Timestamp.valueOf(LocalDateTime.now()).compareTo(c.getEndDate()) > 0 ? "Done" : "In Process");
+            c.setStatus(Timestamp.valueOf(LocalDateTime.now()).compareTo(c.getEndDate()) > 0 ? "Done"
+                    : Timestamp.valueOf(LocalDateTime.now()).compareTo(c.getOpenDate()) < 0 ? "Waiting" : "In Process");
             courseRepository.save(c);
         }
         return "create-database";
@@ -245,7 +263,8 @@ public class HomeController {
     @GetMapping("/create-data-second")
     public String createDataSecond(){
         CreateData createData = new CreateData();
-        createData.createScore(courseRepository,scoreRepository,toRepository);
+        createData.createScore(courseRepository,scoreRepository,toRepository, traineeRepository);
+        createData.createAttendance(traineeRepository);
         return "create-database";
     }
 

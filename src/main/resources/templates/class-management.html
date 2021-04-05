@@ -33,17 +33,20 @@
                             aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars" aria-hidden="true"></i>&nbsp;Filter
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" th:href="@{/class-management(size=${size},field = ${'name'})}">Sort by Name</a>
-                        <a class="dropdown-item" th:href="@{/class-management(size=${size},field = ${'head-teacher'})}">Sort by Head Teacher</a>
-                        <a class="dropdown-item" th:href="@{/class-management(size=${size},field = ${'status'})}">Sort by Status</a>
-                        <a class="dropdown-item" th:href="@{/class-management(size=${size},field = ${'default'})}">Reset the Order</a>
+                        <a class="dropdown-item" th:href="@{/class-management(size=${size},field = ${'default'})}">Default</a>
+                        <a class="dropdown-item" th:href="@{/class-management(size=${size},field = ${'name'})}">
+                            Name - DESC</a>
+                        <a class="dropdown-item" th:href="@{/class-management(size=${size},field = ${'head-teacher'})}">Head
+                            Teacher - DESC</a>
+                        <a class="dropdown-item" th:href="@{/class-management(size=${size},field = ${'status'})}">Status
+                            - DESC</a>
                     </div>
                 </div>
                 <div class="input-group col-md-3">
                     <div class="input-group-prepend align-self-center">
                         <span class="input-group-text">Page size:&nbsp;</span>
                     </div>
-                    <input type="number" class="form-control" name="size" id="size" min="1" th:value="${size}">
+                    <input type="number" class="form-control" name="size" id="size" min="10" th:value="${size}">
                     <input name="field" id="field" th:value="${field}" hidden>
                     <input type="submit" hidden>
                 </div>
@@ -116,7 +119,8 @@
                         </li>
                         <li class="page-item" th:classappend="${i eq classPage.number + 1} ? 'active'"
                             th:each="i : ${#numbers.sequence( 1, classPage.totalPages, 1)}">
-                            <a class="page-link" th:href="@{/class-management(size=${classPage.size},page=${i},field = ${field})}"
+                            <a class="page-link"
+                               th:href="@{/class-management(size=${classPage.size},page=${i},field = ${field})}"
                                th:text="${i}"
                                th:title="${'Page '+ i}" data-toggle="tooltip"></a>
                         </li>
