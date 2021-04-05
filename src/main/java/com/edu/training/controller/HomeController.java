@@ -10,10 +10,12 @@ import java.util.stream.IntStream;
 import com.edu.training.entities.ClassAdmin;
 import com.edu.training.entities.Course;
 import com.edu.training.entities.Fresher;
+import com.edu.training.models.TraineeScoreDto;
 import com.edu.training.repositories.*;
 import com.edu.training.services.implementation.CourseServiceImpl;
 
 import com.edu.training.utils.data.CreateData;
+import com.edu.training.utils.page.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -168,7 +170,27 @@ public class HomeController {
 
 
     @GetMapping("/trainee-management")
-    public String displayTraineeManagement() {
+    public String displayTraineeManagement(Model model,
+                                           @RequestParam("page") Optional<Integer> page,
+                                           @RequestParam("size") Optional<Integer> size,
+                                           @RequestParam("field") Optional<String> field) {
+
+        int cPage = page.orElse(1);
+        int pageSize = size.orElse(10);
+        String sortField = field.orElse("default");
+
+
+        List<TraineeScoreDto> listTrainees = traineeRepository.findScoreByAllTrainee();
+
+
+        List<TraineeScoreDto> trainees = Pagination.getPage(listTrainees, cPage, pageSize);
+
+
+        model.addAttribute("trainees", trainees);
+        model.addAttribute("cPage", cPage);
+        model.addAttribute("size", pageSize);
+        model.addAttribute("totalPages", (listTrainees.size() / (pageSize + 1)) + 1);
+        model.addAttribute("field", sortField);
 
         return "trainee-management";
     }

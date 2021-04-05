@@ -17,5 +17,8 @@ public interface TraineeRepository extends JpaRepository<Trainee, Integer> {
     @Query(name = "find_trainee_score_dto", nativeQuery = true)
     List<TraineeScoreDto> findScoreByTrainee(@Param("idCourse") int idCourse);
 
+    @Query(name = "find_all_trainee_score_dto", nativeQuery = true)
+    List<TraineeScoreDto> findScoreByAllTrainee();
+
 
 }

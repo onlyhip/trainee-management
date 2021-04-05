@@ -14,39 +14,70 @@ import javax.persistence.*;
 @Table(name = "Trainee")
 @Inheritance(strategy = InheritanceType.JOINED)
 
-@NamedNativeQuery(
-        name = "find_trainee_score_dto",
-        query =
-                "SELECT" +
-                        " t.id AS id, " +
-                        " u.full_name AS name, " +
-                        " u.account, " +
-                        " avg(s.value) as score, " +
-                        " u.email, " +
-                        " t.university " +
-                        " FROM course c " +
-                        " INNER JOIN trainee t " +
-                        " ON c.id = t.id_course " +
-                        " INNER JOIN score s " +
-                        " ON s.id_trainee = t.id " +
-                        " INNER JOIN user u " +
-                        " ON u.id = t.id " +
-                        " WHERE c.id = :idCourse " +
-                        " GROUP BY s.id_trainee",
-        resultSetMapping = "trainee_score_dto"
-)
-@SqlResultSetMapping(
-        name = "trainee_score_dto",
-        classes = @ConstructorResult(
-                targetClass = TraineeScoreDto.class,
-                columns = {@ColumnResult(name = "id", type = Integer.class),
-                        @ColumnResult(name = "name", type = String.class),
-                        @ColumnResult(name = "account", type = String.class),
-                        @ColumnResult(name = "score", type = Float.class),
-                        @ColumnResult(name = "email", type = String.class),
-                        @ColumnResult(name = "university", type = String.class)}
-        )
-)
+
+@NamedNativeQueries({
+        @NamedNativeQuery(
+                name = "find_trainee_score_dto",
+                query =
+                        "SELECT" +
+                                " t.id AS id, " +
+                                " u.full_name AS name, " +
+                                " u.account, " +
+                                " avg(s.value) as score, " +
+                                " u.email, " +
+                                " t.university " +
+                                " FROM course c " +
+                                " INNER JOIN trainee t " +
+                                " ON c.id = t.id_course " +
+                                " INNER JOIN score s " +
+                                " ON s.id_trainee = t.id " +
+                                " INNER JOIN user u " +
+                                " ON u.id = t.id " +
+                                " WHERE c.id = :idCourse " +
+                                " GROUP BY s.id_trainee",
+                resultSetMapping = "trainee_score_dto"),
+        @NamedNativeQuery(
+                name = "find_all_trainee_score_dto",
+                query =
+                        "SELECT" +
+                                " t.id AS id, " +
+                                " u.full_name AS name, " +
+                                " u.account, " +
+                                " avg(s.value) as score, " +
+                                " u.email, " +
+                                " t.university " +
+                                " FROM course c " +
+                                " INNER JOIN trainee t " +
+                                " ON c.id = t.id_course " +
+                                " INNER JOIN score s " +
+                                " ON s.id_trainee = t.id " +
+                                " INNER JOIN user u " +
+                                " ON u.id = t.id " +
+                                " GROUP BY s.id_trainee",
+                resultSetMapping = "all_trainee_score_dto")
+})
+@SqlResultSetMappings({
+        @SqlResultSetMapping(
+                name = "trainee_score_dto",
+                classes = @ConstructorResult(
+                        targetClass = TraineeScoreDto.class,
+                        columns = {@ColumnResult(name = "id", type = Integer.class),
+                                @ColumnResult(name = "name", type = String.class),
+                                @ColumnResult(name = "account", type = String.class),
+                                @ColumnResult(name = "score", type = Float.class),
+                                @ColumnResult(name = "email", type = String.class),
+                                @ColumnResult(name = "university", type = String.class)})),
+        @SqlResultSetMapping(
+                name = "all_trainee_score_dto",
+                classes = @ConstructorResult(
+                        targetClass = TraineeScoreDto.class,
+                        columns = {@ColumnResult(name = "id", type = Integer.class),
+                                @ColumnResult(name = "name", type = String.class),
+                                @ColumnResult(name = "account", type = String.class),
+                                @ColumnResult(name = "score", type = Float.class),
+                                @ColumnResult(name = "email", type = String.class),
+                                @ColumnResult(name = "university", type = String.class)}))
+})
 public class Trainee extends User {
 
     @ManyToOne(fetch = FetchType.LAZY)
