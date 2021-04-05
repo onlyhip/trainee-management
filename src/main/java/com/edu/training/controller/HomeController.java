@@ -114,7 +114,7 @@ public class HomeController {
                                     @RequestParam("size") Optional<Integer> size, @RequestParam("field") Optional<String> field) {
 
         int cPage = page.orElse(1);
-        int pageSize = size.orElse(5);
+        int pageSize = size.orElse(10);
         String sortField = field.orElse("default");
 
         Page<Course> classPage;

@@ -18,21 +18,21 @@ import javax.persistence.*;
         name = "find_trainee_score_dto",
         query =
                 "SELECT" +
-                        " trainee.id AS id, " +
-                        " user.full_name AS name, " +
-                        " user.account, " +
-                        " avg(score.value) as score, " +
-                        " user.email, " +
-                        " trainee.university " +
-                        " FROM course " +
-                        " INNER JOIN trainee " +
-                        " ON course.id = trainee.id_course " +
-                        " INNER JOIN score " +
-                        " ON score.id_trainee = trainee.id " +
-                        " INNER JOIN user " +
-                        " ON user.id = trainee.id " +
-                        " WHERE course.id = :idCourse " +
-                        " GROUP BY score.id_trainee ",
+                        " t.id AS id, " +
+                        " u.full_name AS name, " +
+                        " u.account, " +
+                        " avg(s.value) as score, " +
+                        " u.email, " +
+                        " t.university " +
+                        " FROM course c " +
+                        " INNER JOIN trainee t " +
+                        " ON c.id = t.id_course " +
+                        " INNER JOIN score s " +
+                        " ON s.id_trainee = t.id " +
+                        " INNER JOIN user u " +
+                        " ON u.id = t.id " +
+                        " WHERE c.id = :idCourse " +
+                        " GROUP BY s.id_trainee",
         resultSetMapping = "trainee_score_dto"
 )
 @SqlResultSetMapping(
