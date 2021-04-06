@@ -332,7 +332,7 @@ public class CreateData {
             LocalDate endDate = trainee.getCourse().getEndDate().toInstant().atZone(ZoneId.systemDefault())
                     .toLocalDate();
 
-            for (LocalDate date = startDate; date.isBefore(endDate); date = date.plusDays(2)) {
+            for (LocalDate date = startDate; date.isBefore(endDate); date = date.plusDays(20)) {
                 if (date.getDayOfWeek().equals(DayOfWeek.SUNDAY))
                     date = date.plusDays(1);
                 att = new Attendance();

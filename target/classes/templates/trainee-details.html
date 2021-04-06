@@ -41,19 +41,8 @@
                             <figure>
                                 <figcaption class="ratings">
                                     <p class="h3 mt-0">
-                                        <a class="text-warning" href="#">
-                                            <span class="fa fa-star"></span>
-                                        </a>
-                                        <a class="text-warning" href="#">
-                                            <span class="fa fa-star"></span>
-                                        </a>
-                                        <a class="text-warning" href="#">
-                                            <span class="fa fa-star"></span>
-                                        </a>
-                                        <a class="text-warning" href="#">
-                                            <span class="fa fa-star"></span>
-                                        </a>
-                                        <a class="text-warning" href="#">
+                                        <a class="text-warning"
+                                           th:each="i : ${#numbers.sequence( 1,finalScore/10 + 1, 2)}">
                                             <span class="fa fa-star"></span>
                                         </a>
                                     </p>
@@ -65,7 +54,30 @@
                     <div class="d-flex justify-content-center">
                         <div class="text-center">
                             <div class="d-flex flex-row">
-                                <p class="h1 font-weight-bold text-danger mt-0">A+</p>
+
+                                <p class="h1 font-weight-bold text-danger mt-0"
+                                   th:if="${finalScore/10 <= 10 and finalScore/10 >= 9}">
+                                    &nbsp;A++
+                                </p>
+                                <p class="h1 font-weight-bold text-danger mt-0"
+                                   th:if="${finalScore/10 < 9 and finalScore/10 >= 8}">
+                                    &nbsp;A+
+                                </p>
+                                <p class="h1 font-weight-bold text-danger mt-0"
+                                   th:if="${finalScore/10 < 8 and finalScore/10 >= 7}">
+                                    &nbsp;A
+                                </p>
+                                <p class="h1 font-weight-bold text-danger mt-0"
+                                   th:if="${finalScore/10 < 7 and finalScore/10 >= 6}">
+                                    &nbsp;B
+                                </p>
+                                <p class="h1 font-weight-bold text-danger mt-0"
+                                   th:if="${finalScore/10 < 6 and finalScore/10 >= 5}">
+                                    &nbsp;C
+                                </p>
+                                <p class="h1 font-weight-bold text-danger mt-0" th:if="${finalScore/10 < 5}">
+                                    &nbsp;D
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -73,7 +85,7 @@
                         <div class="col-md-8">
                             <div class="progress">
                                 <div class="progress-bar progress-bar-striped bg-warning text-dark pt-1"
-                                     role="progressbar" style="width: 98%" aria-valuenow="98" aria-valuemin="0"
+                                     role="progressbar" th:style="'width:'  + ${finalScore} + '%'" th:aria-valuenow="${finalScore}" aria-valuemin="0"
                                      aria-valuemax="100">
                                     Final Grade: <span th:text="${finalScore}"></span>%
                                 </div>
@@ -84,7 +96,7 @@
                         <div class="col-md-8">
                             <div class="progress">
                                 <div class="progress-bar progress-bar-striped bg-success text-dark pt-1"
-                                     role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0"
+                                     role="progressbar" th:style="'width:'+ ${(presentAttendance*100/totalAttendance)} + '%'" th:aria-valuenow="${presentAttendance}" aria-valuemin="0"
                                      aria-valuemax="100">
                                     Attendance: <span th:text="${presentAttendance}"></span>/<span th:text="${totalAttendance}"></span>
                                 </div>
@@ -216,26 +228,14 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <!-- <tr>
-                                            <td>1</td>
-                                            <td>Dakota Rice</td>
-                                            <td>
-                                                <div class="progress">
-                                                    <div class="progress-bar progress-bar-striped" role="progressbar"
-                                                         style="width: 98%" aria-valuenow="98" aria-valuemin="0"
-                                                         aria-valuemax="100">
-                                                        9.5/10
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr> -->
+
                                         <tr th:each="ToScoreDto : ${listNameAndScore}">
-                                            <td>1</td>
+                                            <td th:text="${ToScoreDtoStat.index + 1}"></td>
                                             <td th:text="${ToScoreDto.name}">Dakota Rice</td>
                                             <td>
                                                 <div class="progress">
-                                                    <div class="progress-bar progress-bar-striped" role="progressbar"
-                                                         style="width: 98%" aria-valuenow="${ToScoreDto.score} * 10" aria-valuemin="0"
+                                                    <div class="progress-bar progress-bar-striped pt-1" role="progressbar"
+                                                         th:style="'width:' + ${ToScoreDto.score*10} + '%'" th:aria-valuenow="${ToScoreDto.score}" aria-valuemin="0"
                                                          aria-valuemax="100">
                                                         <span th:text="${ToScoreDto.score}"></span>/10
                                                     </div>
@@ -271,7 +271,7 @@
                                             <td></td>
                                         </tr> -->
                                         <tr th:each="attendance : ${listDateAndAttendance}">
-                                            <td>2</td>
+                                            <td th:text="${attendanceStat.index + 1}"></td>
                                             <td th:text="${#dates.format(attendance.date, 'dd-MM-yyyy')}">01/03/2017</td>
                                             <td th:text="${attendance.type}">P</td>
                                             <td></td>

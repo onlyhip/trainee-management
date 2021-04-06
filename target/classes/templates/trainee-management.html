@@ -62,7 +62,7 @@
                     <div class="col-md-8">
                         <h4 class="text-primary"><span
                                 class="fa fa-user mr-1 text-dark"></span>
-                            <a href="#">[[${trainee.name}]]</a>
+                            <a th:href="@{/trainee-management/trainee-details(id= ${trainee.id})}">[[${trainee.name}]]</a>
                         </h4>
                         <p class="mb-1"><span
                                 class="fa fa-info-circle mr-1"></span><strong>Account: </strong>
