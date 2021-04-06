@@ -1,5 +1,6 @@
 package com.edu.training.repositories;
 
+import com.edu.training.dto.TOScoreDto;
 import com.edu.training.entities.Trainee;
 
 import com.edu.training.models.TraineeScoreDto;

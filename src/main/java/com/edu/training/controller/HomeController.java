@@ -56,6 +56,8 @@ public class HomeController {
     @Autowired
     private InternshipRepository internshipRepository;
 
+    @Autowired
+    private AttendanceRepository attendanceRepository;
 
     @Autowired
     private TrainingObjectiveRepository toRepository;
@@ -264,7 +266,7 @@ public class HomeController {
     public String createDataSecond(){
         CreateData createData = new CreateData();
         createData.createScore(courseRepository,scoreRepository,toRepository, traineeRepository);
-        createData.createAttendance(traineeRepository);
+        createData.createAttendance(traineeRepository, attendanceRepository);
         return "create-database";
     }
 

@@ -6,9 +6,14 @@ import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import javax.persistence.*;
+
+import com.edu.training.dto.TOScoreDto;
 import com.edu.training.models.ScoreId;
 
 @Entity
@@ -16,6 +21,15 @@ import com.edu.training.models.ScoreId;
 @AssociationOverrides({
         @AssociationOverride(name = "primaryKey.trainee", joinColumns = @JoinColumn(name = "IdTrainee")),
         @AssociationOverride(name = "primaryKey.trainingObjective", joinColumns = @JoinColumn(name = "IdTO")) })
+@NamedNativeQueries({
+        @NamedNativeQuery(name = "find_to_score_dto", query = "SELECT" + " s.name AS name," + " AVG(s.value) AS score"
+                + " FROM score s "
+                + " WHERE s.id_trainee = :idTrainee "
+                + " GROUP BY s.name", resultSetMapping = "to_score_dto") })
+@SqlResultSetMappings({
+        @SqlResultSetMapping(name = "to_score_dto", classes = @ConstructorResult(targetClass = TOScoreDto.class, columns = {
+                @ColumnResult(name = "name", type = String.class)
+                , @ColumnResult(name = "score", type = Double.class) })) })
 public class Score {
 
     @EmbeddedId

@@ -86,7 +86,7 @@ public class CreateData {
                 String sDate = String.valueOf(rand.nextInt(30) + 1) + "/" + String.valueOf(rand.nextInt(6) + 1)
                         + "/2021";
                 String eDate = String.valueOf(rand.nextInt(30) + 1) + "/" + String.valueOf(rand.nextInt(6) + 7)
-                        + "/2022";
+                        + "/2021";
                 try {
                     date1 = new SimpleDateFormat("dd/MM/yyyy").parse(sDate);
                     date2 = new SimpleDateFormat("dd/MM/yyyy").parse(eDate);
@@ -320,7 +320,7 @@ public class CreateData {
         }
     }
 
-    public void createAttendance(TraineeRepository traineeRepository) {
+    public void createAttendance(TraineeRepository traineeRepository, AttendanceRepository attendanceRepository) {
 
         Attendance att = null;
         Random rand = new Random(System.currentTimeMillis());
@@ -337,8 +337,9 @@ public class CreateData {
                     date = date.plusDays(1);
                 att = new Attendance();
                 att.setType(CONSTRAINT.TYPE_ATTENDANCE.get(rand.nextInt(7)));
-                att.setUser(trainee);
+                att.setUser(traineeRepository.getOne(trainee.getId()));
                 att.setDate(java.sql.Date.valueOf(date));
+                attendanceRepository.save(att);
             }
 
         }
