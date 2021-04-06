@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 import com.edu.training.entities.ClassAdmin;
 import com.edu.training.entities.Course;
@@ -245,6 +246,7 @@ public class HomeController {
     @GetMapping("/create-data-first")
     public String createDataFirst(){
         CreateData createData = new CreateData();
+        Random rand = new Random(System.currentTimeMillis());
         createData.createTrainer(trainerRepository);
         createData.createCourse(trainerRepository,courseRepository);
         createData.createStatus(statusRepository);
@@ -256,8 +258,10 @@ public class HomeController {
             c.setCurrCount(traineeRepository.countCourseByCourseId(c.getId()));
             c.setStatus(Timestamp.valueOf(LocalDateTime.now()).compareTo(c.getEndDate()) > 0 ? "Done"
                     : Timestamp.valueOf(LocalDateTime.now()).compareTo(c.getOpenDate()) < 0 ? "Waiting" : "In Process");
+            c.setDuration(rand.nextInt(50) + 1);
             courseRepository.save(c);
         }
+        scoreRepository.findAll().stream().forEach(s -> {toRepository.getOne(s.getTrainingObjective().getId()).setName(s.getName()); toRepository.save(toRepository.getOne(s.getTrainingObjective().getId()));});
         return "create-database";
     }
 
