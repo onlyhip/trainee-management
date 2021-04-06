@@ -47,47 +47,19 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
+                            <!-- <tr>
                                 <td>1</td>
                                 <td>Dakota Rice</td>
                                 <td>$36,738</td>
                                 <td>Niger</td>
                                 <td>Oud-Turnhout</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Minerva Hooper</td>
-                                <td>$23,789</td>
-                                <td>Curaçao</td>
-                                <td>Sinaai-Waas</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>Sage Rodriguez</td>
-                                <td>$56,142</td>
-                                <td>Netherlands</td>
-                                <td>Baileux</td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>Philip Chaney</td>
-                                <td>$38,735</td>
-                                <td>Dakota Rice</td>
-                                <td>$36,738</td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td>Doris Greene</td>
-                                <td>$63,542</td>
-                                <td>Dakota Rice</td>
-                                <td>$36,738</td>
-                            </tr>
-                            <tr>
-                                <td>6</td>
-                                <td>Mason Porter</td>
-                                <td>$78,615</td>
-                                <td>Chile</td>
-                                <td>Dakota Rice</td>
+                            </tr> -->
+                            <tr th:each="subject : ${courses}">
+                                <td>1</td>
+                                <td th:text="${subject.name}">Dakota Rice</td>
+                                <td> <span th:text="${subject.duration}"></span>d</td>
+                                <td th:text="${subject.trainer.name}">Niger</td>
+                                <td th:text="${subject.note}">Oud-Turnhout</td>
                             </tr>
                             </tbody>
                         </table>

@@ -33,6 +33,9 @@ public class Course {
     @Column(name = "endDate")
     private Date endDate;
 
+    @Column(name = "duration")
+    private int duration;
+
     @Column(name = "Note")
     private String note;
 
@@ -182,6 +185,14 @@ public class Course {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
     }
 
     
