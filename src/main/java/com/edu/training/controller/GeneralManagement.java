@@ -1,6 +1,7 @@
 package com.edu.training.controller;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 import com.edu.training.entities.Course;
@@ -11,6 +12,7 @@ import com.edu.training.repositories.ScoreRepository;
 import com.edu.training.repositories.TraineeRepository;
 import com.edu.training.repositories.TrainerRepository;
 import com.edu.training.repositories.TrainingObjectiveRepository;
+import com.edu.training.utils.page.Pagination;
 
 import org.aspectj.internal.lang.annotation.ajcDeclareAnnotation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,24 +61,22 @@ public class GeneralManagement {
     }
 
     @GetMapping("/subject-list")
-    public String displaySubjectList(Model model) {
+    public String displaySubjectList(Model model, @RequestParam("page") Optional<Integer> page) {
+
+        int cPage = page.orElse(1);
+        int pageSize = 10;
 
         List<Course> courses = courseRepository.findAll();
-        Random rand = new Random(System.currentTimeMillis());
-        courses.stream().forEach(c -> {c.setDuration(rand.nextInt(50) + 1); courseRepository.save(c);});
 
-        model.addAttribute("courses", courses);
+        List<Course> coursesAfterPaging = Pagination.getPage(courses, cPage);
+        int currentIndex = courses.indexOf(coursesAfterPaging.get(0));
 
+        model.addAttribute("courses", coursesAfterPaging);
+        model.addAttribute("cPage", cPage);
+        model.addAttribute("totalPages", (courses.size() / (pageSize + 1)) + 1);
+        model.addAttribute("currIndex", currentIndex);
+        
         return "subject-list";
-    }
-
-    @GetMapping("/subject-details")
-    public String displaySubjectDetail(Model model, @RequestParam("id") int courseId) {
-        
-        Course course = courseRepository.getOne(courseId);
-        model.addAttribute("course", course);
-        
-        return "subject-details";
     }
 
 }

@@ -62,14 +62,8 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <!-- <tr>
-                                <td>1</td>
-                                <td>Dakota Rice</td>
-                                <td>$36,738</td>
-                                <td>Niger</td>
-                            </tr> -->
-                            <tr th:each="trainee : ${course.trainee}">
-                                <td>2</td>
+                            <tr th:each="trainee : ${trainees}">
+                                <td th:text="${traineeStat.index + 1 + currIndex}">2</td>
                                 <td th:text="${trainee.name}">Minerva Hooper</td>
                                 <td th:text="${trainee.course.name}">$23,789</td>
                                 <td th:text="${trainee.course.note}">Curaçao</td>
