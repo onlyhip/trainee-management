@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import com.edu.training.entities.Course;
 import com.edu.training.entities.Trainee;
+import com.edu.training.models.PaginationRange;
 import com.edu.training.models.TraineeScoreDto;
 import com.edu.training.repositories.CourseRepository;
 import com.edu.training.repositories.TraineeRepository;
@@ -49,11 +50,19 @@ public class ClassController {
 
         List<TraineeScoreDto> trainees = Pagination.getPage(listTrainees, cPage);
 
-        model.addAttribute("modeView",modeView);
+        int totalPages = (int) Math.ceil( (double)listTrainees.size()/ (double) pageSize) ;
+
+
+        model.addAttribute("modeView", modeView);
         model.addAttribute("classId", classId);
         model.addAttribute("trainees", trainees);
         model.addAttribute("cPage", cPage);
-        model.addAttribute("totalPages", (listTrainees.size() / (pageSize + 1)) + 1);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("size",pageSize);
+        model.addAttribute("totalElements",listTrainees.size());
+
+        PaginationRange p = Pagination.paginationByRange(cPage, listTrainees.size(), pageSize, 5);
+        model.addAttribute("paginationRange", p);
 
         return "class-details";
     }

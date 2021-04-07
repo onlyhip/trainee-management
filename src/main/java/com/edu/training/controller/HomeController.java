@@ -9,6 +9,7 @@ import java.util.Random;
 import com.edu.training.entities.ClassAdmin;
 import com.edu.training.entities.Course;
 import com.edu.training.entities.Fresher;
+import com.edu.training.models.PaginationRange;
 import com.edu.training.models.TraineeScoreDto;
 import com.edu.training.repositories.*;
 import com.edu.training.services.implementation.CourseServiceImpl;
@@ -81,7 +82,7 @@ public class HomeController {
         int runningFresher = 0;
         for (Course c : listCourse) {
             // c.setCurrCount(traineeRepository.countCourseByCourseId(c.getId()));
-            
+
             if (c.getStatus().equals("Done"))
                 releaseCourse++;
             else if (c.getStatus().equals("Waiting"))
@@ -116,8 +117,15 @@ public class HomeController {
                                     @RequestParam("size") Optional<Integer> size, @RequestParam("field") Optional<String> field) {
 
         int cPage = page.orElse(1);
-        int pageSize = size.orElse(10);
+        int pageSize = size.orElse(5);
         String sortField = field.orElse("default");
+
+        if (pageSize < 5) {
+            pageSize = 5;
+        }
+        if (pageSize > 50) {
+            pageSize = 50;
+        }
 
         Page<Course> classPage;
 
@@ -148,6 +156,9 @@ public class HomeController {
         model.addAttribute("field", sortField);
 
 
+        PaginationRange p = Pagination.paginationByRange(cPage, classPage.getTotalElements(), pageSize, 5);
+        model.addAttribute("paginationRange", p);
+
         return "class-management";
     }
 
@@ -176,18 +187,30 @@ public class HomeController {
         int pageSize = size.orElse(10);
         String sortField = field.orElse("default");
 
+        if (pageSize < 5) {
+            pageSize = 5;
+        }
+        if (pageSize > 50) {
+            pageSize = 50;
+        }
+
 
         List<TraineeScoreDto> listTrainees = traineeRepository.findScoreByAllTrainee();
 
 
         List<TraineeScoreDto> trainees = Pagination.getPage(listTrainees, cPage, pageSize);
 
+        int totalPages = (int) Math.ceil((double) listTrainees.size() / (double) pageSize);
 
         model.addAttribute("trainees", trainees);
         model.addAttribute("cPage", cPage);
         model.addAttribute("size", pageSize);
-        model.addAttribute("totalPages", (listTrainees.size() / (pageSize + 1)) + 1);
+        model.addAttribute("totalElements", listTrainees.size());
+        model.addAttribute("totalPages", totalPages);
         model.addAttribute("field", sortField);
+
+        PaginationRange p = Pagination.paginationByRange(cPage, listTrainees.size(), pageSize, 5);
+        model.addAttribute("paginationRange", p);
 
         return "trainee-management";
     }
@@ -244,32 +267,35 @@ public class HomeController {
 
 
     @GetMapping("/create-data-first")
-    public String createDataFirst(){
+    public String createDataFirst() {
         CreateData createData = new CreateData();
         Random rand = new Random(System.currentTimeMillis());
         createData.createTrainer(trainerRepository);
-        createData.createCourse(trainerRepository,courseRepository);
+        createData.createCourse(trainerRepository, courseRepository);
         createData.createStatus(statusRepository);
-        createData.createFresher(courseRepository,statusRepository,fresherRepository);
-        createData.createInternship(courseRepository,statusRepository,internshipRepository);
-        createData.createTO(trainerRepository,toRepository, courseRepository);
+        createData.createFresher(courseRepository, statusRepository, fresherRepository);
+        createData.createInternship(courseRepository, statusRepository, internshipRepository);
+        createData.createTO(trainerRepository, toRepository, courseRepository);
         // createData.createScore(courseRepository,scoreRepository,toRepository, traineeRepository);
-        for(Course c : courseRepository.findAll()) {
+        for (Course c : courseRepository.findAll()) {
             c.setCurrCount(traineeRepository.countCourseByCourseId(c.getId()));
             c.setStatus(Timestamp.valueOf(LocalDateTime.now()).compareTo(c.getEndDate()) > 0 ? "Done"
                     : Timestamp.valueOf(LocalDateTime.now()).compareTo(c.getOpenDate()) < 0 ? "Waiting" : "In Process");
             c.setDuration(rand.nextInt(50) + 1);
             courseRepository.save(c);
         }
-        scoreRepository.findAll().stream().forEach(s -> {toRepository.getOne(s.getTrainingObjective().getId()).setName(s.getName()); toRepository.save(toRepository.getOne(s.getTrainingObjective().getId()));});
+        scoreRepository.findAll().stream().forEach(s -> {
+            toRepository.getOne(s.getTrainingObjective().getId()).setName(s.getName());
+            toRepository.save(toRepository.getOne(s.getTrainingObjective().getId()));
+        });
         return "create-database";
     }
 
 
     @GetMapping("/create-data-second")
-    public String createDataSecond(){
+    public String createDataSecond() {
         CreateData createData = new CreateData();
-        createData.createScore(courseRepository,scoreRepository,toRepository, traineeRepository);
+        createData.createScore(courseRepository, scoreRepository, toRepository, traineeRepository);
         createData.createAttendance(traineeRepository, attendanceRepository);
         return "create-database";
     }

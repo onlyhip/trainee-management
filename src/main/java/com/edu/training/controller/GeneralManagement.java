@@ -42,7 +42,7 @@ public class GeneralManagement {
     @Autowired
     private TrainingObjectiveRepository toRepository;
 
-    @GetMapping(value = { "/trainer-list", "/" })
+    @GetMapping(value = {"/trainer-list", "/"})
     public String displayTrainerList(Model model) {
 
         List<Trainer> trainers = trainerRepository.findAll();
@@ -64,18 +64,18 @@ public class GeneralManagement {
     public String displaySubjectList(Model model, @RequestParam("page") Optional<Integer> page) {
 
         int cPage = page.orElse(1);
-        int pageSize = 10;
+        int pageSize = 5;
 
         List<Course> courses = courseRepository.findAll();
 
-        List<Course> coursesAfterPaging = Pagination.getPage(courses, cPage);
+        List<Course> coursesAfterPaging = Pagination.getPage(courses, cPage, pageSize);
         int currentIndex = courses.indexOf(coursesAfterPaging.get(0));
 
         model.addAttribute("courses", coursesAfterPaging);
         model.addAttribute("cPage", cPage);
         model.addAttribute("totalPages", (courses.size() / (pageSize + 1)) + 1);
         model.addAttribute("currIndex", currentIndex);
-        
+
         return "subject-list";
     }
 

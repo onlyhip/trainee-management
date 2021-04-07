@@ -36,7 +36,7 @@
                     <div class="input-group-prepend align-self-center">
                         <span class="input-group-text">Page size:&nbsp;</span>
                     </div>
-                    <input type="number" class="form-control" name="size" id="size" min="10" th:value="${size}">
+                    <input type="number" class="form-control" name="size" id="size" min="5" max="50" th:value="${size}">
                     <input name="field" id="field" th:value="${field}" hidden>
                     <input type="submit" hidden>
                 </div>
@@ -111,30 +111,47 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12 mt-3">
+            <div class="col-md-12 mt-3" th:if="${totalElements > size}">
                 <!-- directors pagination -->
-                <nav aria-label="Pagination" th:if="${totalPages gt 0}">
+                <nav aria-label="Pagination">
                     <ul class="pagination justify-content-center font-weight-bold">
-                        <li class="page-item" th:classappend="${cPage - 1 eq 0} ? 'disabled'">
+                        <li class="page-item" th:classappend="${paginationRange.currentPage le 1} ? 'disabled'">
                             <a class="page-link"
-                               th:href="@{/trainee-management(page=${cPage lt 2 ? 1 : cPage - 1},size= ${size},field=${field})}"
+                               th:href="@{/trainee-management(size=${size},page=${1},field = ${field})}"
+                               aria-label="Previous" title="First Page" data-toggle="tooltip">
+                                <span aria-hidden="true">First</span>
+                            </a>
+                        </li>
+                        <li class="page-item" th:classappend="${paginationRange.currentPage le 1} ? 'disabled'">
+                            <a class="page-link"
+                               th:href="@{/trainee-management(size=${size},page=${cPage - 1},field = ${field})}"
                                aria-label="Previous" title="Previous Page" data-toggle="tooltip">
                                 <span aria-hidden="true">&laquo;</span>
                             </a>
                         </li>
-                        <li class="page-item" th:classappend="${i eq cPage} ? 'active'"
-                            th:each="i : ${#numbers.sequence( 1, totalPages, 1)}">
+                        <li class="page-item"
+                            th:each="i : ${#numbers.sequence( paginationRange.min, paginationRange.max)}"
+                            th:classappend="${i eq paginationRange.currentPage} ? 'active'">
                             <a class="page-link"
-                               th:href="@{/trainee-management(page=${i},size= ${size},field=${field})}"
+                               th:href="@{/trainee-management(size=${size},page=${i},field = ${field})}"
                                th:text="${i}"
-                               th:title="${'Page '+ i}" data-toggle="tooltip"></a>
+                               th:title="${'Page '+ i}" data-toggle="tooltip">
+                            </a>
                         </li>
                         <li class="page-item"
-                            th:classappend="${cPage eq totalPages} ? 'disabled'">
+                            th:classappend="${paginationRange.currentPage ge totalPages } ? 'disabled'">
                             <a class="page-link"
-                               th:href="@{/trainee-management(page=${cPage + 1},size= ${size},field=${field})}"
+                               th:href="@{/trainee-management(size=${size},page=${cPage + 1},field = ${field})}"
                                aria-label="Next" title="Next Page" data-toggle="tooltip">
                                 <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                        <li class="page-item"
+                            th:classappend="${paginationRange.currentPage ge totalPages } ? 'disabled'">
+                            <a class="page-link"
+                               th:href="@{/trainee-management(size=${size},page=${totalPages},field = ${field})}"
+                               aria-label="Next" title="Last Page" data-toggle="tooltip">
+                                <span aria-hidden="true">Last</span>
                             </a>
                         </li>
                     </ul>
