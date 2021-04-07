@@ -131,40 +131,13 @@ public class HomeController {
             }
         }
 
-//        //List<Course> listCourses = classPage.getContent();
-//        // listCourses.forEach(c ->
-//        // c.setCurrCount(traineeRepository.countCourseByCourseId(c.getId())));
-//        for (Course c : listCourses) {
-//            c.setCurrCount(traineeRepository.countCourseByCourseId(c.getId()));
-//            c.setStatus(Timestamp.valueOf(LocalDateTime.now()).compareTo(c.getEndDate()) > 0 ? "Done" : "In Process");
-//        }
-        // listCourses.forEach(c ->
-        // c.setStatus(Timestamp.valueOf(LocalDateTime.now()).compareTo(c.getEndDate())
-        // > 0 ? "Done" : "In Process"));
-        //  listCourses.forEach(c -> System.out.println(c));
         model.addAttribute("classPage", classPage);
         model.addAttribute("cPage", cPage);
         model.addAttribute("size", pageSize);
         model.addAttribute("field", sortField);
 
-
         return "class-management";
     }
-
-    @RequestMapping(value = "/class-management", method = RequestMethod.POST)
-    public String displayCourseListByPageSize(Model model, @RequestParam("page") Optional<Integer> page,
-                                              @RequestParam("size") Optional<Integer> size) {
-
-        int currentPage = page.orElse(1);
-        int pageSize = size.orElse(5);
-        Page<Course> ClassPage = courseService.findPaginated(currentPage, pageSize, "name");
-        List<Course> listCourses = ClassPage.getContent();
-
-        model.addAttribute("classes", listCourses);
-
-        return "class-management";
-    }
-
 
     @GetMapping("/trainee-management")
     public String displayTraineeManagement(Model model,

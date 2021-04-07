@@ -30,19 +30,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // http
-        //     .authorizeRequests()
-        //     .anyRequest()
-        //     .authenticated()
-        //     .and()
-        //     .httpBasic();
 
         // Config for Login Form
         http
             .authorizeRequests()
-                .antMatchers("/register").permitAll()
                 .antMatchers("/").permitAll()
-                .antMatchers("/change-password").hasRole("ADMIN")
+                .antMatchers("/class-management").permitAll()       // class-management and class-detail
+                .antMatchers("/trainee-management").permitAll()     // trainee-management and trainee-details
+                // .anyRequest().authenticated()
+                .antMatchers("/change-password").authenticated()
+                .antMatchers("/general-management").authenticated() // subject-list and subject-details
+                .antMatchers("/general-management/subjecct-list").authenticated()
+                .antMatchers("/general-management/subject-details").authenticated()
+                .antMatchers("/logout").authenticated()
+                .antMatchers("/download-templates").authenticated()
                 .and()
             .formLogin() // Submit URL of login page.
                 .loginPage("/login")//
@@ -50,13 +51,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordParameter("password")
                 .defaultSuccessUrl("/change-password")
                 .failureUrl("/login?error=true")
+                .permitAll()
                 .and()
-            // .logout()
-            //     .logoutUrl("/logout")
-            //     .logoutSuccessUrl("/logoutSuccessful");
-            //     .and()
-            .exceptionHandling()
-                .accessDeniedPage("/404");
+            .logout()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/logoutSuccessful");
+                // .and()
+            // .exceptionHandling()
+            //     .accessDeniedPage("/404");
 
     }
 }
