@@ -16,7 +16,7 @@
 
                 <div class="card ">
                     <div class="card-header ml-4 mt-2">
-                        <h2 class="card-title mb-4">C57</h2>
+                        <h2 class="card-title mb-4" th:text="${class.name}"></h2>
                         <div class="d-flex flex-row bd-highlight font-italic">
                             <div class="d-flex flex-column bd-highlight">
                                 <div class="d-flex flex-row bd-highlight">
@@ -334,29 +334,47 @@
 
         </div>
         <div class="row">
-            <div class="col-md-12 mt-3">
+            <div class="col-md-12 mt-3" th:if="${totalElements > size}">
                 <!-- directors pagination -->
-                <nav aria-label="Pagination" th:if="${totalPages gt 0}">
+                <nav aria-label="Pagination">
                     <ul class="pagination justify-content-center font-weight-bold">
-                        <li class="page-item" th:classappend="${cPage - 1 eq 0} ? 'disabled'">
+                        <li class="page-item" th:classappend="${paginationRange.currentPage le 1} ? 'disabled'">
                             <a class="page-link"
-                               th:href="@{/class-management/class-details(id = ${classId},page=${cPage lt 2 ? 1 : cPage - 1},view= ${modeView})}"
+                               th:href="@{/class-management/class-details(id=${classId},page=${1},view = ${modeView})}"
+                               aria-label="Previous" title="First Page" data-toggle="tooltip">
+                                <span aria-hidden="true">First</span>
+                            </a>
+                        </li>
+                        <li class="page-item" th:classappend="${paginationRange.currentPage le 1} ? 'disabled'">
+                            <a class="page-link"
+                               th:href="@{/class-management/class-details(id=${classId},page=${cPage - 1},view = ${modeView})}"
                                aria-label="Previous" title="Previous Page" data-toggle="tooltip">
                                 <span aria-hidden="true">&laquo;</span>
                             </a>
                         </li>
-                        <li class="page-item" th:classappend="${i eq cPage} ? 'active'"
-                            th:each="i : ${#numbers.sequence( 1, totalPages, 1)}">
-                            <a class="page-link" th:href="@{/class-management/class-details(id = ${classId},page=${i},view= ${modeView})}"
+                        <li class="page-item"
+                            th:each="i : ${#numbers.sequence( paginationRange.min, paginationRange.max)}"
+                            th:classappend="${i eq paginationRange.currentPage} ? 'active'">
+                            <a class="page-link"
+                               th:href="@{/class-management/class-details(id=${classId},page=${i},view = ${modeView})}"
                                th:text="${i}"
-                               th:title="${'Page '+ i}" data-toggle="tooltip"></a>
+                               th:title="${'Page '+ i}" data-toggle="tooltip">
+                            </a>
                         </li>
                         <li class="page-item"
-                            th:classappend="${cPage eq totalPages} ? 'disabled'">
+                            th:classappend="${paginationRange.currentPage ge totalPages } ? 'disabled'">
                             <a class="page-link"
-                               th:href="@{/class-management/class-details(id = ${classId},page=${cPage + 1},view= ${modeView})}"
+                               th:href="@{/class-management/class-details(id=${classId},page=${cPage + 1},view = ${modeView})}"
                                aria-label="Next" title="Next Page" data-toggle="tooltip">
                                 <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                        <li class="page-item"
+                            th:classappend="${paginationRange.currentPage ge totalPages } ? 'disabled'">
+                            <a class="page-link"
+                               th:href="@{/class-management/class-details(id=${classId},page=${totalPages},view = ${modeView})}"
+                               aria-label="Next" title="Last Page" data-toggle="tooltip">
+                                <span aria-hidden="true">Last</span>
                             </a>
                         </li>
                     </ul>
