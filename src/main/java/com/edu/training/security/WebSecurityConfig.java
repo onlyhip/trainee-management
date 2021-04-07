@@ -36,12 +36,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
                 .antMatchers("/").permitAll()
                 .antMatchers("/class-management").permitAll()       // class-management and class-detail
-                .antMatchers("/trainee-management").permitAll()     // trainee-management and trainee-details
-                // .anyRequest().authenticated()
+                .antMatchers("/trainee-management").permitAll()     // trainee-management and trainee-detai              
                 .antMatchers("/change-password").authenticated()
                 .antMatchers("/general-management").authenticated() // subject-list and subject-details
-                .antMatchers("/general-management/subjecct-list").authenticated()
-                .antMatchers("/general-management/subject-details").authenticated()
+                .antMatchers("/general-management/subject-list").authenticated()
+                .antMatchers("/general-management/subject-list/subject-details").authenticated()
                 .antMatchers("/logout").authenticated()
                 .antMatchers("/download-templates").authenticated()
                 .and()
