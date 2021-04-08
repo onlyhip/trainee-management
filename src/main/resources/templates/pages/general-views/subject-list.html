@@ -48,7 +48,7 @@
                             </thead>
                             <tbody>
                             <tr th:each="subject : ${courses}" th:onclick="'javascript:rowClickedSubject(\'' + ${subject.id} + '\');'">
-                                <td th:text="${subjectStat.index + 1}"></td>
+                                <td th:text="${subjectStat.index + 1 + currIndex}"></td>
                                 <td th:text="${subject.name}">Dakota Rice</td>
                                 <td> <span th:text="${subject.duration}"></span>d</td>
                                 <td th:text="${subject.trainer.name}"></td>

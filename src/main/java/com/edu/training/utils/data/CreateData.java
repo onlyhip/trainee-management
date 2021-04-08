@@ -268,25 +268,6 @@ public class CreateData {
         TrainingObjective to = null;
         byte[] array = new byte[4]; // length is bounded by 7
         
-        Random rand = new Random(System.currentTimeMillis());
-        for (Course c : courseRepository.findAll()) {
-            for (int i = 1; i < (rand.nextInt(6) + 1); i++) {
-                to = new TrainingObjective();
-                new Random().nextBytes(array);
-                String name = new String(array, Charset.forName("UTF-8"));
-                to.setName(name);
-                new Random().nextBytes(array);
-                String code = new String(array, Charset.forName("UTF-8")).toUpperCase();
-                to.setCode(code);
-                to.setTrainer(trainerRepository.getOne(c.getTrainer().getId()));
-                toRepository.save(to);
-            }
-
-        }
-    }
-
-    public void createScore(CourseRepository courseRepository, ScoreRepository scoreRepository,
-            TrainingObjectiveRepository toRepository, TraineeRepository traineeRepository) {
         List<String> nameScore = new ArrayList<>();
         nameScore.add("SQL");
         nameScore.add("Java SE");
@@ -299,6 +280,31 @@ public class CreateData {
         nameScore.add("Mock Project");
         nameScore.add("Front End");
         nameScore.add("Java Web Back End");
+        nameScore.add("C++");
+        nameScore.add("Automated tester");
+        nameScore.add("BA Analyes");
+        nameScore.add("Kotlin Android");
+        Random rand = new Random(System.currentTimeMillis());
+        for(int i = 0; i < 30; i++) {
+            
+            to = new TrainingObjective();
+            String name = nameScore.get(i/2);
+            to.setName(name);
+            if(i % 2 == 0) {
+                to.setTrainer(trainerRepository.getOne(rand.nextInt(5) + 4));
+            } else {
+                to.setTrainer(trainerRepository.getOne(rand.nextInt(5) + 9));
+            }
+            new Random().nextBytes(array);
+            String code = new String(array, Charset.forName("UTF-8")).toUpperCase();
+            to.setCode(code);
+            toRepository.save(to);
+        }
+
+    }
+
+    public void createScore(CourseRepository courseRepository, ScoreRepository scoreRepository,
+            TrainingObjectiveRepository toRepository, TraineeRepository traineeRepository) {
 
         Random rand = new Random(System.currentTimeMillis());
         Score score = null;
@@ -307,7 +313,7 @@ public class CreateData {
                 for (Trainee trainee : course.getTrainee()) {
                     for (TrainingObjective to : course.getTrainer().getTrainingObjectives()) {
                         score = new Score();
-                        String name = nameScore.get(rand.nextInt(11));
+                        String name = to.getName();
                         score.setName(name);
                         score.setTrainingObjective(toRepository.getOne(to.getId()));
                         score.setTrainee(traineeRepository.getOne(trainee.getId()));

@@ -38,7 +38,6 @@ public class SubjectController {
         
         Course course = courseRepository.getOne(courseId);
 
-
         List<Trainee> trainees = course.getTrainee();
 
         List<Trainee> traineesAfterPaging = Pagination.getPage(trainees, cPage, pageSize);

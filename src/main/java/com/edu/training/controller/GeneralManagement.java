@@ -48,13 +48,13 @@ public class GeneralManagement {
         model.addAttribute("trainers", trainers);
 
         List<Trainer> trainersAfterPaging = Pagination.getPage(trainers, cPage, pageSize);
-
+        int currIndex = trainers.indexOf(trainersAfterPaging.get(0));
         int totalPages = (int) Math.ceil( (double)trainers.size()/ (double) pageSize);
         int totalElements = trainers.size();
 
         model.addAttribute("trainers", trainersAfterPaging);
         model.addAttribute("cPage", cPage);
-
+        model.addAttribute("currIndex", currIndex);
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("totalElements",totalElements);
         model.addAttribute("size",pageSize);
@@ -81,13 +81,14 @@ public class GeneralManagement {
         model.addAttribute("trainees", trainees);
 
         List<Trainee> traineesAfterPaging = Pagination.getPage(trainees, cPage, pageSize);
-
+        int currIndex = trainees.indexOf(traineesAfterPaging.get(0));
         int totalPages = (int) Math.ceil( (double)trainees.size()/ (double) pageSize);
         int totalElements = trainees.size();
+        
 
         model.addAttribute("trainees", traineesAfterPaging);
         model.addAttribute("cPage", cPage);
-
+        model.addAttribute("currIndex", currIndex);
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("totalElements",totalElements);
         model.addAttribute("size",pageSize);
@@ -113,13 +114,13 @@ public class GeneralManagement {
         List<Course> courses = courseRepository.findAll();
 
         List<Course> coursesAfterPaging = Pagination.getPage(courses, cPage, pageSize);
-
+        int currIndex = courses.indexOf(coursesAfterPaging.get(0));
         int totalPages = (int) Math.ceil( (double)courses.size()/ (double) pageSize);
         int totalElements = courses.size();
 
         model.addAttribute("courses", coursesAfterPaging);
         model.addAttribute("cPage", cPage);
-
+        model.addAttribute("currIndex", currIndex);
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("totalElements",totalElements);
         model.addAttribute("size",pageSize);

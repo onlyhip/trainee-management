@@ -48,7 +48,7 @@
                             </thead>
                             <tbody>
                             <tr th:each="trainer : ${trainers}">
-                                <td th:text="${trainerStat.index + 1}"></td>
+                                <td th:text="${trainerStat.index + 1 + currIndex}"></td>
                                 <td th:text="${trainer.name}"></td>
                                 <td th:text="${trainer.email}"></td>
                                 <td th:text="${trainer.telNumber}"></td>
