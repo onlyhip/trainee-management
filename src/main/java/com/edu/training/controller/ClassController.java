@@ -33,6 +33,14 @@ public class ClassController {
     @Autowired
     private CourseService courseService;
 
+    /**
+     * Handing the request representing classes infor
+     * @param model
+     * @param page is page number in paging
+     * @param size  is the quantity of element in a page
+     * @param field is the field that user want to sorted by
+     * @return class-management.html
+     */
     @GetMapping()
     public String displayCourseList(Model model, @RequestParam("page") Optional<Integer> page,
                                     @RequestParam("size") Optional<Integer> size, @RequestParam("field") Optional<String> field) {
@@ -72,6 +80,14 @@ public class ClassController {
         return "pages/class-views/class-management";
     }
 
+    /**
+     * Handling request of seeing class detail infor 
+     * @param model
+     * @param classId is the id of class which user want to see detail
+     * @param page is the page number when paging
+     * @param view is the type of view in showing list trainees in a class, there is two view
+     * @return class-details 
+     */
     @GetMapping("/class-details")
     public String displayClassDetail(Model model, @RequestParam("id") int classId,
                                      @RequestParam("page") Optional<Integer> page,
@@ -105,7 +121,13 @@ public class ClassController {
         return "pages/class-views/class-details";
     }
 
-
+    /**
+     * handling request when user change the number of page size
+     * @param model 
+     * @param page is page number in paging 
+     * @param size is the quantity of element in a page
+     * @return
+     */
     @PostMapping()
     public String displayCourseListByPageSize(Model model, @RequestParam("page") Optional<Integer> page,
                                               @RequestParam("size") Optional<Integer> size) {

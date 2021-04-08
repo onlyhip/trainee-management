@@ -1,12 +1,9 @@
 package com.edu.training.repositories;
 
-
-import com.edu.training.entities.ClassAdmin;
 import com.edu.training.entities.User;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
 
 @Repository

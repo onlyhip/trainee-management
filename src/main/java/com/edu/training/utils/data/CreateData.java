@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Random;
 
 import com.edu.training.entities.*;
-import com.edu.training.models.ScoreId;
 import com.edu.training.repositories.*;
 
 public class CreateData {

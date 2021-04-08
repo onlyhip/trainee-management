@@ -15,36 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.ColumnResult;
-import javax.persistence.ConstructorResult;
-import javax.persistence.NamedNativeQuery;
-import javax.persistence.SqlResultSetMapping;
 
-
-
-// @NamedNativeQuery(
-//     name = "find_trainee_score_dto",
-//     query =
-//         "SELECT u.id AS traineeId, t.university AS traineeUni, u.account AS traineeAccount, u.email AS traineeEmail, u.full_name AS traineeName, AVG(s.value) AS avgScore " + 
-//         "FROM trainee t, training_objective o, score s, user u " +
-//         "WHERE t.id_course = :courseId AND t.id = s.id_trainee AND o.id = s.idto AND u.id = t.id " + 
-//         "GROUP BY u.id, t.university, u.account, u.email, u.full_name",
-//     resultSetMapping = "trainee_score_dto"
-// )
-// @SqlResultSetMapping(
-//     name = "trainee_score_dto",
-//     classes = @ConstructorResult(
-//         targetClass = TraineeScoreDTO.class,
-//         columns = {
-//             @ColumnResult(name = "traineeId", type = Integer.class),
-//             @ColumnResult(name = "traineeUni", type = String.class),
-//             @ColumnResult(name = "traineeAccount", type = String.class),
-//             @ColumnResult(name = "traineeEmail", type = String.class),
-//             @ColumnResult(name = "traineeName", type = String.class),
-//             @ColumnResult(name = "avgScore", type = Double.class)
-//         }
-//     )
-// )
 @Entity
 @Table(name = "TrainingObjective")
 public class TrainingObjective {

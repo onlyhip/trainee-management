@@ -31,7 +31,11 @@ public class GeneralManagement {
     @Autowired
     private CourseRepository courseRepository;
 
-
+    /**
+     * Playing trainer list 
+     * @param model
+     * @return trainer-list view 
+     */
     @GetMapping(value = {"/trainer-list",""})
     public String displayTrainerList(Model model) {
 
@@ -41,6 +45,11 @@ public class GeneralManagement {
         return "pages/general-views/trainer-list";
     }
 
+    /**
+     * Display trainee list
+     * @param model
+     * @return trainee-list view
+     */
     @GetMapping("/trainee-list")
     public String displayTraineeList(Model model) {
 
@@ -50,6 +59,12 @@ public class GeneralManagement {
         return "pages/general-views/trainee-list";
     }
 
+    /**
+     * Display subject list
+     * @param model
+     * @param page is the page number in paging 
+     * @return subject-list view 
+     */
     @GetMapping("/subject-list")
     public String displaySubjectList(Model model, @RequestParam("page") Optional<Integer> page) {
 

@@ -22,6 +22,13 @@ public class SubjectController {
     @Autowired
     private CourseRepository courseRepository;
 
+    /**
+     * Display subject details when user click in name of a subject in subject-list view
+     * @param model
+     * @param courseId is the ID of subject which user click on
+     * @param page is the page number in paging, default is 1
+     * @return the subject-details view which contains subject infor
+     */
     @GetMapping("/subject-details")
     public String displaySubjectDetail(Model model, @RequestParam("id") int courseId, @RequestParam("page") Optional<Integer> page) {
 

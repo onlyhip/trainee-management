@@ -5,7 +5,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.edu.training.entities.ClassAdmin;
 import com.edu.training.repositories.ClassAdminRepository;
-import com.edu.training.repositories.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -24,19 +23,28 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping("/")
 public class UserController {
 
-
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
 	@Autowired
 	private ClassAdminRepository classAdminRepository;
 
+	/**
+	 * Display the login view
+	 * @return login view
+	 */
 	@GetMapping("/login")
 	public String getLogin() {
 		
 		return "pages/user-views/login";
 	}
 
+	/**
+	 * Handle Logout request when user click on logout button
+	 * @param request
+	 * @param response
+	 * @return the Home view
+	 */
 	@GetMapping("/logout")
 	public String logout(HttpServletRequest request, HttpServletResponse response) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -46,6 +54,11 @@ public class UserController {
 		return "redirect:/";
 	}
 
+	/**
+	 * Display the Password-changing form after logined
+	 * @param model
+	 * @return change-password form
+	 */
 	@GetMapping("/change-password")
 	public String updateUserPasswordForm(Model model) {
 		ClassAdmin loginedAdmin = classAdminRepository.getLoginedAccount();
@@ -54,6 +67,13 @@ public class UserController {
 		return "pages/user-views/change-password";
 	}
 
+	/**
+	 * Handle the change-password request, send the request to DB 
+	 * @param newPassword is the new Password user want to set
+	 * @param oldPassword is the old password which used to login before
+	 * @param attributes
+	 * @return home view 
+	 */
 	@PostMapping("/change-password")
 	public String updateUserPassword(@RequestParam("new-password") String newPassword,
 			@RequestParam("oldPassword") String oldPassword, RedirectAttributes attributes) {
