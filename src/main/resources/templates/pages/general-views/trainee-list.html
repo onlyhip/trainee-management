@@ -40,54 +40,19 @@
                             <tr>
                                 <th>NO</th>
                                 <th>NAME</th>
-                                <th>DURATION</th>
-                                <th>LECTURER</th>
-                                <th>NOTE</th>
+                                <th>EMAIL</th>
+                                <th>TEL NUMBER</th>
+                                <th>UNIVERSITY</th>
 
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Dakota Rice</td>
-                                <td>$36,738</td>
-                                <td>Niger</td>
-                                <td>Oud-Turnhout</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Minerva Hooper</td>
-                                <td>$23,789</td>
-                                <td>Curaçao</td>
-                                <td>Sinaai-Waas</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>Sage Rodriguez</td>
-                                <td>$56,142</td>
-                                <td>Netherlands</td>
-                                <td>Baileux</td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>Philip Chaney</td>
-                                <td>$38,735</td>
-                                <td>Dakota Rice</td>
-                                <td>$36,738</td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td>Doris Greene</td>
-                                <td>$63,542</td>
-                                <td>Dakota Rice</td>
-                                <td>$36,738</td>
-                            </tr>
-                            <tr>
-                                <td>6</td>
-                                <td>Mason Porter</td>
-                                <td>$78,615</td>
-                                <td>Chile</td>
-                                <td>Dakota Rice</td>
+                            <tr th:each="trainee : ${trainees}">
+                                <td th:text="${traineeStat.index + 1}"></td>
+                                <td th:text="${trainee.name}"></td>
+                                <td th:text="${trainee.email}"></td>
+                                <td th:text="${trainee.telNumber}"></td>
+                                <td th:text="${trainee.university}"></td>
                             </tr>
                             </tbody>
                         </table>
@@ -95,6 +60,54 @@
                 </div>
             </div>
 
+        </div>
+        <div class="row">
+            <div class="col-md-12 mt-3" th:if="${totalElements > size}">
+                <!-- directors pagination -->
+                <nav aria-label="Pagination">
+                    <ul class="pagination justify-content-center font-weight-bold">
+                        <li class="page-item" th:classappend="${paginationRange.currentPage le 1} ? 'disabled'">
+                            <a class="page-link"
+                               th:href="@{/general-management/trainee-list(page=${1})}"
+                               aria-label="Previous" title="First Page" data-toggle="tooltip">
+                                <span aria-hidden="true">First</span>
+                            </a>
+                        </li>
+                        <li class="page-item" th:classappend="${paginationRange.currentPage le 1} ? 'disabled'">
+                            <a class="page-link"
+                               th:href="@{/general-management/trainee-list(page=${cPage - 1})}"
+                               aria-label="Previous" title="Previous Page" data-toggle="tooltip">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li class="page-item"
+                            th:each="i : ${#numbers.sequence( paginationRange.min, paginationRange.max)}"
+                            th:classappend="${i eq paginationRange.currentPage} ? 'active'">
+                            <a class="page-link"
+                               th:href="@{/general-management/trainee-list(page=${i})}"
+                               th:text="${i}"
+                               th:title="${'Page '+ i}" data-toggle="tooltip">
+                            </a>
+                        </li>
+                        <li class="page-item"
+                            th:classappend="${paginationRange.currentPage ge totalPages } ? 'disabled'">
+                            <a class="page-link"
+                               th:href="@{/general-management/trainee-list(page=${cPage + 1})}"
+                               aria-label="Next" title="Next Page" data-toggle="tooltip">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                        <li class="page-item"
+                            th:classappend="${paginationRange.currentPage ge totalPages } ? 'disabled'">
+                            <a class="page-link"
+                               th:href="@{/general-management/trainee-list(page=${totalPages})}"
+                               aria-label="Next" title="Last Page" data-toggle="tooltip">
+                                <span aria-hidden="true">Last</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
         </div>
     </div>
 </div>
