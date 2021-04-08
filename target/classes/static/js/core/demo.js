@@ -833,3 +833,7 @@ function menuBar() {
 function rowClicked(value) {
     location.href = "../class-management/class-details?id=" + value;
 }
+
+function rowClickedSubject(value){
+    location.href = "../general-management/subject-list/subject-details?id=" + value;
+}
