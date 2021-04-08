@@ -2,21 +2,16 @@ package com.edu.training.controller;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Random;
 
 import com.edu.training.entities.Course;
 import com.edu.training.entities.Trainee;
 import com.edu.training.entities.Trainer;
 import com.edu.training.repositories.CourseRepository;
-import com.edu.training.repositories.ScoreRepository;
 import com.edu.training.repositories.TraineeRepository;
 import com.edu.training.repositories.TrainerRepository;
-import com.edu.training.repositories.TrainingObjectiveRepository;
 import com.edu.training.utils.page.Pagination;
 
-import org.aspectj.internal.lang.annotation.ajcDeclareAnnotation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,19 +31,14 @@ public class GeneralManagement {
     @Autowired
     private CourseRepository courseRepository;
 
-    @Autowired
-    private ScoreRepository scoreRepository;
 
-    @Autowired
-    private TrainingObjectiveRepository toRepository;
-
-    @GetMapping(value = {"/trainer-list", "/"})
+    @GetMapping(value = {"/trainer-list",""})
     public String displayTrainerList(Model model) {
 
         List<Trainer> trainers = trainerRepository.findAll();
         model.addAttribute("trainers", trainers);
 
-        return "trainer-list";
+        return "pages/general-views/trainer-list";
     }
 
     @GetMapping("/trainee-list")
@@ -57,7 +47,7 @@ public class GeneralManagement {
         List<Trainee> trainees = traineeRepository.findAll();
         model.addAttribute("trainees", trainees);
 
-        return "trainee-list";
+        return "pages/general-views/trainee-list";
     }
 
     @GetMapping("/subject-list")
@@ -76,7 +66,7 @@ public class GeneralManagement {
         model.addAttribute("totalPages", (courses.size() / (pageSize + 1)) + 1);
         model.addAttribute("currIndex", currentIndex);
 
-        return "subject-list";
+        return "pages/general-views/subject-list";
     }
 
 }

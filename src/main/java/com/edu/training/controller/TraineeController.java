@@ -2,11 +2,10 @@ package com.edu.training.controller;
 
 import com.edu.training.dto.TOScoreDto;
 import com.edu.training.entities.Attendance;
-import com.edu.training.entities.Course;
 import com.edu.training.entities.Trainee;
+import com.edu.training.models.PaginationRange;
 import com.edu.training.models.TraineeScoreDto;
 import com.edu.training.repositories.AttendanceRepository;
-import com.edu.training.repositories.CourseRepository;
 import com.edu.training.repositories.ScoreRepository;
 import com.edu.training.repositories.TraineeRepository;
 import com.edu.training.utils.page.Pagination;
@@ -17,17 +16,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 @Controller
 @RequestMapping("/trainee-management")
 public class TraineeController {
-    @Autowired
-    private CourseRepository courseRepository;
-
     @Autowired
     private TraineeRepository traineeRepository;
 
@@ -36,6 +30,44 @@ public class TraineeController {
 
     @Autowired
     private ScoreRepository scoreRepository;
+
+    @GetMapping()
+    public String displayTraineeManagement(Model model,
+                                           @RequestParam("page") Optional<Integer> page,
+                                           @RequestParam("size") Optional<Integer> size,
+                                           @RequestParam("field") Optional<String> field) {
+
+        int cPage = page.orElse(1);
+        int pageSize = size.orElse(10);
+        String sortField = field.orElse("default");
+
+        if (pageSize < 5) {
+            pageSize = 5;
+        }
+        if (pageSize > 50) {
+            pageSize = 50;
+        }
+
+
+        List<TraineeScoreDto> listTrainees = traineeRepository.findScoreByAllTrainee();
+
+
+        List<TraineeScoreDto> trainees = Pagination.getPage(listTrainees, cPage, pageSize);
+
+        int totalPages = (int) Math.ceil((double) listTrainees.size() / (double) pageSize);
+
+        model.addAttribute("trainees", trainees);
+        model.addAttribute("cPage", cPage);
+        model.addAttribute("size", pageSize);
+        model.addAttribute("totalElements", listTrainees.size());
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("field", sortField);
+
+        PaginationRange p = Pagination.paginationByRange(cPage, listTrainees.size(), pageSize, 5);
+        model.addAttribute("paginationRange", p);
+
+        return "pages/trainee-views/trainee-management";
+    }
 
     @GetMapping("/trainee-details")
     public String displayAllTraineeDetails(Model model, @RequestParam("id") int traineeId){
@@ -56,6 +88,6 @@ public class TraineeController {
         model.addAttribute("listNameAndScore", listNameAndScore);
         model.addAttribute("listDateAndAttendance", listDateAndAttendance);
 
-        return "trainee-details";
+        return "pages/trainee-views/trainee-details";
     }
 }

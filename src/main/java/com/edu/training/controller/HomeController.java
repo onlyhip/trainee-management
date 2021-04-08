@@ -3,37 +3,22 @@ package com.edu.training.controller;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.Random;
 
-import com.edu.training.entities.ClassAdmin;
 import com.edu.training.entities.Course;
 import com.edu.training.entities.Fresher;
-import com.edu.training.models.PaginationRange;
-import com.edu.training.models.TraineeScoreDto;
 import com.edu.training.repositories.*;
-import com.edu.training.services.implementation.CourseServiceImpl;
 
 import com.edu.training.utils.data.CreateData;
-import com.edu.training.utils.page.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/")
 public class HomeController {
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private ClassAdminRepository classAdminRepository;
 
     @Autowired
     private CourseRepository courseRepository;
@@ -53,9 +38,6 @@ public class HomeController {
     private TraineeRepository traineeRepository;
 
     @Autowired
-    private CourseServiceImpl courseService;
-
-    @Autowired
     private InternshipRepository internshipRepository;
 
     @Autowired
@@ -69,7 +51,7 @@ public class HomeController {
     private ScoreRepository scoreRepository;
 
 
-    @GetMapping("/")
+    @GetMapping(value = {"/", "home"})
     public String viewHomePage(Model model) {
 
         List<Course> listCourse = courseRepository.findAll();
@@ -109,110 +91,9 @@ public class HomeController {
         model.addAttribute("rFresher", releaseFresher);
         model.addAttribute("rnFresher", runningFresher);
 
-        return "index";
+        return "/pages/index";
     }
 
-    @RequestMapping(value = "/class-management", method = RequestMethod.GET)
-    public String displayCourseList(Model model, @RequestParam("page") Optional<Integer> page,
-                                    @RequestParam("size") Optional<Integer> size, @RequestParam("field") Optional<String> field) {
-
-        int cPage = page.orElse(1);
-        int pageSize = size.orElse(5);
-        String sortField = field.orElse("default");
-
-        if (pageSize < 5) {
-            pageSize = 5;
-        }
-        if (pageSize > 50) {
-            pageSize = 50;
-        }
-
-        Page<Course> classPage;
-
-        if (sortField.equals("default")) {
-            classPage = courseService.findPaginated(cPage, pageSize);
-        } else {
-            if (sortField.equals("head-teacher")) {
-                classPage = courseService.findPaginated(cPage, pageSize, "trainer.name");
-            } else {
-                classPage = courseService.findPaginated(cPage, pageSize, sortField);
-            }
-        }
-
-        model.addAttribute("classPage", classPage);
-        model.addAttribute("cPage", cPage);
-        model.addAttribute("size", pageSize);
-        model.addAttribute("field", sortField);
-
-
-        PaginationRange p = Pagination.paginationByRange(cPage, classPage.getTotalElements(), pageSize, 5);
-        model.addAttribute("paginationRange", p);
-
-        return "class-management";
-    }
-
-    @RequestMapping(value = "/class-management", method = RequestMethod.POST)
-    public String displayCourseListByPageSize(Model model, @RequestParam("page") Optional<Integer> page,
-                                              @RequestParam("size") Optional<Integer> size) {
-
-        int currentPage = page.orElse(1);
-        int pageSize = size.orElse(5);
-        Page<Course> ClassPage = courseService.findPaginated(currentPage, pageSize, "name");
-        List<Course> listCourses = ClassPage.getContent();
-
-        model.addAttribute("classes", listCourses);
-
-        return "class-management";
-    }
-
-    @GetMapping("/trainee-management")
-    public String displayTraineeManagement(Model model,
-                                           @RequestParam("page") Optional<Integer> page,
-                                           @RequestParam("size") Optional<Integer> size,
-                                           @RequestParam("field") Optional<String> field) {
-
-        int cPage = page.orElse(1);
-        int pageSize = size.orElse(10);
-        String sortField = field.orElse("default");
-
-        if (pageSize < 5) {
-            pageSize = 5;
-        }
-        if (pageSize > 50) {
-            pageSize = 50;
-        }
-
-
-        List<TraineeScoreDto> listTrainees = traineeRepository.findScoreByAllTrainee();
-
-
-        List<TraineeScoreDto> trainees = Pagination.getPage(listTrainees, cPage, pageSize);
-
-        int totalPages = (int) Math.ceil((double) listTrainees.size() / (double) pageSize);
-
-        model.addAttribute("trainees", trainees);
-        model.addAttribute("cPage", cPage);
-        model.addAttribute("size", pageSize);
-        model.addAttribute("totalElements", listTrainees.size());
-        model.addAttribute("totalPages", totalPages);
-        model.addAttribute("field", sortField);
-
-        PaginationRange p = Pagination.paginationByRange(cPage, listTrainees.size(), pageSize, 5);
-        model.addAttribute("paginationRange", p);
-
-        return "trainee-management";
-    }
-
-    @GetMapping("/download-templates")
-    public String displayDownloadTemplates() {
-        return "download-templates";
-    }
-
-
-    @GetMapping("/general-management")
-    public String displayTrainerList() {
-        return "trainer-list";
-    }
 
     // @GetMapping("/page/{pageNo}")
     // public String findPaginated(@PathVariable(value = "pageNo") int pageNo,
@@ -238,10 +119,10 @@ public class HomeController {
 
     @GetMapping("/404")
     public String error() {
-        return "404";
+        return "/pages/util-views/404";
     }
 
-    public boolean checkOldPassword(String username, String oldPassword) {
+    /*public boolean checkOldPassword(String username, String oldPassword) {
         return userRepository.findPasswordByAccountClassAdmin(username).equals(oldPassword);
     }
 
@@ -251,7 +132,7 @@ public class HomeController {
         int id = classAdminRepository.findIdByAccount(loginedAccount);
         ClassAdmin loginedUser = classAdminRepository.getOne(id);
         return loginedUser;
-    }
+    }*/
 
 
     @GetMapping("/create-data-first")
@@ -272,11 +153,11 @@ public class HomeController {
             c.setDuration(rand.nextInt(50) + 1);
             courseRepository.save(c);
         }
-        scoreRepository.findAll().stream().forEach(s -> {
+        scoreRepository.findAll().forEach(s -> {
             toRepository.getOne(s.getTrainingObjective().getId()).setName(s.getName());
             toRepository.save(toRepository.getOne(s.getTrainingObjective().getId()));
         });
-        return "create-database";
+        return "pages/util-views/create-database";
     }
 
 
@@ -285,7 +166,7 @@ public class HomeController {
         CreateData createData = new CreateData();
         createData.createScore(courseRepository, scoreRepository, toRepository, traineeRepository);
         createData.createAttendance(traineeRepository, attendanceRepository);
-        return "create-database";
+        return "pages/util-views/create-database";
     }
 
 }

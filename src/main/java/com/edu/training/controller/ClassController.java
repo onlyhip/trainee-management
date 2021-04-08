@@ -1,23 +1,22 @@
 package com.edu.training.controller;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 import com.edu.training.entities.Course;
-import com.edu.training.entities.Trainee;
 import com.edu.training.models.PaginationRange;
 import com.edu.training.models.TraineeScoreDto;
 import com.edu.training.repositories.CourseRepository;
 import com.edu.training.repositories.TraineeRepository;
 
-import com.edu.training.services.core.TraineeService;
+import com.edu.training.services.core.CourseService;
 import com.edu.training.utils.page.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -32,7 +31,46 @@ public class ClassController {
     private TraineeRepository traineeRepository;
 
     @Autowired
-    private TraineeService traineeService;
+    private CourseService courseService;
+
+    @GetMapping()
+    public String displayCourseList(Model model, @RequestParam("page") Optional<Integer> page,
+                                    @RequestParam("size") Optional<Integer> size, @RequestParam("field") Optional<String> field) {
+
+        int cPage = page.orElse(1);
+        int pageSize = size.orElse(5);
+        String sortField = field.orElse("default");
+
+        if (pageSize < 5) {
+            pageSize = 5;
+        }
+        if (pageSize > 50) {
+            pageSize = 50;
+        }
+
+        Page<Course> classPage;
+
+        if (sortField.equals("default")) {
+            classPage = courseService.findPaginated(cPage, pageSize);
+        } else {
+            if (sortField.equals("head-teacher")) {
+                classPage = courseService.findPaginated(cPage, pageSize, "trainer.name");
+            } else {
+                classPage = courseService.findPaginated(cPage, pageSize, sortField);
+            }
+        }
+
+        model.addAttribute("classPage", classPage);
+        model.addAttribute("cPage", cPage);
+        model.addAttribute("size", pageSize);
+        model.addAttribute("field", sortField);
+
+
+        PaginationRange p = Pagination.paginationByRange(cPage, classPage.getTotalElements(), pageSize, 5);
+        model.addAttribute("paginationRange", p);
+
+        return "pages/class-views/class-management";
+    }
 
     @GetMapping("/class-details")
     public String displayClassDetail(Model model, @RequestParam("id") int classId,
@@ -64,6 +102,22 @@ public class ClassController {
         PaginationRange p = Pagination.paginationByRange(cPage, listTrainees.size(), pageSize, 5);
         model.addAttribute("paginationRange", p);
 
-        return "class-details";
+        return "pages/class-views/class-details";
     }
+
+
+    @PostMapping()
+    public String displayCourseListByPageSize(Model model, @RequestParam("page") Optional<Integer> page,
+                                              @RequestParam("size") Optional<Integer> size) {
+
+        int currentPage = page.orElse(1);
+        int pageSize = size.orElse(5);
+        Page<Course> ClassPage = courseService.findPaginated(currentPage, pageSize, "name");
+        List<Course> listCourses = ClassPage.getContent();
+
+        model.addAttribute("classes", listCourses);
+
+        return "pages/class-views/class-management";
+    }
+
 }

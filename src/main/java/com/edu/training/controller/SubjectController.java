@@ -41,6 +41,6 @@ public class SubjectController {
         model.addAttribute("totalPages", (trainees.size() / (pageSize + 1)) + 1);
         model.addAttribute("currIndex", currentIndex);
 
-        return "subject-details";
+        return "pages/general-views/subject-details";
     }
 }
