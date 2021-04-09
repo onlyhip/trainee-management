@@ -126,7 +126,7 @@ public class HomeController {
             c.setDuration(rand.nextInt(50) + 1);
             courseRepository.save(c);
         }
-        
+
         return "pages/util-views/create-database";
     }
 
@@ -139,10 +139,12 @@ public class HomeController {
         CreateData createData = new CreateData();
         createData.createScore(courseRepository, scoreRepository, toRepository, traineeRepository);
         createData.createAttendance(traineeRepository, attendanceRepository);
-        // scoreRepository.findAll().forEach(s -> {
-        //     toRepository.getOne(s.getTrainingObjective().getId()).setName(s.getName());
-        //     toRepository.save(toRepository.getOne(s.getTrainingObjective().getId()));
-        // });
+
+        scoreRepository.findAll().forEach(s -> {
+            toRepository.getOne(s.getTrainingObjective().getId()).setName(s.getName());
+            toRepository.save(toRepository.getOne(s.getTrainingObjective().getId()));
+        });
+
         return "pages/util-views/create-database";
     }
 
