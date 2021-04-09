@@ -41,6 +41,7 @@ public class SubjectController {
         List<Trainee> trainees = course.getTrainee();
 
         List<Trainee> traineesAfterPaging = Pagination.getPage(trainees, cPage, pageSize);
+        int currIndex = trainees.indexOf(traineesAfterPaging.get(0));
 
         int totalPages = (int) Math.ceil( (double)trainees.size()/ (double) pageSize);
         int totalElements = trainees.size();
@@ -48,7 +49,7 @@ public class SubjectController {
         model.addAttribute("course",course);
         model.addAttribute("trainees", traineesAfterPaging);
         model.addAttribute("cPage", cPage);
-
+        model.addAttribute("currIndex", currIndex);
         model.addAttribute("courseId", courseId);
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("totalElements",totalElements);

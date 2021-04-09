@@ -63,7 +63,7 @@
                             </thead>
                             <tbody>
                             <tr th:each="trainee : ${trainees}">
-                                <td th:text="${traineeStat.index + 1}"></td>
+                                <td th:text="${traineeStat.index + 1 + currIndex}"></td>
                                 <td th:text="${trainee.name}"></td>
                                 <td th:text="${trainee.course.name}"></td>
                                 <td th:text="${trainee.course.note}"></td>
