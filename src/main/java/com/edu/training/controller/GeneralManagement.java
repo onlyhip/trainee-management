@@ -32,7 +32,11 @@ public class GeneralManagement {
     @Autowired
     private CourseRepository courseRepository;
 
-
+    /**
+     * Playing trainer list 
+     * @param model
+     * @return trainer-list view 
+     */
     @GetMapping(value = {"/trainer-list",""})
     public String displayTrainerList(Model model, @RequestParam("page") Optional<Integer> page) {
 
@@ -44,13 +48,13 @@ public class GeneralManagement {
         model.addAttribute("trainers", trainers);
 
         List<Trainer> trainersAfterPaging = Pagination.getPage(trainers, cPage, pageSize);
-
+        int currIndex = trainers.indexOf(trainersAfterPaging.get(0));
         int totalPages = (int) Math.ceil( (double)trainers.size()/ (double) pageSize);
         int totalElements = trainers.size();
 
         model.addAttribute("trainers", trainersAfterPaging);
         model.addAttribute("cPage", cPage);
-
+        model.addAttribute("currIndex", currIndex);
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("totalElements",totalElements);
         model.addAttribute("size",pageSize);
@@ -61,6 +65,11 @@ public class GeneralManagement {
         return "pages/general-views/trainer-list";
     }
 
+    /**
+     * Display trainee list
+     * @param model
+     * @return trainee-list view
+     */
     @GetMapping("/trainee-list")
     public String displayTraineeList(Model model, @RequestParam("page") Optional<Integer> page) {
 
@@ -72,13 +81,14 @@ public class GeneralManagement {
         model.addAttribute("trainees", trainees);
 
         List<Trainee> traineesAfterPaging = Pagination.getPage(trainees, cPage, pageSize);
-
+        int currIndex = trainees.indexOf(traineesAfterPaging.get(0));
         int totalPages = (int) Math.ceil( (double)trainees.size()/ (double) pageSize);
         int totalElements = trainees.size();
+        
 
         model.addAttribute("trainees", traineesAfterPaging);
         model.addAttribute("cPage", cPage);
-
+        model.addAttribute("currIndex", currIndex);
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("totalElements",totalElements);
         model.addAttribute("size",pageSize);
@@ -89,6 +99,12 @@ public class GeneralManagement {
         return "pages/general-views/trainee-list";
     }
 
+    /**
+     * Display subject list
+     * @param model
+     * @param page is the page number in paging 
+     * @return subject-list view 
+     */
     @GetMapping("/subject-list")
     public String displaySubjectList(Model model, @RequestParam("page") Optional<Integer> page) {
 
@@ -98,13 +114,13 @@ public class GeneralManagement {
         List<Course> courses = courseRepository.findAll();
 
         List<Course> coursesAfterPaging = Pagination.getPage(courses, cPage, pageSize);
-
+        int currIndex = courses.indexOf(coursesAfterPaging.get(0));
         int totalPages = (int) Math.ceil( (double)courses.size()/ (double) pageSize);
         int totalElements = courses.size();
 
         model.addAttribute("courses", coursesAfterPaging);
         model.addAttribute("cPage", cPage);
-
+        model.addAttribute("currIndex", currIndex);
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("totalElements",totalElements);
         model.addAttribute("size",pageSize);

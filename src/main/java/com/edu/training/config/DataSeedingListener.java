@@ -52,16 +52,6 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
             classAdminRepository.save(admin);
         }
 
-        // Member account
-        // if (userRepository.findByEmail("member@gmail.com") == null) {
-        //     User user = new User();
-        //     user.setEmail("member@gmail.com");
-        //     user.setPassword(passwordEncoder.encode("123456"));
-        //     HashSet<Role> roles = new HashSet<>();
-        //     roles.add(roleRepository.findByName("ROLE_MEMBER"));
-        //     user.setRoles(roles);
-        //     userRepository.save(user);
-        // }
     }
 
 }

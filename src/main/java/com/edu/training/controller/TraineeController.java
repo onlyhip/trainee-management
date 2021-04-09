@@ -31,6 +31,14 @@ public class TraineeController {
     @Autowired
     private ScoreRepository scoreRepository;
 
+    /**
+     * Display List of all trainees
+     * @param model
+     * @param page is the page number of paging trainee list
+     * @param size is the quantity of elements in a page
+     * @param field is the name of attribute for sorted type
+     * @return the trainee-list view
+     */
     @GetMapping()
     public String displayTraineeManagement(Model model,
                                            @RequestParam("page") Optional<Integer> page,
@@ -41,17 +49,9 @@ public class TraineeController {
         int pageSize = size.orElse(10);
         String sortField = field.orElse("default");
 
-        if (pageSize < 5) {
-            pageSize = 5;
-        }
-        if (pageSize > 50) {
-            pageSize = 50;
-        }
-
+        pageSize = pageSize < 5 ? 5 : pageSize > 50 ? 50 : pageSize;
 
         List<TraineeScoreDto> listTrainees = traineeRepository.findScoreByAllTrainee();
-
-
         List<TraineeScoreDto> trainees = Pagination.getPage(listTrainees, cPage, pageSize);
 
         int totalPages = (int) Math.ceil((double) listTrainees.size() / (double) pageSize);
@@ -69,6 +69,12 @@ public class TraineeController {
         return "pages/trainee-views/trainee-management";
     }
 
+    /**
+     * Display infor of trainee when user click on trainee list 
+     * @param model
+     * @param traineeId is the ID of trainee which was clicked on trainee-list by User
+     * @return trainee infor view
+     */
     @GetMapping("/trainee-details")
     public String displayAllTraineeDetails(Model model, @RequestParam("id") int traineeId){
 

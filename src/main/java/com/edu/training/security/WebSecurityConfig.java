@@ -28,6 +28,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
+    
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
@@ -39,6 +40,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/trainee-management").permitAll()     // trainee-management and trainee-detai              
                 .antMatchers("/change-password").authenticated()
                 .antMatchers("/general-management").authenticated() // subject-list and subject-details
+                .antMatchers("/general-management/trainee-list").authenticated()
+                .antMatchers("/general-management/trainer-list").authenticated()
                 .antMatchers("/general-management/subject-list").authenticated()
                 .antMatchers("/general-management/subject-list/subject-details").authenticated()
                 .antMatchers("/logout").authenticated()

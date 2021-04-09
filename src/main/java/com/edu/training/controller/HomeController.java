@@ -30,7 +30,6 @@ public class HomeController {
     @Autowired
     private StatusRepository statusRepository;
 
-
     @Autowired
     private FresherRepository fresherRepository;
 
@@ -46,11 +45,14 @@ public class HomeController {
     @Autowired
     private TrainingObjectiveRepository toRepository;
 
-
     @Autowired
     private ScoreRepository scoreRepository;
 
-
+    /**
+     * Handling Home request
+     * @param model 
+     * @return the reporting view of trainee and class 
+     */
     @GetMapping(value = {"/", "home"})
     public String viewHomePage(Model model) {
 
@@ -63,7 +65,6 @@ public class HomeController {
         int releaseFresher = 0;
         int runningFresher = 0;
         for (Course c : listCourse) {
-            // c.setCurrCount(traineeRepository.countCourseByCourseId(c.getId()));
 
             if (c.getStatus().equals("Done"))
                 releaseCourse++;
@@ -94,47 +95,19 @@ public class HomeController {
         return "/pages/index";
     }
 
-
-    // @GetMapping("/page/{pageNo}")
-    // public String findPaginated(@PathVariable(value = "pageNo") int pageNo,
-    // @RequestParam("sortField") String sortField,
-    // @RequestParam("sortDir") String sortDir, Model model) {
-    // int pageSize = 5;
-
-    // Page<User> page = userService.findPaginated(pageNo, pageSize, sortField,
-    // sortDir);
-    // List<User> listUsers = page.getContent();
-
-    // model.addAttribute("currentPage", pageNo);
-    // model.addAttribute("totalPages", page.getTotalPages());
-    // model.addAttribute("totalItems", page.getTotalElements());
-
-    // model.addAttribute("sortField", sortField);
-    // model.addAttribute("sortDir", sortDir);
-    // model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
-
-    // model.addAttribute("listUsers", listUsers);
-    // return "index";
-    // }
-
+    /**
+     * Handling error request
+     * @return the error view 
+     */
     @GetMapping("/404")
     public String error() {
         return "/pages/util-views/404";
     }
 
-    /*public boolean checkOldPassword(String username, String oldPassword) {
-        return userRepository.findPasswordByAccountClassAdmin(username).equals(oldPassword);
-    }
-
-    public ClassAdmin getLoginedAccount() {
-
-        String loginedAccount = SecurityContextHolder.getContext().getAuthentication().getName();
-        int id = classAdminRepository.findIdByAccount(loginedAccount);
-        ClassAdmin loginedUser = classAdminRepository.getOne(id);
-        return loginedUser;
-    }*/
-
-
+    /**
+     * Create demo data
+     * @return create-database.html
+     */
     @GetMapping("/create-data-first")
     public String createDataFirst() {
         CreateData createData = new CreateData();
@@ -157,16 +130,21 @@ public class HomeController {
         return "pages/util-views/create-database";
     }
 
-
+    /**
+     * Create Demo data
+     * @return create-database.html
+     */
     @GetMapping("/create-data-second")
     public String createDataSecond() {
         CreateData createData = new CreateData();
         createData.createScore(courseRepository, scoreRepository, toRepository, traineeRepository);
         createData.createAttendance(traineeRepository, attendanceRepository);
+
         scoreRepository.findAll().forEach(s -> {
             toRepository.getOne(s.getTrainingObjective().getId()).setName(s.getName());
             toRepository.save(toRepository.getOne(s.getTrainingObjective().getId()));
         });
+
         return "pages/util-views/create-database";
     }
 
